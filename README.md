@@ -5,8 +5,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Démarrer le serveur 
 ❗️Lors d'une première installation il faut `yarn` pour installer les dépendances ❗️  
 ❗️TOUJOURS SE PLACER DANS LA RACINE DU DOSSIER❗️  
-1️⃣On écrit dans le terminal `yarn start` pour démarrer Angular  
-2️⃣Ensuite dans un autre terminal il faut démarrer l'api comme ça `yarn api`  
+1️⃣ On écrit dans le terminal `yarn start` pour démarrer Angular  
+2️⃣ Ensuite dans un autre terminal il faut démarrer l'api comme ça `yarn api`  
 
 L'application se lance ici `http://localhost:4200/`   
 L'api démarre sur le port 3000
