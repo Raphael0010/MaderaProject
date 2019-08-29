@@ -9,10 +9,20 @@ export const callApiFree = async (uri: string, method: any, data?: any) => {
   }
 
   if (met === "POST") {
-    return await axios.post(baseUrl + uri, data);
+    const res = await axios.post(baseUrl + uri, data);
+    if (!res.data) {
+      console.log(res);
+      return JSON.stringify(`"error":"${res}"`);
+    }
+    return JSON.stringify(res.data);
   }
 
   if (met === "GET") {
-    return await axios.get(baseUrl + uri, data);
+    const res = await axios.get(baseUrl + uri, data);
+    if (!res.data) {
+      console.log(res);
+      return JSON.stringify(`"error":"${res}"`);
+    }
+    return JSON.stringify(res.data);
   }
 };

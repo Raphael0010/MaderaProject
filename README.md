@@ -3,8 +3,8 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.3.
 
 ## Démarrer le serveur 
-
-❇️On se place dans le dossier du projet et on écrit  `ng serve`.   
+❗️Lors d'une première installation il faut ```yarn``` pour installer les dépendances  
+❇️On se place dans le dossier du projet et on écrit  `ng serve --o`.   
 L'application se lance ici `http://localhost:4200/`.   
 
 
@@ -53,7 +53,7 @@ Exemple : `ng generate component components/DevisAccueil`
 ```
 # API 📥
 
-## Configuration de l'API 
+## Configuration de l'API pour la base de donnée
 
 ```js
 const sequelize = new Sequelize('mariadb://root:root@127.0.0.1:3306/pfr',
@@ -72,22 +72,91 @@ Il faut créer la base de donnée et configurer l'url de connexion comme cela :
 
 ## Utilisation de l'API 
 
-* On crée notre route /test qui nous renvoie "Hello World" en json   
-❗️ Il faut impérativement renvoyer en JSON en utilisant `JSON.stringify();` ❗️   
-`app.get()` est utilisé pour les appels GET et `app.post()` pour les appels POST  
-L'objet req contient toute les données envoyer ou non par Angular 
+`app.get()` est utilisée pour les appels GET et `app.post()` pour les appels POST  
+L'objet req contient toute les données envoyées ou non par Angular 
 ( utile si on doit récupérer des paramètres )  
 `res.send` permet de retourner une réponse
+
+Dans l'exemple si dessous nous allonrs crée notre route /test   
+qui nous renvoie le contenue de notre requête.
+➡️ Le résultat sera PARSE en JSON sur notre API.
 
 ```js
 app.get('/test', function (req, res) {
   sequelize.query("SELECT * FROM `table`", { type: sequelize.QueryTypes.SELECT})
   .then(users => {
-    res.send(JSON.stringify(users))
+    res.send(users)
   })
   ;
 })
 ```
 
+Exemple d'utilisation basiques des méthodes GET et POST
+```js
+app.get('/testGet', (req,res) => {
+  console.log("Handle Get Request", req.query);
+  // Pour affiche l'id
+  console.log(req.query.id);
+  // Je renvoie code 200
+  res.send(JSON.parse("{\"code\":200}"))
+});
+
+app.post('/testPost', (req,res) => {
+  console.log("Handle Post Request", req.body);
+  // Pour affiche l'age
+  console.log(req.body.age);
+  // Je renvoie ce qu'on ma envoyer
+  res.send(req.body);
+});
+```
+
 ## Appel de l'API
+
+❗️Attention nous utiliserons 2 méthodes GET/POST ❗️  
+
+Pour appeler la route de votre API vous devez le faire ainsi :
+```ts
+await callApiFree("/testPost", "POST", data);
+```
+
+❗️Attention pour utiliser await vous devez être dans une méthode async ❗️
+Par exemple :
+```ts
+async function test() {
+  await callApiFree("/testPost", "POST", data);
+}
+```
+
+❔Await permet d'éviter d'utilisés les callback (.then, etc) 
+
+# Utilisation de CallApiFree :
+```ts
+await callApiFree("/route","METHODE",data?);
+```
+❗️Le paramètre ``data`` est optionnel ❗️  
+Si nous utilisons GET nous passerons nos données comme ça:
+
+```ts
+await callApiFree(`/testGet?id=${3 + 3}`, "GET");a
+```
+
+❔`/route${4+3}` , L'utilisation de ${} et des backticks permet d'écrire du code TS dans une string
+
+
+# Divers 🎓
+
+## Créer les routes de vos composants 
+
+Pour créer les routes de vos comopsants vous devez vous rendre dans ``src/app/app-routing.module.ts``
+
+```ts
+const routes: Routes = [
+  { path: "login", component: LoginComponent },
+  { path: "", redirectTo: "/login", pathMatch: "full" },
+  { path: "**", component: PageNotFoundComponent }
+];
+```
+Dans l'exemple si dessus le path ``login`` va diriger vers le ``LoginComponent``  
+Si on met aucun URL on sera rediriger vers login  
+Si l'url ne correspond à aucune entrée du tableau alors on redirige vers ``PageNotFoundComponent``
 
