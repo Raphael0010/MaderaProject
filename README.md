@@ -168,3 +168,10 @@ Si l'url ne correspond à aucune entrée du tableau alors on redirige vers ``Pag
 ❗️Pour chaque partie que vous développerez vous devrez créer une branch    
 Une fois votre développement terminé vous ferez une pull request sur github  
 Pour les commit veuillez suivre les [normes Karma](http://karma-runner.github.io/4.0/dev/git-commit-msg.html) ❗️
+
+## Faire une pull request 🎁
+
+* Forker le projet sur GitHub  
+* Créer une branche et travailler dessus  
+* Publier la branche sur son fork  
+* Créer la pull-request sur GitHub
