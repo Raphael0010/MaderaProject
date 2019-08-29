@@ -132,7 +132,7 @@ async function test() {
 
 ❔Await permet d'éviter d'utilisés les callback (.then, etc) 
 
-# Utilisation de CallApiFree :
+## Utilisation de CallApiFree
 ```ts
 await callApiFree("/route","METHODE",data?);
 ```
