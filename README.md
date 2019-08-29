@@ -3,10 +3,13 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.3.
 
 ## Démarrer le serveur 
-❗️Lors d'une première installation il faut ```yarn``` pour installer les dépendances  
-❇️On se place dans le dossier du projet et on écrit  `ng serve --o`.   
-L'application se lance ici `http://localhost:4200/`.   
+❗️Lors d'une première installation il faut `yarn` pour installer les dépendances ❗️  
+❗️TOUJOURS SE PLACER DANS LA RACINE DU DOSSIER❗️  
+1️⃣On écrit dans le terminal `yarn start` pour démarrer Angular  
+2️⃣Ensuite dans un autre terminal il faut démarrer l'api comme ça `yarn api`  
 
+L'application se lance ici `http://localhost:4200/`   
+L'api démarre sur le port 3000
 
 ## Créer un composant 
 
@@ -160,3 +163,8 @@ Dans l'exemple si dessus le path ``login`` va diriger vers le ``LoginComponent``
 Si on met aucun URL on sera rediriger vers login  
 Si l'url ne correspond à aucune entrée du tableau alors on redirige vers ``PageNotFoundComponent``
 
+## Organisation du GitHub
+
+❗️Pour chaque partie que vous développerez vous devrez créer une branch    
+Une fois votre développement terminé vous ferez une pull request sur github  
+Pour les commit veuillez suivre les [normes Karma](http://karma-runner.github.io/4.0/dev/git-commit-msg.html) ❗️
