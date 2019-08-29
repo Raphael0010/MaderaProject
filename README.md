@@ -39,7 +39,7 @@ Exemple : `ng generate component components/DevisAccueil`
 │   │   │   └── login.component.ts  
 │   │   └── page-not-found           ➡️ Composant PageNotFound
 │   ├── core   ➡️ Dossier des methodes core (📥api call)
-│   └── shared ➡️ Dossier des composants reutilisable (navbar)
+│   └── shared ➡️ Dossier des composants reutilisables (navbar)
 ├── assets  
 │   └── img  
 ├── environments  
@@ -56,7 +56,7 @@ Exemple : `ng generate component components/DevisAccueil`
 ```
 # API 📥
 
-## Configuration de l'API pour la base de donnée
+## Configuration de l'API pour la base de données
 
 ```js
 const sequelize = new Sequelize('mariadb://root:root@127.0.0.1:3306/pfr',
@@ -69,7 +69,7 @@ const sequelize = new Sequelize('mariadb://root:root@127.0.0.1:3306/pfr',
 );
 ```
 
-Il faut créer la base de donnée et configurer l'url de connexion comme cela :
+Il faut créer la base de données et configurer l'url de connexion comme cela :
 `mariadb://USER:PASS@127.0.0.1:3306/NOMBASE`
 
 
@@ -81,8 +81,8 @@ L'objet req contient toute les données envoyées ou non par Angular
 `res.send` permet de retourner une réponse
 
 Dans l'exemple si dessous nous allonrs crée notre route /test   
-qui nous renvoie le contenue de notre requête.
-➡️ Le résultat sera PARSE en JSON sur notre API.
+qui nous renvoie le contenue de notre requête
+➡️ Le résultat sera PARSE en JSON sur notre API
 
 ```js
 app.get('/test', function (req, res) {
@@ -108,7 +108,7 @@ app.post('/testPost', (req,res) => {
   console.log("Handle Post Request", req.body);
   // Pour affiche l'age
   console.log(req.body.age);
-  // Je renvoie ce qu'on ma envoyer
+  // Je renvoie ce que j'ai reçu
   res.send(req.body);
 });
 ```
