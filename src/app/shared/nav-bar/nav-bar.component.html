@@ -1,0 +1,42 @@
+<div>
+  <mat-toolbar class="navbar" color="#f6f6f6">
+    <div fxShow="true" fxHide.gt-sm="true">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+
+    <a mat-button class="companyName" routerLink="/">
+      <img width="200" alt="madera Logo" src="assets/img/logo.png" />
+    </a>
+    <span class="spacer1"></span>
+    <div fxShow="true" fxHide.lt-md="true">
+      <a mat-button routerLink="/clients">Clients</a>
+      <a mat-button routerLink="/projets">Projets</a>
+      <a mat-button routerLink="/stocks">Gestion des stocks</a>
+      <a mat-button routerLink="/devis">Devis</a>
+      <a mat-button><mat-icon>face</mat-icon>USER </a>
+      <span class="spacer2"></span>
+      <a mat-button routerLink="/deconnexion">Déconnexion</a>
+    </div>
+  </mat-toolbar>
+  <mat-sidenav-container fxFlexFill>
+    <mat-sidenav
+      color="primary"
+      #sidenav
+      fxLayout="column"
+      mode="over"
+      opened="false"
+      fxHide.gt-sm="true"
+    >
+      <div fxLayout="column">
+        <a mat-button routerLink="/clients">Clients</a>
+        <a mat-button routerLink="/projets">Projets</a>
+        <a mat-button routerLink="/stocks">Gestion des stocks</a>
+        <a mat-button routerLink="/devis">Devis</a>
+        <a mat-button><mat-icon>face</mat-icon>USER </a>
+        <a mat-button routerLink="/deconnexion">Déconnexion</a>
+      </div>
+    </mat-sidenav>
+  </mat-sidenav-container>
+</div>

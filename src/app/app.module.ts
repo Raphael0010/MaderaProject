@@ -6,10 +6,22 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { LoginComponent } from "./components/login/login.component";
 import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
+import { MaterialModule } from "./material-module";
+import { NavBarComponent } from "./shared/nav-bar/nav-bar.component";
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, PageNotFoundComponent],
-  imports: [BrowserAnimationsModule, BrowserModule, AppRoutingModule],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    PageNotFoundComponent,
+    NavBarComponent
+  ],
+  imports: [
+    BrowserAnimationsModule,
+    BrowserModule,
+    AppRoutingModule,
+    MaterialModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
