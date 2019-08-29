@@ -6,9 +6,10 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { LoginComponent } from "./components/login/login.component";
 import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
+import { ProjetComponent } from './components/projet/projet.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, PageNotFoundComponent],
+  declarations: [AppComponent, LoginComponent, PageNotFoundComponent, ProjetComponent],
   imports: [BrowserAnimationsModule, BrowserModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent]
