@@ -1,27 +1,93 @@
-# Madera
+# Projet Fil Rouge Madera
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.3.
 
-## Development server
+## Démarrer le serveur 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+❇️On se place dans le dossier du projet et on écrit  `ng serve`.   
+L'application se lance ici `http://localhost:4200/`.   
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Créer un composant 
 
-## Build
+* On se place dans le dossier du projet
+* On lance cette commande :   
+`ng generate component components/NomDuComposant`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+❗️ Attention, il faut écrire le nom du composant en 🐫CamelCase ❗️
 
-## Running unit tests
+Exemple : `ng generate component components/DevisAccueil`
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Organisation de l'architecture 🗂
 
-## Running end-to-end tests
+```
+├── app    
+│   ├── app-routing.module.ts        ➡️ Gestion des routes
+│   ├── app.component.css  
+│   ├── app.component.html   
+│   ├── app.component.spec.ts  
+│   ├── app.component.ts  
+│   ├── app.module.ts  
+│   ├── components                   ➡️ Dossier des composants
+│   │   ├── login                    ➡️ Composant Login
+│   │   │   ├── login.component.css    
+│   │   │   ├── login.component.html  
+│   │   │   ├── login.component.spec.ts  
+│   │   │   └── login.component.ts  
+│   │   └── page-not-found           ➡️ Composant PageNotFound
+│   ├── core   ➡️ Dossier des methodes core (📥api call)
+│   └── shared ➡️ Dossier des composants reutilisable (navbar)
+├── assets  
+│   └── img  
+├── environments  
+│   ├── environment.prod.ts  
+│   └── environment.ts  
+├── favicon.ico  
+├── index.html  
+├── main.ts  
+├── polyfills.ts  
+├── server  
+│   └── app.js ➡️ 📥 API BDD ↔️ Angular
+├── styles.css  
+└── test.ts  
+```
+# API 📥
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## Configuration de l'API 
 
-## Further help
+```js
+const sequelize = new Sequelize('mariadb://root:root@127.0.0.1:3306/pfr',
+  {
+    dialect: 'mariadb',
+    dialectOptions: {
+      timezone: 'Etc/GMT+1',
+    }
+  }
+);
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Il faut créer la base de donnée et configurer l'url de connexion comme cela :
+`mariadb://USER:PASS@127.0.0.1:3306/NOMBASE`
+
+
+## Utilisation de l'API 
+
+* On crée notre route /test qui nous renvoie "Hello World" en json   
+❗️ Il faut impérativement renvoyer en JSON en utilisant `JSON.stringify();` ❗️   
+`app.get()` est utilisé pour les appels GET et `app.post()` pour les appels POST  
+L'objet req contient toute les données envoyer ou non par Angular 
+( utile si on doit récupérer des paramètres )  
+`res.send` permet de retourner une réponse
+
+```js
+app.get('/test', function (req, res) {
+  sequelize.query("SELECT * FROM `table`", { type: sequelize.QueryTypes.SELECT})
+  .then(users => {
+    res.send(JSON.stringify(users))
+  })
+  ;
+})
+```
+
+## Appel de l'API
+
