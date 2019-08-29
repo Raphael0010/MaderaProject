@@ -5,8 +5,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Démarrer le serveur 
 ❗️Lors d'une première installation il faut `yarn` pour installer les dépendances ❗️  
 ❗️TOUJOURS SE PLACER DANS LA RACINE DU DOSSIER❗️  
-1️⃣On écrit dans le terminal `yarn start` pour démarrer Angular  
-2️⃣Ensuite dans un autre terminal il faut démarrer l'api comme ça `yarn api`  
+1️⃣ On écrit dans le terminal `yarn start` pour démarrer Angular  
+2️⃣ Ensuite dans un autre terminal il faut démarrer l'api comme ça `yarn api`  
 
 L'application se lance ici `http://localhost:4200/`   
 L'api démarre sur le port 3000
@@ -39,7 +39,7 @@ Exemple : `ng generate component components/DevisAccueil`
 │   │   │   └── login.component.ts  
 │   │   └── page-not-found           ➡️ Composant PageNotFound
 │   ├── core   ➡️ Dossier des methodes core (📥api call)
-│   └── shared ➡️ Dossier des composants reutilisable (navbar)
+│   └── shared ➡️ Dossier des composants reutilisables (navbar)
 ├── assets  
 │   └── img  
 ├── environments  
@@ -56,7 +56,7 @@ Exemple : `ng generate component components/DevisAccueil`
 ```
 # API 📥
 
-## Configuration de l'API pour la base de donnée
+## Configuration de l'API pour la base de données
 
 ```js
 const sequelize = new Sequelize('mariadb://root:root@127.0.0.1:3306/pfr',
@@ -69,7 +69,7 @@ const sequelize = new Sequelize('mariadb://root:root@127.0.0.1:3306/pfr',
 );
 ```
 
-Il faut créer la base de donnée et configurer l'url de connexion comme cela :
+Il faut créer la base de données et configurer l'url de connexion comme cela :
 `mariadb://USER:PASS@127.0.0.1:3306/NOMBASE`
 
 
@@ -81,8 +81,8 @@ L'objet req contient toute les données envoyées ou non par Angular
 `res.send` permet de retourner une réponse
 
 Dans l'exemple si dessous nous allonrs crée notre route /test   
-qui nous renvoie le contenue de notre requête.
-➡️ Le résultat sera PARSE en JSON sur notre API.
+qui nous renvoie le contenue de notre requête
+➡️ Le résultat sera PARSE en JSON sur notre API
 
 ```js
 app.get('/test', function (req, res) {
@@ -108,7 +108,7 @@ app.post('/testPost', (req,res) => {
   console.log("Handle Post Request", req.body);
   // Pour affiche l'age
   console.log(req.body.age);
-  // Je renvoie ce qu'on ma envoyer
+  // Je renvoie ce que j'ai reçu
   res.send(req.body);
 });
 ```
@@ -132,7 +132,7 @@ async function test() {
 
 ❔Await permet d'éviter d'utilisés les callback (.then, etc) 
 
-# Utilisation de CallApiFree :
+## Utilisation de CallApiFree
 ```ts
 await callApiFree("/route","METHODE",data?);
 ```
@@ -168,3 +168,10 @@ Si l'url ne correspond à aucune entrée du tableau alors on redirige vers ``Pag
 ❗️Pour chaque partie que vous développerez vous devrez créer une branch    
 Une fois votre développement terminé vous ferez une pull request sur github  
 Pour les commit veuillez suivre les [normes Karma](http://karma-runner.github.io/4.0/dev/git-commit-msg.html) ❗️
+
+## Faire une pull request 🎁
+
+* Forker le projet sur GitHub  
+* Créer une branche et travailler dessus  
+* Publier la branche sur son fork  
+* Créer la pull-request sur GitHub

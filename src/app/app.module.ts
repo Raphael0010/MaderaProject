@@ -11,20 +11,24 @@ import {MatInputModule} from "@angular/material/input";
 
 
 
+import { MaterialModule } from "./material-module";
+import { NavBarComponent } from "./shared/nav-bar/nav-bar.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     PageNotFoundComponent,
-    ProjetComponent
+    ProjetComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
     MatTableModule,
-    MatInputModule
+    MatInputModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
