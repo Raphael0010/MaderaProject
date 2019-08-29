@@ -7,6 +7,9 @@ import { LoginComponent } from "./components/login/login.component";
 import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
 import { ProjetComponent } from "./components/projet/projet.component";
 import {MatTableModule} from "@angular/material/table";
+import {MatInputModule} from "@angular/material/input";
+
+
 
 
 @NgModule({
@@ -20,7 +23,8 @@ import {MatTableModule} from "@angular/material/table";
     BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
-    MatTableModule
+    MatTableModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

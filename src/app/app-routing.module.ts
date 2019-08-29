@@ -11,9 +11,9 @@ import { ProjetComponent } from "./components/projet/projet.component";
  */
 const routes: Routes = [
   { path: "login", component: LoginComponent },
+  { path: "projet", component: ProjetComponent },
   { path: "", redirectTo: "/login", pathMatch: "full" },
-  { path: "**", component: PageNotFoundComponent },
-  { path: "projet", component: ProjetComponent }
+  { path: "**", component: PageNotFoundComponent }
 ];
 
 @NgModule({

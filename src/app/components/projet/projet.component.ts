@@ -1,5 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { MatTableDataSource } from "@angular/material/table";
+import { callApiFree } from "src/app/core/ApiCall";
+import { Projet } from "src/app/models/projet.model";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: "app-projet",
@@ -8,12 +11,15 @@ import { MatTableDataSource } from "@angular/material/table";
 })
 export class ProjetComponent implements OnInit {
 
+  projets: Projet[] = [] ;
   displayedColumns: string[] = ["nomProjet", "client", "dateCreation"];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  dataSource ;
 
   constructor() { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.projets = await callApiFree("/testBDD", "GET");
+    this.dataSource = new MatTableDataSource(this.projets);
   }
 
   applyFilter(filterValue: string) {

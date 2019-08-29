@@ -23,6 +23,6 @@ export const callApiFree = async (uri: string, method: any, data?: any) => {
       console.log(res);
       return JSON.stringify(`"error":"${res}"`);
     }
-    return JSON.stringify(res.data);
+    return res.data;
   }
 };

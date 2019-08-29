@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const Sequelize = require('sequelize');
 // Attention à bien configurer l'url de connexion à la base de données
-const sequelize = new Sequelize('mariadb://root:root@127.0.0.1:3306/cesi-sf4',
+const sequelize = new Sequelize('mariadb://root:root@127.0.0.1:3306/madera',
   {
     dialect: 'mariadb',
     dialectOptions: {
@@ -22,9 +22,9 @@ app.use(bodyParser.json());
 
 // On crée notre route /test qui nous renvoie "Hello World" en json
 app.get('/testBDD', function (req, res) {
-  sequelize.query("SELECT * FROM `apprenants`", { type: sequelize.QueryTypes.SELECT})
-  .then(users => {
-    res.send(JSON.stringify(users))
+  sequelize.query("SELECT * FROM projet", { type: sequelize.QueryTypes.SELECT})
+  .then(projets => {
+    res.json(projets)
   })
   ;
 })
