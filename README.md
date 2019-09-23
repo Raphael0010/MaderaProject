@@ -80,8 +80,8 @@ L'objet req contient toute les données envoyées ou non par Angular
 ( utile si on doit récupérer des paramètres )  
 `res.send` permet de retourner une réponse
 
-Dans l'exemple si dessous nous allonrs crée notre route /test   
-qui nous renvoie le contenue de notre requête
+Dans l'exemple si dessous nous allons crée notre route /test   
+qui nous renvoie le contenu de notre requête
 ➡️ Le résultat sera PARSE en JSON sur notre API
 
 ```js
@@ -94,7 +94,7 @@ app.get('/test', function (req, res) {
 })
 ```
 
-Exemple d'utilisation basiques des méthodes GET et POST
+Exemples d'utilisation basiques des méthodes GET et POST
 ```js
 app.get('/testGet', (req,res) => {
   console.log("Handle Get Request", req.query);
@@ -130,7 +130,7 @@ async function test() {
 }
 ```
 
-❔Await permet d'éviter d'utilisés les callback (.then, etc) 
+❔Await permet d'éviter d'utiliser les callback (.then, etc) 
 
 ## Utilisation de CallApiFree
 ```ts
@@ -159,8 +159,8 @@ const routes: Routes = [
   { path: "**", component: PageNotFoundComponent }
 ];
 ```
-Dans l'exemple si dessus le path ``login`` va diriger vers le ``LoginComponent``  
-Si on met aucun URL on sera rediriger vers login  
+Dans l'exemple ci dessus le path ``login`` va diriger vers le ``LoginComponent``  
+Si on met aucun URL on sera redirigé vers login  
 Si l'url ne correspond à aucune entrée du tableau alors on redirige vers ``PageNotFoundComponent``
 
 ## Organisation du GitHub
