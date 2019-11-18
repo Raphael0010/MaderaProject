@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const Sequelize = require('sequelize');
 // Attention à bien configurer l'url de connexion à la base de données
-const sequelize = new Sequelize('mariadb://root:root@127.0.0.1:3306/cesi-sf4',
+const sequelize = new Sequelize('mariadb://root:root@127.0.0.1:3306/madera',
   {
     dialect: 'mariadb',
     dialectOptions: {
@@ -25,9 +25,24 @@ app.get('/testBDD', function (req, res) {
   sequelize.query("SELECT * FROM `apprenants`", { type: sequelize.QueryTypes.SELECT})
   .then(users => {
     res.send(JSON.stringify(users))
-  })
-  ;
+  });
 })
+
+
+app.get("/listDevis", (req,res) => {
+  sequelize.query("SELECT id_devis as id, CONCAT(nom,' ',prenom) as client, etat_devis as etat FROM devis INNER JOIN client on devis.id_client = client.id_cli", { type: sequelize.QueryTypes.SELECT})
+  .then(users => {
+    res.send(JSON.stringify(users))
+  });
+})
+
+app.get("/deleteDevis/:id", (req,res) => {
+  sequelize.query(`DELETE FROM devis WHERE id_devis = ${req.params.id}`)
+  .then(e=>{
+    res.send(JSON.parse("{\"code\":200}"))
+  });
+})
+
 
 app.get('/testGet', (req,res) => {
   console.log("Handle Get Request", req.query);
