@@ -6,6 +6,7 @@ import { DevisComponent } from "./components/devis/devis.component";
 import { ProjetComponent } from "./components/projet/projet.component";
 import { PlanComponent } from "./components/plan/plan.component";
 import { ClientComponent } from "./components/client/client.component";
+import { GestionStockComponent } from "./components/gestion-stock/gestion-stock.component";
 
 /**
  * Gestion des routes
@@ -15,6 +16,7 @@ import { ClientComponent } from "./components/client/client.component";
 const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "client", component: ClientComponent },
+  { path: "stocks", component: GestionStockComponent },
   { path: "devis", component: DevisComponent },
   { path: "projet", component: ProjetComponent },
   { path: "plan/:id", component: PlanComponent },
@@ -23,11 +25,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}

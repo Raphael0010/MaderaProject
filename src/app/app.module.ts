@@ -1,7 +1,15 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from "@angular/core";
-import { MatTableModule } from "@angular/material";
+import {
+  MatTableModule,
+  MatTableDataSource,
+  MatDialog,
+  MatFormFieldModule,
+  MatInputModule,
+  MatPaginatorModule,
+  MatSortModule
+} from "@angular/material";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { LoginComponent } from "./components/login/login.component";
@@ -20,6 +28,11 @@ import { EditPlanDialogComponent } from "./components/plan/dialog/edit-plan-dial
 import { ClientComponent } from './components/client/client.component';
 import { AddClientDialogComponent } from "./components/client/dialog/add-client-dialog/add-client-dialog.component";
 import { EditClientDialogComponent } from "./components/client/dialog/edit-client-dialog/edit-client-dialog.component";
+import { GestionStockComponent } from "./components/gestion-stock/gestion-stock.component";
+import { SnackBarComponent } from "./shared/snack-bar/snack-bar.component";
+import { ModaliteDePaiementComponent } from "src/app/components/devis/dialog/modalite-de-paiement/modalite-de-paiement.component";
+import { CdkColumnDef } from "@angular/cdk/table";
+
 
 @NgModule({
   declarations: [
@@ -39,6 +52,9 @@ import { EditClientDialogComponent } from "./components/client/dialog/edit-clien
     ClientComponent,
     AddClientDialogComponent,
     EditClientDialogComponent
+    GestionStockComponent,
+    SnackBarComponent,
+    ModaliteDePaiementComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -47,7 +63,14 @@ import { EditClientDialogComponent } from "./components/client/dialog/edit-clien
     ReactiveFormsModule,
     AppRoutingModule,
     MaterialModule,
-    MatTableModule
+    MatTableModule,
+    MatTableDataSource,
+    MatDialog,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatSortModule
   ],
   entryComponents: [
     DialogDeleteComponent,
@@ -57,8 +80,10 @@ import { EditClientDialogComponent } from "./components/client/dialog/edit-clien
     EditPlanDialogComponent,
     AddClientDialogComponent,
     EditClientDialogComponent
+    SnackBarComponent,
+    ModaliteDePaiementComponent
   ],
-  providers: [],
+  providers: [CdkColumnDef],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

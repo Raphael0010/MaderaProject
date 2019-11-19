@@ -5,7 +5,7 @@
         <mat-icon>menu</mat-icon>
       </button>
     </div>
-    <a mat-button class="companyName" routerLink="/">
+    <a mat-button class="companyName">
       <img width="180" alt="madera Logo" src="assets/img/logo.png" />
     </a>
     <div style="flex:10" fxShow="true" fxHide.lt-md="true">
@@ -13,10 +13,10 @@
       <a mat-button routerLink="/projet">Projets</a>
       <a mat-button routerLink="/stocks">Gestion des stocks</a>
       <a mat-button routerLink="/devis">Devis</a>
-      <a mat-button><mat-icon>face</mat-icon>USER </a>
+      <a mat-button><mat-icon>face</mat-icon>{{ username }} </a>
     </div>
     <div class="deconnexion">
-      <a mat-button routerLink="/deconnexion"
+      <a mat-button (click)="logout()"
         ><mat-icon>power_settings_new</mat-icon></a
       >
     </div>
@@ -39,8 +39,8 @@
         <a mat-button routerLink="/projets">Projets</a>
         <a mat-button routerLink="/stocks">Gestion des stocks</a>
         <a mat-button routerLink="/devis">Devis</a>
-        <a mat-button><mat-icon>face</mat-icon>USER </a>
-        <a mat-button routerLink="/deconnexion">Déconnexion</a>
+        <a mat-button><mat-icon>face</mat-icon>{{ username }} </a>
+        <a mat-button (click)="logout()">Déconnexion</a>
       </div>
     </mat-sidenav>
   </mat-sidenav-container>
