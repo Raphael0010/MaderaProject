@@ -150,7 +150,7 @@ await callApiFree(`/testGet?id=${3 + 3}`, "GET");a
 
 ## Créer les routes de vos composants 
 
-Pour créer les routes de vos comopsants vous devez vous rendre dans ``src/app/app-routing.module.ts``
+Pour créer les routes de vos composants vous devez vous rendre dans ``src/app/app-routing.module.ts``
 
 ```ts
 const routes: Routes = [
