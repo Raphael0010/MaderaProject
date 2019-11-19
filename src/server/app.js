@@ -3,10 +3,9 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = express();
 const Sequelize = require('sequelize');
+const env = require('dotenv').config()
 
-// Attention à bien configurer l'url de connexion à la base de données
-
-const sequelize = new Sequelize('mariadb://root:root@127.0.0.1:3306/madera',
+const sequelize = new Sequelize(`mariadb://${env.parsed.USER}:${env.parsed.PASS}@${env.parsed.HOST}:${env.parsed.PORT}/${env.parsed.BDD}`,
   {
     dialect: 'mariadb',
     dialectOptions: {
