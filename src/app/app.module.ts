@@ -18,8 +18,10 @@ import { EditProjetDialogComponent } from "./components/projet/dialog/edit-proje
 import { PlanComponent } from "./components/plan/plan.component";
 import { AddPlanDialogComponent } from "./components/plan/dialog/add-plan-dialog/add-plan-dialog/add-plan-dialog.component";
 import { EditPlanDialogComponent } from "./components/plan/dialog/edit-plan-dialog/edit-plan-dialog/edit-plan-dialog.component";
-import { GestionStockComponent } from './components/gestion-stock/gestion-stock.component';
+import { GestionStockComponent } from "./components/gestion-stock/gestion-stock.component";
 import { SnackBarComponent } from "./shared/snack-bar/snack-bar.component";
+import { ModaliteDePaiementComponent } from "src/app/components/devis/dialog/modalite-de-paiement/modalite-de-paiement.component";
+import { CdkColumnDef } from "@angular/cdk/table";
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { SnackBarComponent } from "./shared/snack-bar/snack-bar.component";
     AddPlanDialogComponent,
     EditPlanDialogComponent,
     GestionStockComponent,
-    SnackBarComponent
+    SnackBarComponent,
+    ModaliteDePaiementComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -54,9 +57,10 @@ import { SnackBarComponent } from "./shared/snack-bar/snack-bar.component";
     EditProjetDialogComponent,
     AddPlanDialogComponent,
     EditPlanDialogComponent,
-    SnackBarComponent
+    SnackBarComponent,
+    ModaliteDePaiementComponent
   ],
-  providers: [],
+  providers: [CdkColumnDef],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

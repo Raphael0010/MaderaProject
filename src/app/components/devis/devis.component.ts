@@ -3,7 +3,18 @@ import { callApiFree } from "src/app/core/ApiCall";
 import { Devis } from "../../models/devis.models";
 import { MatTableDataSource, MatDialog } from "@angular/material";
 import { DialogDeleteComponent } from "src/app/shared/dialog-delete/dialog-delete.component";
+import { ModaliteDePaiementComponent } from "src/app/components/devis/dialog/modalite-de-paiement/modalite-de-paiement.component";
 
+const MODALITE_PAIEMENT = [
+  {etapes: "A la signature", somme: "3%"},
+  {etapes: "A l'obtention du permis de construire", somme: "10%"},
+  {etapes: "A l'ouverture du chantier", somme: "15%"},
+  {etapes: "A l'achèvement des fondations", somme: "25%"},
+  {etapes: "A l'achèvement des murs", somme: "40%"},
+  {etapes: "A la Mise hors d’eau/hors d’air", somme: "75%"},
+  {etapes: "A l'achèvement des travaux d’équipement ", somme: "95%"},
+  {etapes: "A la remise des clés", somme: "100%"},
+];
 @Component({
   selector: "app-devis",
   templateUrl: "./devis.component.html",
@@ -38,6 +49,10 @@ export class DevisComponent implements OnInit {
         await this.loadDevis();
       }
     });
+  }
+
+  payment() {
+    this.dialog.open(ModaliteDePaiementComponent, { data: MODALITE_PAIEMENT });
   }
 
   async loadDevis(): Promise<void> {
