@@ -171,6 +171,8 @@ Pour les commit veuillez suivre les [normes Karma](http://karma-runner.github.io
 
 ## Faire une pull request 🎁
 
+* Pour maintenir son fork à jour : [ici](https://gist.github.com/CristinaSolana/1885435)
+
 * Forker le projet sur GitHub  
 * Créer une branche et travailler dessus  
 * Publier la branche sur son fork  
