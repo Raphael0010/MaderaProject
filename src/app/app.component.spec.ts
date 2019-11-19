@@ -20,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from "./app-routing.module";
 import { MaterialModule } from "./material-module";
 import { MatTableModule } from "@angular/material";
+import { ClientComponent } from "./components/client/client.component";
 
 describe("AppComponent", () => {
   beforeEach(async(() => {
@@ -39,7 +40,8 @@ describe("AppComponent", () => {
         AddPlanDialogComponent,
         EditPlanDialogComponent,
         GestionStockComponent,
-        SnackBarComponent
+        SnackBarComponent,
+        ClientComponent
       ],
       imports: [
         BrowserAnimationsModule,

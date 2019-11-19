@@ -1,0 +1,29 @@
+table {
+    width: 100%;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 10%;
+}
+
+h1 {
+  text-align: center ;
+}
+
+th.mat-header-cell {
+    text-align: center ;
+    font-weight: bold ;
+    font-size: 1em ;
+}
+
+td.mat-cell {
+    text-align: center ;
+}
+
+.btn-content {
+    display: flex ;
+    justify-content: space-around ;
+    border-bottom-style : none ;
+    margin : 5px ;
+}

@@ -1,0 +1,21 @@
+<form [formGroup]="clientForm" class="form-container">
+    <mat-form-field>
+        <input type="text" matInput class="form-control" formControlName="prenom" placeholder="prénom">
+    </mat-form-field>
+    <mat-form-field>
+      <input type="text" matInput class="form-control" formControlName="nom" placeholder="nom">
+    </mat-form-field>
+    <mat-form-field>
+      <input type="text" matInput class="form-control" formControlName="mail" placeholder="email">
+    </mat-form-field>
+    <mat-form-field>
+      <input type="text" matInput class="form-control" formControlName="tel" placeholder="téléphone">
+    </mat-form-field>
+    <mat-form-field>
+      <input type="text" matInput class="form-control" formControlName="newsletter" placeholder="newsletter">
+    </mat-form-field>
+    <div mat-dialog-actions>
+    <button mat-button [disabled]="clientForm.invalid" [mat-dialog-close]="1" (click)="confirmAdd()">Valider</button>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    </div>
+</form>

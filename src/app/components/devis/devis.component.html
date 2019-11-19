@@ -22,7 +22,7 @@
     <th mat-header-cell *matHeaderCellDef>Action</th>
     <td mat-cell class="actionBtnZone" *matCellDef="let row">
       <div class="btn-content">
-          <button
+        <button
           class="actionBtn"
           mat-raised-button
           color="primary"
@@ -52,7 +52,7 @@
           *ngIf="row.etat == 'Accepté'"
           mat-raised-button
           color="accent"
-          (click)="payment(row.id)"
+          (click)="payment()"
         >
           Modalités de paiement
         </button>

@@ -20,6 +20,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BrowserModule } from "@angular/platform-browser";
 import { MaterialModule } from "src/app/material-module";
 import { MatTableModule } from "@angular/material";
+import { ClientComponent } from "../client/client.component";
 
 
 describe("LoginComponent", () => {
@@ -43,7 +44,8 @@ describe("LoginComponent", () => {
         AddPlanDialogComponent,
         EditPlanDialogComponent,
         GestionStockComponent,
-        SnackBarComponent
+        SnackBarComponent,
+        ClientComponent
       ],
       imports: [
         BrowserAnimationsModule,

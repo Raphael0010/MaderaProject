@@ -20,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from "src/app/app-routing.module";
 import { MaterialModule } from "src/app/material-module";
 import { MatTableModule } from "@angular/material";
+import { ClientComponent } from "../client/client.component";
 
 describe("DevisComponent", () => {
   let component: DevisComponent;
@@ -42,7 +43,8 @@ describe("DevisComponent", () => {
         AddPlanDialogComponent,
         EditPlanDialogComponent,
         GestionStockComponent,
-        SnackBarComponent
+        SnackBarComponent,
+        ClientComponent
       ],
       imports: [
         BrowserAnimationsModule,

@@ -1,14 +1,15 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { ProjetComponent } from "./projet.component";
+import { ClientComponent } from "./client.component";
 import { AppComponent } from "src/app/app.component";
 import { LoginComponent } from "../login/login.component";
 import { PageNotFoundComponent } from "../page-not-found/page-not-found.component";
 import { NavBarComponent } from "src/app/shared/nav-bar/nav-bar.component";
 import { DevisComponent } from "../devis/devis.component";
 import { DialogDeleteComponent } from "src/app/shared/dialog-delete/dialog-delete.component";
-import { AddProjetDialogComponent } from "./dialog/add-projet-dialog/add-projet-dialog.component";
-import { EditProjetDialogComponent } from "./dialog/edit-projet-dialog/edit-projet-dialog.component";
+import { ProjetComponent } from "../projet/projet.component";
+import { AddProjetDialogComponent } from "../projet/dialog/add-projet-dialog/add-projet-dialog.component";
+import { EditProjetDialogComponent } from "../projet/dialog/edit-projet-dialog/edit-projet-dialog.component";
 import { PlanComponent } from "../plan/plan.component";
 import { AddPlanDialogComponent } from "../plan/dialog/add-plan-dialog/add-plan-dialog/add-plan-dialog.component";
 import { EditPlanDialogComponent } from "../plan/dialog/edit-plan-dialog/edit-plan-dialog/edit-plan-dialog.component";
@@ -20,11 +21,12 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from "src/app/app-routing.module";
 import { MaterialModule } from "src/app/material-module";
 import { MatTableModule } from "@angular/material";
-import { ClientComponent } from "../client/client.component";
+import { AddClientDialogComponent } from "./dialog/add-client-dialog/add-client-dialog.component";
+import { EditClientDialogComponent } from "./dialog/edit-client-dialog/edit-client-dialog.component";
 
-describe("ProjetComponent", () => {
-  let component: ProjetComponent;
-  let fixture: ComponentFixture<ProjetComponent>;
+describe("ClientComponent", () => {
+  let component: ClientComponent;
+  let fixture: ComponentFixture<ClientComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -44,7 +46,9 @@ describe("ProjetComponent", () => {
         EditPlanDialogComponent,
         GestionStockComponent,
         SnackBarComponent,
-        ClientComponent
+        ClientComponent,
+        AddClientDialogComponent,
+        EditClientDialogComponent
       ],
       imports: [
         BrowserAnimationsModule,
@@ -60,7 +64,7 @@ describe("ProjetComponent", () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProjetComponent);
+    fixture = TestBed.createComponent(ClientComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

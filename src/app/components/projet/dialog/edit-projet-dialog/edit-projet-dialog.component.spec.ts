@@ -20,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from "src/app/app-routing.module";
 import { MaterialModule } from "src/app/material-module";
 import { MatTableModule, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import { ClientComponent } from "src/app/components/client/client.component";
 
 
 describe("EditProjetDialogComponent", () => {
@@ -43,7 +44,8 @@ describe("EditProjetDialogComponent", () => {
         AddPlanDialogComponent,
         EditPlanDialogComponent,
         GestionStockComponent,
-        SnackBarComponent
+        SnackBarComponent,
+        ClientComponent
       ],
       imports: [
         BrowserAnimationsModule,

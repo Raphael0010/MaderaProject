@@ -19,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from "src/app/app-routing.module";
 import { MaterialModule } from "src/app/material-module";
 import { MatTableModule } from "@angular/material";
+import { ClientComponent } from "src/app/components/client/client.component";
 
 describe("NavBarComponent", () => {
   let component: NavBarComponent;
@@ -41,7 +42,8 @@ describe("NavBarComponent", () => {
         AddPlanDialogComponent,
         EditPlanDialogComponent,
         GestionStockComponent,
-        SnackBarComponent
+        SnackBarComponent,
+        ClientComponent
       ],
       imports: [
         BrowserAnimationsModule,

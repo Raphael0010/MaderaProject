@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { Logout, GetUsername } from "../../core/Connexion";
+import { Logout, getUsername } from "../../core/Connexion";
 @Component({
   selector: "app-nav-bar",
   templateUrl: "./nav-bar.component.html",
@@ -11,7 +11,7 @@ export class NavBarComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    this.username = GetUsername();
+    this.username = getUsername();
   }
   logout() {
     Logout();

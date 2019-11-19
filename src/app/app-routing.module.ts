@@ -5,8 +5,9 @@ import { PageNotFoundComponent } from "./components/page-not-found/page-not-foun
 import { DevisComponent } from "./components/devis/devis.component";
 import { ProjetComponent } from "./components/projet/projet.component";
 import { PlanComponent } from "./components/plan/plan.component";
+import { ClientComponent } from "./components/client/client.component";
 import { GestionStockComponent } from "./components/gestion-stock/gestion-stock.component";
-import { AuthGuardService } from './services/auth-guard.service';
+import { AuthGuardService } from "./services/auth-guard.service";
 
 /**
  * Gestion des routes
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: "devis", canActivate: [AuthGuardService], component: DevisComponent },
   { path: "projet", canActivate: [AuthGuardService], component: ProjetComponent },
   { path: "plan/:id", canActivate: [AuthGuardService], component: PlanComponent },
+  { path: "client", canActivate: [AuthGuardService], component: ClientComponent },
   { path: "", redirectTo: "/login", pathMatch: "full" },
   { path: "**", component: PageNotFoundComponent }
 ];
