@@ -7,8 +7,7 @@ import { TestLogin } from "../app/core/Connexion";
 })
 export class AppComponent {
   login: boolean;
-  title = "Madera";
-
+  title = "madera";
 
   testLog(): boolean {
     return TestLogin();

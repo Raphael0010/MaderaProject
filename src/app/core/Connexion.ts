@@ -8,7 +8,7 @@ export const Logout = () => {
   localStorage.removeItem(username);
 };
 
-export const GetUsername = () => {
+export const getUsername = () => {
   return localStorage.getItem("username");
 };
 

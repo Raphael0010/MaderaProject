@@ -1,8 +1,15 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from "@angular/core";
-
-import { MatTableModule } from "@angular/material";
+import {
+  MatTableModule,
+  MatTableDataSource,
+  MatDialog,
+  MatFormFieldModule,
+  MatInputModule,
+  MatPaginatorModule,
+  MatSortModule
+} from "@angular/material";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { LoginComponent } from "./components/login/login.component";
@@ -18,7 +25,7 @@ import { EditProjetDialogComponent } from "./components/projet/dialog/edit-proje
 import { PlanComponent } from "./components/plan/plan.component";
 import { AddPlanDialogComponent } from "./components/plan/dialog/add-plan-dialog/add-plan-dialog/add-plan-dialog.component";
 import { EditPlanDialogComponent } from "./components/plan/dialog/edit-plan-dialog/edit-plan-dialog/edit-plan-dialog.component";
-import { GestionStockComponent } from './components/gestion-stock/gestion-stock.component';
+import { GestionStockComponent } from "./components/gestion-stock/gestion-stock.component";
 import { SnackBarComponent } from "./shared/snack-bar/snack-bar.component";
 
 @NgModule({
@@ -46,7 +53,14 @@ import { SnackBarComponent } from "./shared/snack-bar/snack-bar.component";
     ReactiveFormsModule,
     AppRoutingModule,
     MaterialModule,
-    MatTableModule
+    MatTableModule,
+    MatTableDataSource,
+    MatDialog,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatSortModule
   ],
   entryComponents: [
     DialogDeleteComponent,
