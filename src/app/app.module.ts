@@ -25,10 +25,14 @@ import { EditProjetDialogComponent } from "./components/projet/dialog/edit-proje
 import { PlanComponent } from "./components/plan/plan.component";
 import { AddPlanDialogComponent } from "./components/plan/dialog/add-plan-dialog/add-plan-dialog/add-plan-dialog.component";
 import { EditPlanDialogComponent } from "./components/plan/dialog/edit-plan-dialog/edit-plan-dialog/edit-plan-dialog.component";
+import { ClientComponent } from './components/client/client.component';
+import { AddClientDialogComponent } from "./components/client/dialog/add-client-dialog/add-client-dialog.component";
+import { EditClientDialogComponent } from "./components/client/dialog/edit-client-dialog/edit-client-dialog.component";
 import { GestionStockComponent } from "./components/gestion-stock/gestion-stock.component";
 import { SnackBarComponent } from "./shared/snack-bar/snack-bar.component";
 import { ModaliteDePaiementComponent } from "src/app/components/devis/dialog/modalite-de-paiement/modalite-de-paiement.component";
 import { CdkColumnDef } from "@angular/cdk/table";
+
 
 @NgModule({
   declarations: [
@@ -45,6 +49,9 @@ import { CdkColumnDef } from "@angular/cdk/table";
     PlanComponent,
     AddPlanDialogComponent,
     EditPlanDialogComponent,
+    ClientComponent,
+    AddClientDialogComponent,
+    EditClientDialogComponent
     GestionStockComponent,
     SnackBarComponent,
     ModaliteDePaiementComponent
@@ -71,6 +78,8 @@ import { CdkColumnDef } from "@angular/cdk/table";
     EditProjetDialogComponent,
     AddPlanDialogComponent,
     EditPlanDialogComponent,
+    AddClientDialogComponent,
+    EditClientDialogComponent
     SnackBarComponent,
     ModaliteDePaiementComponent
   ],

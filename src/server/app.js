@@ -20,6 +20,37 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.get("/listClients", (req,res) => {
+  sequelize.query("SELECT id_cli as id, nom, prenom, mail, tel, newsletter FROM client", { type: sequelize.QueryTypes.SELECT})
+  .then(users => {
+    res.send(JSON.stringify(users))
+  });
+})
+
+app.post("/client", (req,res) => {
+  sequelize.query("INSERT INTO client (nom, prenom, mail, tel, newsletter) VALUES (:nom, :prenom, :mail, :tel, :newsletter)", 
+  {replacements: {nom: req.body.nom, prenom: req.body.prenom, mail: req.body.mail, tel: req.body.tel, newsletter: req.body.newsletter}
+  })
+  .then(client => {
+    res.send(JSON.stringify(client))
+  });
+}) ;
+
+app.post("/edit/client", (req,res) => {
+  sequelize.query("UPDATE client SET nom = :nom, prenom = :prenom, mail = :mail, tel = :tel, newsletter = :newsletter WHERE id_cli = :id", 
+  {replacements: {id: req.body.id, nom: req.body.nom, prenom: req.body.prenom, mail: req.body.mail, tel: req.body.tel, newsletter: req.body.newsletter}
+  })
+  .then(client => {
+    res.send(JSON.stringify(client))
+  });
+}) ;
+
+app.get("/deleteClient/:id", (req,res) => {
+  sequelize.query(`DELETE FROM client WHERE id_cli = ${req.params.id}`)
+  .then(e=>{
+    res.send(JSON.parse("{\"code\":200}"))
+  });
+})
 
 // ------ Client ----------
 app.get("/client", (req,res) => {
