@@ -1,0 +1,24 @@
+<form [formGroup]="planForm" class="form-container">
+    <mat-form-field>
+        <input  matInput [matDatepicker]="picker" formControlName="dateCreation" placeholder="Date de création">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+        <input type="number" matInput class="form-control" formControlName="nbPieces" placeholder="Nombre de pièce">
+    </mat-form-field>
+    <mat-form-field>
+        <input type="number" matInput class="form-control" formControlName="nbChambres" placeholder="Nombre de chambre">
+    </mat-form-field>
+    <mat-form-field>
+        <input type="number" matInput class="form-control" formControlName="nbEtage" placeholder="Nombre d'étage'">
+    </mat-form-field>
+    <mat-form-field>
+        <input type="number" matInput class="form-control" formControlName="surface" placeholder="Surface (m²)">
+    </mat-form-field>
+    
+    <div mat-dialog-actions>
+        <button mat-button [disabled]="planForm.invalid" [mat-dialog-close]="1" (click)="confirmAdd()">Valider</button>
+        <button mat-button (click)="onNoClick()">Cancel</button>
+    </div>
+</form>
