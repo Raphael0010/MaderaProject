@@ -91,7 +91,13 @@ app.post("/delete/projet", (req,res) => {
     res.send(JSON.stringify(projets)) ;
   });
 }) ;
-
+// ------ Stocks --------
+app.get("/listStocks", (req,res) => {
+  sequelize.query("SELECT caracteristiques as composant, nom as fournisseur, CONCAT(quantite, ' ', unite_usage) as quantity  FROM composant, fournisseur, fournir, stocks_composants WHERE composant.id_composant = fournir.id_composant and fournisseur.id_fournisseur = fournir.id_fournisseur and composant.id_composant = stocks_composants.id_composant", { type: sequelize.QueryTypes.SELECT})
+  .then(users => {
+    res.send(JSON.stringify(users))
+  });
+})
 // ------ Plan ----------
 app.get("/plan/:id", (req,res) => {
   sequelize.query(`SELECT id_plan AS id, creation AS dateCreation, nb_piece AS nbPieces, nb_chambre AS nbChambres, nb_etage AS nbEtage, surface, id_devis AS idDevis, id_projet AS idProjet FROM plan WHERE id_projet = ${req.params.id}`,

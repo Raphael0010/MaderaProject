@@ -18,6 +18,7 @@ import { EditProjetDialogComponent } from "./components/projet/dialog/edit-proje
 import { PlanComponent } from "./components/plan/plan.component";
 import { AddPlanDialogComponent } from "./components/plan/dialog/add-plan-dialog/add-plan-dialog/add-plan-dialog.component";
 import { EditPlanDialogComponent } from "./components/plan/dialog/edit-plan-dialog/edit-plan-dialog/edit-plan-dialog.component";
+import { GestionStockComponent } from './components/gestion-stock/gestion-stock.component';
 import { SnackBarComponent } from "./shared/snack-bar/snack-bar.component";
 
 @NgModule({
@@ -35,6 +36,7 @@ import { SnackBarComponent } from "./shared/snack-bar/snack-bar.component";
     PlanComponent,
     AddPlanDialogComponent,
     EditPlanDialogComponent,
+    GestionStockComponent,
     SnackBarComponent
   ],
   imports: [
