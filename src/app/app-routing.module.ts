@@ -5,6 +5,7 @@ import { PageNotFoundComponent } from "./components/page-not-found/page-not-foun
 import { DevisComponent } from "./components/devis/devis.component";
 import { ProjetComponent } from "./components/projet/projet.component";
 import { PlanComponent } from "./components/plan/plan.component";
+import { ClientComponent } from "./components/client/client.component";
 
 /**
  * Gestion des routes
@@ -13,6 +14,7 @@ import { PlanComponent } from "./components/plan/plan.component";
  */
 const routes: Routes = [
   { path: "login", component: LoginComponent },
+  { path: "client", component: ClientComponent },
   { path: "devis", component: DevisComponent },
   { path: "projet", component: ProjetComponent },
   { path: "plan/:id", component: PlanComponent },

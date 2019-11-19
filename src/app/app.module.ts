@@ -17,6 +17,9 @@ import { EditProjetDialogComponent } from "./components/projet/dialog/edit-proje
 import { PlanComponent } from "./components/plan/plan.component";
 import { AddPlanDialogComponent } from "./components/plan/dialog/add-plan-dialog/add-plan-dialog/add-plan-dialog.component";
 import { EditPlanDialogComponent } from "./components/plan/dialog/edit-plan-dialog/edit-plan-dialog/edit-plan-dialog.component";
+import { ClientComponent } from './components/client/client.component';
+import { AddClientDialogComponent } from "./components/client/dialog/add-client-dialog/add-client-dialog.component";
+import { EditClientDialogComponent } from "./components/client/dialog/edit-client-dialog/edit-client-dialog.component";
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { EditPlanDialogComponent } from "./components/plan/dialog/edit-plan-dial
     EditProjetDialogComponent,
     PlanComponent,
     AddPlanDialogComponent,
-    EditPlanDialogComponent
+    EditPlanDialogComponent,
+    ClientComponent,
+    AddClientDialogComponent,
+    EditClientDialogComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -48,7 +54,9 @@ import { EditPlanDialogComponent } from "./components/plan/dialog/edit-plan-dial
     AddProjetDialogComponent,
     EditProjetDialogComponent,
     AddPlanDialogComponent,
-    EditPlanDialogComponent
+    EditPlanDialogComponent,
+    AddClientDialogComponent,
+    EditClientDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
