@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: "devis", component: DevisComponent },
   { path: "projet", component: ProjetComponent },
   { path: "plan/:id", component: PlanComponent },
-  { path: "", redirectTo: "/devis", pathMatch: "full" },
+  { path: "", redirectTo: "/login", pathMatch: "full" },
   { path: "**", component: PageNotFoundComponent }
 ];
 
