@@ -1,0 +1,24 @@
+<form [formGroup]="planForm" class="form-container">
+    <mat-form-field>
+        <input type="text" matInput formControlName="nomProjet" placeholder="nom projet">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Client</mat-label>
+        <mat-select formControlName="client">
+          <mat-option *ngFor="let client of clients" [value]="client.id_cli">
+            {{client.nom | uppercase}} {{client.prenom}}
+          </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <input  matInput [matDatepicker]="picker" formControlName="dateCreation" placeholder="Date de création">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <div mat-dialog-actions>
+        <button mat-button type="submit" [disabled]="planForm.invalid" (click)="confirmEdit()" [mat-dialog-close]="1">Modifier</button>
+        <button mat-button (click)="onNoClick()">Cancel</button>
+    </div>
+</form>
+
+
