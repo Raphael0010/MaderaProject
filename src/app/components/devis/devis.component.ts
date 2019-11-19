@@ -41,7 +41,7 @@ export class DevisComponent implements OnInit {
   }
 
   async loadDevis(): Promise<void> {
-    console.log((this.devis = await callApiFree("/listDevis", "get")));
+    this.devis = await callApiFree("/listDevis", "get");
     this.dsDevis.data = this.devis;
   }
 }

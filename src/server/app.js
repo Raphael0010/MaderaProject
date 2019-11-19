@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get("/client", (req,res) => {
-  sequelize.query("SELECT id_cli, nom AS nomClient, client.prenom AS prenomClient FROM client", 
+  sequelize.query("SELECT id_cli, nom AS nomClient, client.prenom AS prenomClient FROM client",
   { type: sequelize.QueryTypes.SELECT})
   .then(clients => {
     res.send(JSON.stringify(clients)) ;
@@ -29,6 +29,18 @@ app.get("/client", (req,res) => {
 }) ;
 
                       // ------ Projet ----------
+// ------ Login ----------
+app.post('/loginVerif', function (req, res) {
+  sequelize.query('SELECT * FROM commercial WHERE nom = :nom AND pass = :pass', { replacements: {nom: req.body.username, pass: req.body.password}, type: sequelize.QueryTypes.SELECT})
+  .then(commercial => {
+    if (commercial.length === 0){
+      res.send(false);
+    }else{
+      res.send(true);
+    }
+  })
+})
+
 // ------ Devis ----------
 app.get("/listDevis", (req,res) => {
   sequelize.query("SELECT id_devis as id, CONCAT(nom,' ',prenom) as client, etat_devis as etat FROM devis INNER JOIN client on devis.id_client = client.id_cli", { type: sequelize.QueryTypes.SELECT})
@@ -83,7 +95,7 @@ app.post("/delete/projet", (req,res) => {
 // ------ Plan ----------
 app.get("/plan/:id", (req,res) => {
   sequelize.query(`SELECT id_plan AS id, creation AS dateCreation, nb_piece AS nbPieces, nb_chambre AS nbChambres, nb_etage AS nbEtage, surface, id_devis AS idDevis, id_projet AS idProjet FROM plan WHERE id_projet = ${req.params.id}`,
-  { type: sequelize.QueryTypes.SELECT}) 
+  { type: sequelize.QueryTypes.SELECT})
   .then(plan => {
     res.send(JSON.stringify(plan)) ;
   });
@@ -91,7 +103,7 @@ app.get("/plan/:id", (req,res) => {
 
 app.post("/plan/:id", (req,res) => {
   const id = parseInt(req.params.id, 10) ;
-  sequelize.query("INSERT INTO plan (creation, nb_piece, nb_chambre, nb_etage, surface, id_projet) VALUES (:date, :nbPiece, :nbChambre, :nbEtage, :surface, :projet)", 
+  sequelize.query("INSERT INTO plan (creation, nb_piece, nb_chambre, nb_etage, surface, id_projet) VALUES (:date, :nbPiece, :nbChambre, :nbEtage, :surface, :projet)",
   {replacements: {date: new Date(req.body.dateCreation), nbPiece: req.body.nbPieces, nbChambre: req.body.nbChambres, nbEtage: req.body.nbEtage, surface: req.body.surface, projet: id}
   })
   .then(plan => {
@@ -100,7 +112,7 @@ app.post("/plan/:id", (req,res) => {
 }) ;
 
 app.post("/edit/plan/:id", (req,res) => {
-  sequelize.query("UPDATE plan SET creation = :date, nb_piece = :nbPiece, nb_chambre = :nbChambre, nb_etage = :nbEtage, surface = :surface WHERE id_plan = :id", 
+  sequelize.query("UPDATE plan SET creation = :date, nb_piece = :nbPiece, nb_chambre = :nbChambre, nb_etage = :nbEtage, surface = :surface WHERE id_plan = :id",
   {replacements: {id: req.body.id, date: new Date(req.body.dateCreation), nbPiece: req.body.nbPieces, nbChambre: req.body.nbChambres, nbEtage: req.body.nbEtage, surface: req.body.surface}
   })
   .then(plan => {
@@ -122,14 +134,3 @@ app.listen(3000, function () {
   console.log('Server start on port 3000!');
 }) ;
 
-app.post('/loginVerif', function (req, res) {
-  sequelize.query('SELECT * FROM commercial WHERE nom = :nom AND pass = :pass', 
-  {replacements: {nom: req.body.username, pass: req.body.password}, type: sequelize.QueryTypes.SELECT})
-  .then(commercial => {
-    if (commercial.length === 0){
-      res.send(false);
-    }else{
-      res.send(true);
-    }
-  })
-})
