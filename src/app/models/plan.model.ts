@@ -6,4 +6,5 @@ export class Plan {
     nbEtage: number;
     surface: number ;
     idDevis: number ;
+    idProjet: number ;
 }

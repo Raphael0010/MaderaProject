@@ -1,21 +1,31 @@
 <div style="text-align: center;">
-    <img alt="logo madera" src="assets/img/logo-color.png">
-    
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
-        <p *ngIf="messageError != null">{{messageError}}</p>
-        <div>
-            <mat-form-field>
-                <input matInput placeholder="Identifiant" formControlName="username">
-            </mat-form-field>
-        </div>
-        <br>
-        <div>
-            <mat-form-field>
-                <input matInput placeholder="Mot de passe" formControlName="password" type="password">
-            </mat-form-field>
-        </div>
-        <div>
-            <button mat-raised-button color="primary" type="submit">Valider</button>
-        </div>
-    </form>
+  <img alt="logo madera" src="assets/img/logo-color.png" />
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+    <div>
+      <mat-form-field>
+        <input
+          required
+          matInput
+          placeholder="Identifiant"
+          formControlName="username"
+        />
+      </mat-form-field>
+    </div>
+    <br />
+    <div>
+      <mat-form-field>
+        <input
+          required
+          matInput
+          placeholder="Mot de passe"
+          formControlName="password"
+          type="password"
+        />
+      </mat-form-field>
+    </div>
+    <div>
+      <button mat-raised-button color="primary" type="submit">Valider</button>
+    </div>
+  </form>
 </div>

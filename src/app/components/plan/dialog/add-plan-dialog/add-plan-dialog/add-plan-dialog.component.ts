@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MAT_DATE_LOCALE, DateAdapter } from "@angular/material/core";
 import { Plan } from "src/app/models/plan.model";
 import { PlanService } from "src/app/services/plan.service";
+import { NavBarComponent } from './../../../../../shared/nav-bar/nav-bar.component';
 
 @Component({
   selector: "app-add-plan-dialog",
@@ -27,6 +28,7 @@ export class AddPlanDialogComponent implements OnInit {
 
   ngOnInit() {
     this.initForm() ;
+    this.plan.idProjet = this.data.idProjet ;
   }
 
   initForm() {
@@ -47,9 +49,10 @@ export class AddPlanDialogComponent implements OnInit {
     const formValue = this.planForm.value;
     this.plan.dateCreation =  formValue.dateCreation ;
     this.plan.nbPieces = formValue.nbPieces ;
+    this.plan.nbChambres = formValue.nbChambres ;
     this.plan.nbEtage = formValue.nbEtage;
     this.plan.surface = formValue.surface;
-    this.plan.idDevis = this.data.id ;
+    console.log(this.plan) ;
     this.planService.addPlan(this.plan);
   }
 }

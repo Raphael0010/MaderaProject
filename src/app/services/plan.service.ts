@@ -20,11 +20,12 @@ export class PlanService {
       nbEtage: plan.nbEtage,
       surface: plan.surface
     } ;
-    const add = await callApiFree("/plan", "POST", data) ;
+    const add = await callApiFree("/plan/" + plan.idProjet, "POST", data) ;
   }
 
   async getPlanById(id: number) {
     this.plans = await callApiFree("/plan/" + id, "GET");
+    console.log(this.plans) ;
     return this.plans ;
   }
 
@@ -38,7 +39,7 @@ export class PlanService {
       nbEtage: plan.nbEtage,
       surface: plan.surface
     } ;
-    const edit = await callApiFree("/edit/plan", "POST", data) ;
+    const edit = await callApiFree("/edit/plan/" + plan.id, "POST", data) ;
     console.log(edit) ;
   }
 

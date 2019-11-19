@@ -50,6 +50,7 @@ export class EditPlanDialogComponent implements OnInit {
     const formValue = this.planForm.value;
     this.plan.dateCreation =  formValue.dateCreation ;
     this.plan.nbPieces = formValue.nbPieces ;
+    this.plan.nbChambres = formValue.nbChambres ;
     this.plan.nbEtage = formValue.nbEtage;
     this.plan.surface = formValue.surface;
     this.planService.editPlan(this.plan);

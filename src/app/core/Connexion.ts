@@ -8,6 +8,10 @@ export const Logout = () => {
   localStorage.removeItem(username);
 };
 
+export const GetUsername = () => {
+  return localStorage.getItem("username");
+};
+
 export const TestLogin = () => {
   const username = localStorage.getItem("username");
   if (localStorage.getItem(username) === "connected") {
