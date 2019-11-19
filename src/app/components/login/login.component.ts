@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import { callApiFree } from "src/app/core/ApiCall";
 import { Router } from "@angular/router";
+import { Login } from "src/app/core/Connexion";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit {
     console.log(this.data);
     if (this.data === true) {
       this.router.navigateByUrl("/devis");
+      Login(userData.username);
     } else {
       this.messageError = "nom d'utilisateur ou mot de passe incorrect";
     }
