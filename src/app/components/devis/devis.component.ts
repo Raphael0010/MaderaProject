@@ -34,13 +34,14 @@ export class DevisComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(async e => {
       if (e === true) {
+        await callApiFree(`/deleteDevis/${id}`, "get");
         await this.loadDevis();
       }
     });
   }
 
   async loadDevis(): Promise<void> {
-    this.devis = await callApiFree("/listDevis", "get");
+    console.log((this.devis = await callApiFree("/listDevis", "get")));
     this.dsDevis.data = this.devis;
   }
 }
