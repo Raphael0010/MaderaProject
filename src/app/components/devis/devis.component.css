@@ -1,0 +1,21 @@
+table {
+  width: 100%;
+}
+
+h1 {
+  text-align: center;
+}
+
+.actionBtn {
+  margin-left: 0.5rem;
+}
+
+th.mat-header-cell {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+td.mat-cell {
+  text-align: center;
+}
