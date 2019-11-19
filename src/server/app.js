@@ -53,26 +53,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
-/*app.get('/projet', function (req, res) {
-  //sequelize.query("SELECT * FROM projet", { type: sequelize.QueryTypes.SELECT})
-  Projet.findAll({ include: [ Client ] })
-  .then(projets => {
-    res.json(projets) ;
-  }) ;
-}) ;
+app.get("/listDevis", (req,res) => {
+  sequelize.query("SELECT id_devis as id, CONCAT(nom,' ',prenom) as client, etat_devis as etat FROM devis INNER JOIN client on devis.id_client = client.id_cli", { type: sequelize.QueryTypes.SELECT})
+  .then(users => {
+    res.send(JSON.stringify(users))
+  });
+})
 
-app.post('/projet', (req,res) => {
-  Projet.create({
-    nom_projet: req.body.nom,
-    id_client: req.body.client,
-    creation: req.body.date,
-    id_comm: 1
-  }).then( projet => {
-    res.send(projet) ;
-  }) ;
-});*/
+app.get("/deleteDevis/:id", (req,res) => {
+  sequelize.query(`DELETE FROM devis WHERE id_devis = ${req.params.id}`)
+  .then(e=>{
+    res.send(JSON.parse("{\"code\":200}"))
+  });
+})
 
-                      // ------ Projet ----------
+// ------ Projet ----------
 app.get("/projet", (req,res) => {
   sequelize.query("SELECT id_projet AS id, nom_projet AS nom, client.nom AS nomClient, client.prenom AS prenomClient, creation AS dateCreation, id_comm AS idComm, id_client AS idClient FROM projet INNER JOIN client ON projet.id_client = client.id_cli", 
   { type: sequelize.QueryTypes.SELECT})
@@ -110,10 +105,7 @@ app.post("/delete/projet", (req,res) => {
   });
 }) ;
 
-//                           ------------------
-
-
-                            // ------ Plan ----------
+// ------ Plan ----------
 
 app.get("/plan/:id", (req,res) => {
   sequelize.query("SELECT id_plan AS id, creation AS dateCreation, nb_piece AS nbPieces, nb_chambre AS nbChambre, nb_etage AS nbEtage, surface, id_devis AS idDevis, id_projet AS idProjet FROM plan WHERE id_projet = :projet", 
@@ -152,6 +144,7 @@ app.post("/delete/plan", (req,res) => {
     res.send(JSON.stringify(plan))
   });
 }) ;
+
 // Notre app écoute sur le port 3000 donc pour intérroger notre api on call ici : localhost:3000
 app.listen(3000, function () {
   console.log('Server start on port 3000!');
