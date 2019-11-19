@@ -19,3 +19,9 @@ th.mat-header-cell {
 td.mat-cell {
   text-align: center;
 }
+
+.btn-content {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 20%;
+}

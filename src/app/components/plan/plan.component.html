@@ -1,3 +1,4 @@
+<h1>Gestion du plan</h1>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <!-- Date Column -->
   <ng-container matColumnDef="dateCreation">
@@ -31,7 +32,7 @@
 
   <ng-container matColumnDef="buttons">
     <th mat-header-cell *matHeaderCellDef>
-      <button mat-icon-button color="primary" (click)="addNewPlan()">
+      <button *ngIf="count === 0" button mat-icon-button color="primary" (click)="addNewPlan()" matTooltip="Ajouter un plan" [matTooltipPosition]="'above'">
         <mat-icon aria-label="Example icon-button with a heart icon"
           >add</mat-icon
         >

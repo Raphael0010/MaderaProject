@@ -40,8 +40,8 @@ export class PlanComponent implements OnInit {
 
   addNewPlan() {
     const dialogRef = this.dialog.open(AddPlanDialogComponent, {
-      height: "400px",
-      width: "600px",
+      height: "500px",
+      width: "400px",
       data: {idProjet: this.idProjet}
     });
 
@@ -59,8 +59,8 @@ export class PlanComponent implements OnInit {
 
   editPlan(id: number, dateCreation: Date, nbPieces: number, nbChambres: number, nbEtage: number, surface: number) {
     const dialogRef = this.dialog.open(EditPlanDialogComponent, {
-      height: "400px",
-      width: "600px",
+      height: "500px",
+      width: "400px",
       // tslint:disable-next-line:object-literal-shorthand
       data: {id: id, dateCreation: dateCreation, nbPieces: nbPieces, nbChambres: nbChambres, nbEtage: nbEtage, surface: surface }
     });

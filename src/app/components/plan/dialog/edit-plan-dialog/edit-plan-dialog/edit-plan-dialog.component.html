@@ -16,9 +16,9 @@
     <mat-form-field>
         <input type="number" matInput class="form-control" formControlName="surface" placeholder="Surface (m²)">
     </mat-form-field>
-    
+
     <div mat-dialog-actions>
-        <button mat-button [disabled]="planForm.invalid" [mat-dialog-close]="1" (click)="confirmEdit()">Valider</button>
-        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button class="btn-dialog" mat-raised-button [disabled]="planForm.invalid" [mat-dialog-close]="1" (click)="confirmEdit()">Modifier</button>
+        <button class="btn-dialog" mat-raised-button (click)="onNoClick()">Annuler</button>
     </div>
 </form>

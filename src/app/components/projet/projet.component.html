@@ -1,8 +1,11 @@
+<h1>Gestion des projets</h1>
 <mat-form-field>
   <input
     matInput
     (keyup)="applyFilter($event.target.value)"
     placeholder="Client"
+    matTooltip="Rechercher un client"
+    [matTooltipPosition]="'right'"
   />
 </mat-form-field>
 
@@ -31,7 +34,7 @@
 
   <ng-container matColumnDef="buttons">
     <th mat-header-cell *matHeaderCellDef>
-      <button mat-icon-button color="primary" (click)="addNewProject()">
+      <button mat-icon-button color="primary" (click)="addNewProject()"  matTooltip="Ajouter un projet" [matTooltipPosition]="'above'">
         <mat-icon aria-label="Example icon-button with a heart icon"
           >add</mat-icon
         >

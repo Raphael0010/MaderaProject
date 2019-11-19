@@ -35,8 +35,8 @@ export class ProjetComponent implements OnInit {
 
   addNewProject() {
     const dialogRef = this.dialog.open(AddProjetDialogComponent, {
-      height: "400px",
-      width: "600px",
+      height: "350px",
+      width: "350px",
       data: {projet: this.projet}
     });
 
@@ -50,8 +50,8 @@ export class ProjetComponent implements OnInit {
 
   editProject(id: number, nom: string, idClient: number, dateCreation: Date) {
     const dialogRef = this.dialog.open(EditProjetDialogComponent, {
-      height: "400px",
-      width: "600px",
+      height: "350px",
+      width: "350px",
       // tslint:disable-next-line:object-literal-shorthand
       data: {id: id, idClient: idClient, nom: nom, dateCreation: dateCreation }
     });
