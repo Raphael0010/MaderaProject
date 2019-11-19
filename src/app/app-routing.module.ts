@@ -16,16 +16,12 @@ const routes: Routes = [
   { path: "devis", component: DevisComponent },
   { path: "projet", component: ProjetComponent },
   { path: "plan/:id", component: PlanComponent },
-  { path: "", redirectTo: "/login", pathMatch: "full" },
+  { path: "", redirectTo: "/devis", pathMatch: "full" },
   { path: "**", component: PageNotFoundComponent }
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}

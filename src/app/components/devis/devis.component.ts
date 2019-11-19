@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { callApiFree } from "src/app/core/ApiCall";
-import { Devis } from "./Devis";
+import { Devis } from "../../models/devis.models";
 import { MatTableDataSource, MatDialog } from "@angular/material";
 import { DialogDeleteComponent } from "src/app/shared/dialog-delete/dialog-delete.component";
 
@@ -20,8 +20,8 @@ export class DevisComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.devis = await callApiFree("/listDevis", "get");
-    this.dsDevis.data = this.devis;
+    await this.loadDevis();
+    setInterval(() => this.loadDevis(), 5000);
   }
 
   imprimer(id: number) {
@@ -34,10 +34,13 @@ export class DevisComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(async e => {
       if (e === true) {
-        console.log(await callApiFree(`/deleteDevis/${id}`, "get"));
-        this.devis = await callApiFree("/listDevis", "get");
-        this.dsDevis.data = this.devis;
+        await this.loadDevis();
       }
     });
+  }
+
+  async loadDevis(): Promise<void> {
+    this.devis = await callApiFree("/listDevis", "get");
+    this.dsDevis.data = this.devis;
   }
 }
