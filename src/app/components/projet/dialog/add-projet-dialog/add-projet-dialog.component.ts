@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ProjetService } from "src/app/services/projet.service";
 import { MAT_DATE_LOCALE, DateAdapter } from '@angular/material/core';
+import { callApiFree } from 'src/app/core/ApiCall';
 
 @Component({
   selector: "app-add-projet-dialog",
@@ -19,27 +20,16 @@ export class AddProjetDialogComponent implements OnInit {
 
   projetForm: FormGroup ;
   projet: Projet = new Projet();
-  clients = [
-    {
-      id_cli : 1,
-      nom : "Prod",
-      prenom: "Arthur",
-    },
-    {
-      id_cli : 2,
-      nom : "Valjean",
-      prenom: "Jean",
-    },
-
-  ] ;
+  clients = [] ;
 
   // tslint:disable-next-line:max-line-length
   constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<AddProjetDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Projet, private projetService: ProjetService, private adapter: DateAdapter<any>) {
     this.adapter.setLocale("fr");
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.initForm() ;
+    this.clients = await callApiFree("/client", "GET") ;
   }
 
   initForm() {

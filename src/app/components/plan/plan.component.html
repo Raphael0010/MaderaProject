@@ -4,7 +4,7 @@
     <!-- Date Column -->
     <ng-container matColumnDef="dateCreation">
       <th mat-header-cell *matHeaderCellDef>Date de création</th>
-      <td mat-cell *matCellDef="let plan"> {{plan.dateCreation}} </td>
+      <td mat-cell *matCellDef="let plan"> {{plan.dateCreation | date: 'dd/MM/yyyy'}} </td>
     </ng-container>
   
     <!-- nb Pièce Column -->
@@ -33,7 +33,7 @@
   
     <ng-container matColumnDef="buttons">
       <th mat-header-cell *matHeaderCellDef>
-        <button mat-icon-button color="primary" (click)="addNewPlan()">
+        <button *ngIf="count === 0" mat-icon-button color="primary" (click)="addNewPlan()">
           <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
         </button>
       </th>

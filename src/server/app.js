@@ -52,32 +52,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-
-/*app.get('/projet', function (req, res) {
-  //sequelize.query("SELECT * FROM projet", { type: sequelize.QueryTypes.SELECT})
-  Projet.findAll({ include: [ Client ] })
-  .then(projets => {
-    res.json(projets) ;
-  }) ;
+app.get("/client", (req,res) => {
+  sequelize.query("SELECT id_cli, nom AS nomClient, client.prenom AS prenomClient FROM client", 
+  { type: sequelize.QueryTypes.SELECT})
+  .then(clients => {
+    res.send(JSON.stringify(clients))
+  });
 }) ;
-
-app.post('/projet', (req,res) => {
-  Projet.create({
-    nom_projet: req.body.nom,
-    id_client: req.body.client,
-    creation: req.body.date,
-    id_comm: 1
-  }).then( projet => {
-    res.send(projet) ;
-  }) ;
-});*/
 
                       // ------ Projet ----------
 app.get("/projet", (req,res) => {
   sequelize.query("SELECT id_projet AS id, nom_projet AS nom, client.nom AS nomClient, client.prenom AS prenomClient, creation AS dateCreation, id_comm AS idComm, id_client AS idClient FROM projet INNER JOIN client ON projet.id_client = client.id_cli", 
   { type: sequelize.QueryTypes.SELECT})
   .then(projets => {
-    console.log(projets) ;
     res.send(JSON.stringify(projets))
   });
 }) ;
@@ -87,7 +74,6 @@ app.post("/projet", (req,res) => {
   {replacements: {projet: req.body.nom, date: new Date(req.body.date), client: req.body.client, comm: 1}
   })
   .then(projets => {
-    console.log(projets) ;
     res.send(JSON.stringify(projets))
   });
 }) ;
@@ -116,31 +102,32 @@ app.post("/delete/projet", (req,res) => {
                             // ------ Plan ----------
 
 app.get("/plan/:id", (req,res) => {
-  sequelize.query("SELECT id_plan AS id, creation AS dateCreation, nb_piece AS nbPieces, nb_chambre AS nbChambre, nb_etage AS nbEtage, surface, id_devis AS idDevis, id_projet AS idProjet FROM plan WHERE id_projet = :projet", 
-  {replacements: {projet: req.params.id}},
-  { type: sequelize.QueryTypes.SELECT})
+  //const id = parseInt(req.params.id, 10) ;
+  sequelize.query(`SELECT id_plan AS id, creation AS dateCreation, nb_piece AS nbPieces, nb_chambre AS nbChambres, nb_etage AS nbEtage, surface, id_devis AS idDevis, id_projet AS idProjet FROM plan WHERE id_projet = ${req.params.id}`,
+  { type: sequelize.QueryTypes.SELECT}) 
   .then(plan => {
     console.log(plan) ;
-    res.send(JSON.stringify(plan))
+    res.send(JSON.stringify(plan)) ;
   });
 }) ;
 
 app.post("/plan/:id", (req,res) => {
-  sequelize.query("INSERT INTO plan (creation, nb_piece, nb_chambre, nb_etage, surface, id_devis, id_projet) VALUES (:date, :nbPiece, :nbChambre, :nbEtage, :surface, :devis, :projet)", 
-  {replacements: {date: new Date(req.body.date), nbPiece: req.body.nbPieces, nbChambre: req.body.nbChambres, nbEtage: req.body.nbEtage, surface: req.body.surface, devis: req.body.idDevis, projet: req.params.id}
+  const id = parseInt(req.params.id, 10) ;
+  sequelize.query("INSERT INTO plan (creation, nb_piece, nb_chambre, nb_etage, surface, id_projet) VALUES (:date, :nbPiece, :nbChambre, :nbEtage, :surface, :projet)", 
+  {replacements: {date: new Date(req.body.dateCreation), nbPiece: req.body.nbPieces, nbChambre: req.body.nbChambres, nbEtage: req.body.nbEtage, surface: req.body.surface, projet: id}
   })
-  .then(projets => {
+  .then(plan => {
     console.log(plan) ;
-    res.send(JSON.stringify(plan))
+    res.send(JSON.stringify(plan)) ;
   });
 }) ;
 
 app.post("/edit/plan/:id", (req,res) => {
-  sequelize.query("UPDATE plan SET creation = :date, nb_piece = :nbPiece, nb_chambre = :nbChambre, nb_etage = :nbEtage, surface = :surface, id_devis = :devis, id_projet = :projet WHERE id_plan = :id", 
-  {replacements: {id: req.body.id, date: new Date(req.body.date), nbPiece: req.body.nbPieces, nbChambre: req.body.nbChambres, nbEtage: req.body.nbEtage, surface: req.body.surface, devis: req.body.idDevis, projet: req.params.id}
+  sequelize.query("UPDATE plan SET creation = :date, nb_piece = :nbPiece, nb_chambre = :nbChambre, nb_etage = :nbEtage, surface = :surface WHERE id_plan = :id", 
+  {replacements: {id: req.body.id, date: new Date(req.body.dateCreation), nbPiece: req.body.nbPieces, nbChambre: req.body.nbChambres, nbEtage: req.body.nbEtage, surface: req.body.surface}
   })
   .then(plan => {
-    res.send(JSON.stringify(plan))
+    res.send(JSON.stringify(plan)) ;
   });
 }) ;
 
@@ -149,7 +136,7 @@ app.post("/delete/plan", (req,res) => {
   {replacements: {id: req.body.id}
   })
   .then(plan => {
-    res.send(JSON.stringify(plan))
+    res.send(JSON.stringify(plan)) ;
   });
 }) ;
 // Notre app écoute sur le port 3000 donc pour intérroger notre api on call ici : localhost:3000

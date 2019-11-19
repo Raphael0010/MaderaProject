@@ -6,6 +6,7 @@ import { ProjetService } from "src/app/services/projet.service";
 import { MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS } from "@angular/material/core";
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS } from "@angular/material-moment-adapter";
 import * as moment from "moment";
+import { callApiFree } from 'src/app/core/ApiCall';
 
 @Component({
   selector: "app-edit-projet-dialog",
@@ -22,27 +23,17 @@ export class EditProjetDialogComponent implements OnInit {
   projetForm: FormGroup ;
   projet: Projet = new Projet() ;
 
-  clients = [
-    {
-      id_cli : 1,
-      nom : "Prod",
-      prenom: "Arthur",
-    },
-    {
-      id_cli : 2,
-      nom : "Valjean",
-      prenom: "Jean",
-    },
-
-  ] ;
+  clients = [];
   // tslint:disable-next-line:max-line-length
   constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<EditProjetDialogComponent>, @Inject(MAT_DIALOG_DATA) public data, private projetService: ProjetService, private adapter: DateAdapter<any>) {
     this.adapter.setLocale("fr");
    }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.initForm() ;
     this.projet.id = this.data.id ;
+    this.clients = await callApiFree("/client", "GET") ;
+
   }
 
   initForm() {
@@ -65,18 +56,5 @@ export class EditProjetDialogComponent implements OnInit {
     console.log(formValue.dateCreation) ;
     this.projetService.editProjet(this.projet) ;
   }
-
-  /*formatDate(date: Date) {
-    const monthNames = [
-      "01", "02", "03",
-      "04", "05", "06", "07",
-      "08", "09", "10",
-      "11", "12"
-    ];
-    const day = date.getDate();
-    const monthIndex = date.getMonth();
-    const year = date.getFullYear();
-    return year + "-" + monthNames[monthIndex] + "-" + day;
-  }*/
 
 }
