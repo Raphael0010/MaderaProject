@@ -5,7 +5,6 @@ const app = express();
 const Sequelize = require('sequelize');
 const env = require('dotenv').config()
 
-// Attention à bien configurer l'url de connexion à la base de données
 const sequelize = new Sequelize(`mariadb://${env.parsed.USER}:${env.parsed.PASS}@${env.parsed.HOST}:${env.parsed.PORT}/${env.parsed.BDD}`,
   {
     dialect: 'mariadb',
@@ -116,4 +115,15 @@ app.post("/delete/plan", (req,res) => {
 // Notre app écoute sur le port 3000 donc pour intérroger notre api on call ici : localhost:3000
 app.listen(3000, function () {
   console.log('Server start on port 3000!');
+})
+
+app.post('/loginVerif', function (req, res) {
+  sequelize.query('SELECT * FROM commercial WHERE nom = :nom AND pass = :pass', { replacements: {nom: req.body.username, pass: req.body.password}, type: sequelize.QueryTypes.SELECT})
+  .then(commercial => {
+    if (commercial.length === 0){
+      res.send(false);
+    }else{
+      res.send(true);
+    }
+  })
 })
