@@ -32,7 +32,7 @@ export class LoginComponent {
     }
     this.data = await callApiFree("/loginVerif", "POST", userData);
     if (this.data === true) {
-      this.router.navigateByUrl("/devis");
+      this.router.navigateByUrl("/client");
       Login(userData.username);
     } else {
       this._snackBar.openFromComponent(SnackBarComponent, {

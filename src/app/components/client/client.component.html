@@ -1,5 +1,4 @@
-<app-nav-bar></app-nav-bar>
-<br/>
+<br />
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <!-- Name Column -->
   <ng-container matColumnDef="id">
@@ -15,7 +14,7 @@
     <td mat-cell *matCellDef="let client">{{ client.nom }}</td>
   </ng-container>
   <ng-container matColumnDef="mail">
-    <th mat-header-cell *matHeaderCellDef>email</th>
+    <th mat-header-cell *matHeaderCellDef>Email</th>
     <td mat-cell *matCellDef="let client">{{ client.mail }}</td>
   </ng-container>
   <ng-container matColumnDef="tel">
@@ -30,22 +29,17 @@
   <ng-container matColumnDef="buttons">
     <th mat-header-cell *matHeaderCellDef>
       <button mat-icon-button color="primary">
-        <mat-icon aria-label="Example icon-button with a heart icon" (click)="addNewClient()">
+        <mat-icon
+          aria-label="Example icon-button with a heart icon"
+          (click)="addNewClient()"
+        >
           add</mat-icon
         >
       </button>
     </th>
     <td mat-cell *matCellDef="let client">
       <div class="btn-content">
-        <button
-          mat-raised-button
-          color="accent"
-          (click)="
-            editClient(
-              client
-            )
-          "
-        >
+        <button mat-raised-button color="accent" (click)="editClient(client)">
           Modifier
         </button>
         <button
