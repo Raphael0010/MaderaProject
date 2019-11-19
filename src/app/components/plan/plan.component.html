@@ -1,51 +1,68 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <!-- Date Column -->
+  <ng-container matColumnDef="dateCreation">
+    <th mat-header-cell *matHeaderCellDef>Date de création</th>
+    <td mat-cell *matCellDef="let plan">{{ plan.dateCreation }}</td>
+  </ng-container>
 
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  
-    <!-- Date Column -->
-    <ng-container matColumnDef="dateCreation">
-      <th mat-header-cell *matHeaderCellDef>Date de création</th>
-      <td mat-cell *matCellDef="let plan"> {{plan.dateCreation}} </td>
-    </ng-container>
-  
-    <!-- nb Pièce Column -->
-    <ng-container matColumnDef="nbPieces">
-      <th mat-header-cell *matHeaderCellDef>Nombre de pièces</th>
-      <td mat-cell *matCellDef="let plan"> {{plan.nbPieces}}</td>
-    </ng-container>
-  
-    <!-- nb Chambre Column -->
-    <ng-container matColumnDef="nbChambres">
-      <th mat-header-cell *matHeaderCellDef>Nombre de chambres</th>
-      <td mat-cell *matCellDef="let plan"> {{plan.nbChambres}}</td>
-    </ng-container>
+  <!-- nb Pièce Column -->
+  <ng-container matColumnDef="nbPieces">
+    <th mat-header-cell *matHeaderCellDef>Nombre de pièces</th>
+    <td mat-cell *matCellDef="let plan">{{ plan.nbPieces }}</td>
+  </ng-container>
 
-    <!-- nb Etage Column -->
-    <ng-container matColumnDef="nbEtage">
-      <th mat-header-cell *matHeaderCellDef>Nombre d'étage</th>
-      <td mat-cell *matCellDef="let plan"> {{plan.nbEtage}}</td>
-    </ng-container>
+  <!-- nb Chambre Column -->
+  <ng-container matColumnDef="nbChambres">
+    <th mat-header-cell *matHeaderCellDef>Nombre de chambres</th>
+    <td mat-cell *matCellDef="let plan">{{ plan.nbChambres }}</td>
+  </ng-container>
 
-    <!-- nb surface Column -->
-    <ng-container matColumnDef="surface">
-      <th mat-header-cell *matHeaderCellDef>Surface (m²)</th>
-      <td mat-cell *matCellDef="let plan"> {{plan.surface}}</td>
-    </ng-container>
-  
-    <ng-container matColumnDef="buttons">
-      <th mat-header-cell *matHeaderCellDef>
-        <button mat-icon-button color="primary" (click)="addNewPlan()">
-          <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+  <!-- nb Etage Column -->
+  <ng-container matColumnDef="nbEtage">
+    <th mat-header-cell *matHeaderCellDef>Nombre d'étage</th>
+    <td mat-cell *matCellDef="let plan">{{ plan.nbEtage }}</td>
+  </ng-container>
+
+  <!-- nb surface Column -->
+  <ng-container matColumnDef="surface">
+    <th mat-header-cell *matHeaderCellDef>Surface (m²)</th>
+    <td mat-cell *matCellDef="let plan">{{ plan.surface }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="buttons">
+    <th mat-header-cell *matHeaderCellDef>
+      <button mat-icon-button color="primary" (click)="addNewPlan()">
+        <mat-icon aria-label="Example icon-button with a heart icon"
+          >add</mat-icon
+        >
+      </button>
+    </th>
+    <td mat-cell *matCellDef="let plan">
+      <div class="btn-content">
+        <button mat-raised-button color="primary">Devis</button>
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="
+            editPlan(
+              plan.id,
+              plan.dateCreation,
+              plan.nbPieces,
+              plan.nbChambres,
+              plan.nbEtage,
+              plan.surface
+            )
+          "
+        >
+          Modifier
         </button>
-      </th>
-      <td mat-cell *matCellDef="let plan">
-        <div class="btn-content">
-          <button mat-raised-button color="primary">Devis</button>
-          <button mat-raised-button color="accent" (click)="editPlan(plan.id, plan.dateCreation, plan.nbPieces,plan.nbChambres, plan.nbEtage, plan.surface)">Modifier</button>
-          <button mat-raised-button color="warn" (click)="deletePlan(plan.id)">Supprimer</button>
-        </div>
-      </td>
-    </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+        <button mat-raised-button color="warn" (click)="deletePlan(plan.id)">
+          Supprimer
+        </button>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
