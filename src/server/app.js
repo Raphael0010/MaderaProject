@@ -20,6 +20,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// ------ Login ----------
+app.post('/loginVerif', function (req, res) {
+  sequelize.query('SELECT * FROM commercial WHERE nom = :nom AND pass = :pass', { replacements: {nom: req.body.username, pass: req.body.password}, type: sequelize.QueryTypes.SELECT})
+  .then(commercial => {
+    if (commercial.length === 0){
+      res.send(false);
+    }else{
+      res.send(true);
+    }
+  })
+})
+
 // ------ Devis ----------
 app.get("/listDevis", (req,res) => {
   sequelize.query("SELECT id_devis as id, CONCAT(nom,' ',prenom) as client, etat_devis as etat FROM devis INNER JOIN client on devis.id_client = client.id_cli", { type: sequelize.QueryTypes.SELECT})
@@ -117,13 +129,4 @@ app.listen(3000, function () {
   console.log('Server start on port 3000!');
 })
 
-app.post('/loginVerif', function (req, res) {
-  sequelize.query('SELECT * FROM commercial WHERE nom = :nom AND pass = :pass', { replacements: {nom: req.body.username, pass: req.body.password}, type: sequelize.QueryTypes.SELECT})
-  .then(commercial => {
-    if (commercial.length === 0){
-      res.send(false);
-    }else{
-      res.send(true);
-    }
-  })
-})
+

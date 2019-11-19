@@ -18,6 +18,7 @@ import { EditProjetDialogComponent } from "./components/projet/dialog/edit-proje
 import { PlanComponent } from "./components/plan/plan.component";
 import { AddPlanDialogComponent } from "./components/plan/dialog/add-plan-dialog/add-plan-dialog/add-plan-dialog.component";
 import { EditPlanDialogComponent } from "./components/plan/dialog/edit-plan-dialog/edit-plan-dialog/edit-plan-dialog.component";
+import { SnackBarComponent } from "./shared/snack-bar/snack-bar.component";
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { EditPlanDialogComponent } from "./components/plan/dialog/edit-plan-dial
     EditProjetDialogComponent,
     PlanComponent,
     AddPlanDialogComponent,
-    EditPlanDialogComponent
+    EditPlanDialogComponent,
+    SnackBarComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -49,7 +51,8 @@ import { EditPlanDialogComponent } from "./components/plan/dialog/edit-plan-dial
     AddProjetDialogComponent,
     EditProjetDialogComponent,
     AddPlanDialogComponent,
-    EditPlanDialogComponent
+    EditPlanDialogComponent,
+    SnackBarComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
