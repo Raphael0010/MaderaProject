@@ -37,6 +37,7 @@ app.post("/client", (req,res) => {
 }) ;
 
 app.post("/edit/client", (req,res) => {
+  console.log("WESH:"+req.body.nom);
   sequelize.query("UPDATE client SET nom = :nom, prenom = :prenom, mail = :mail, tel = :tel, newsletter = :newsletter WHERE id_cli = :id", 
   {replacements: {id: req.body.id, nom: req.body.nom, prenom: req.body.prenom, mail: req.body.mail, tel: req.body.tel, newsletter: req.body.newsletter}
   })

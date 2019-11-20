@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from "@angular/core";
 import { Client } from "src/app/models/client.model";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ClientService } from "src/app/services/client.service";
 import { MAT_DATE_LOCALE, DateAdapter } from '@angular/material/core';
 
@@ -19,7 +19,7 @@ export class AddClientDialogComponent implements OnInit {
 
   clientForm: FormGroup ;
   client: Client = new Client();
-  
+  checked = true;
 
   // tslint:disable-next-line:max-line-length
   constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<AddClientDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Client, private clientService: ClientService, private adapter: DateAdapter<any>) {
