@@ -8,6 +8,7 @@ import { PlanComponent } from "./components/plan/plan.component";
 import { ClientComponent } from "./components/client/client.component";
 import { GestionStockComponent } from "./components/gestion-stock/gestion-stock.component";
 import { AuthGuardService } from "./services/auth-guard.service";
+import { VoirDevisComponent } from "./components/devis/voir-devis/voir-devis.component";
 
 /**
  * Gestion des routes
@@ -16,11 +17,32 @@ import { AuthGuardService } from "./services/auth-guard.service";
  */
 const routes: Routes = [
   { path: "login", component: LoginComponent },
-  { path: "stocks", canActivate: [AuthGuardService], component: GestionStockComponent },
+  {
+    path: "stocks",
+    canActivate: [AuthGuardService],
+    component: GestionStockComponent
+  },
   { path: "devis", canActivate: [AuthGuardService], component: DevisComponent },
-  { path: "projet", canActivate: [AuthGuardService], component: ProjetComponent },
-  { path: "plan/:id", canActivate: [AuthGuardService], component: PlanComponent },
-  { path: "client", canActivate: [AuthGuardService], component: ClientComponent },
+  {
+    path: "devis/:id",
+    canActivate: [AuthGuardService],
+    component: VoirDevisComponent
+  },
+  {
+    path: "projet",
+    canActivate: [AuthGuardService],
+    component: ProjetComponent
+  },
+  {
+    path: "plan/:id",
+    canActivate: [AuthGuardService],
+    component: PlanComponent
+  },
+  {
+    path: "client",
+    canActivate: [AuthGuardService],
+    component: ClientComponent
+  },
   { path: "", redirectTo: "/login", pathMatch: "full" },
   { path: "**", component: PageNotFoundComponent }
 ];
