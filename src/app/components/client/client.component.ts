@@ -49,8 +49,6 @@ export class ClientComponent implements OnInit {
   }
 
   editClient(client: Client) {
-    console.log(client);
-
     const dialogRef = this.dialog.open(EditClientDialogComponent, {
       height: "500px",
       width: "600px",

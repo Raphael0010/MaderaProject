@@ -19,8 +19,8 @@ export class EditClientDialogComponent implements OnInit {
 
   clientForm: FormGroup ;
   client: Client = new Client();
+  // tslint:disable-next-line:no-bitwise
   checked = false;
-  
 
   // tslint:disable-next-line:max-line-length
   constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<EditClientDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private clientService: ClientService, private adapter: DateAdapter<any>) {
@@ -33,14 +33,12 @@ export class EditClientDialogComponent implements OnInit {
   }
 
   initForm() {
-    this.checked = this.data.client.newsletter;
-    console.log(this.data.client.newsletter)
     this.clientForm = this.formBuilder.group({
       nom: [this.data.client.nom, Validators.required],
       prenom: [this.data.client.prenom, Validators.required],
       mail: [this.data.client.mail, Validators.required],
       tel: [this.data.client.tel, Validators.required],
-      newsletter: [this.checked, Validators.required],
+      newsletter: [this.checked, Validators.required]
     });
 }
 
@@ -58,5 +56,5 @@ export class EditClientDialogComponent implements OnInit {
     this.client.newsletter = formValue.newsletter ;
     this.clientService.editClient(this.client);
   }
-  
+
 }

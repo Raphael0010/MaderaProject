@@ -21,6 +21,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { MaterialModule } from "./material-module";
 import { MatTableModule } from "@angular/material";
 import { ClientComponent } from "./components/client/client.component";
+import { VoirDevisComponent } from "./components/devis/voir-devis/voir-devis.component";
 
 describe("AppComponent", () => {
   beforeEach(async(() => {
@@ -41,7 +42,8 @@ describe("AppComponent", () => {
         EditPlanDialogComponent,
         GestionStockComponent,
         SnackBarComponent,
-        ClientComponent
+        ClientComponent,
+        VoirDevisComponent
       ],
       imports: [
         BrowserAnimationsModule,
