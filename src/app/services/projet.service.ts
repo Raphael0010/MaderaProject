@@ -16,7 +16,7 @@ export class ProjetService {
       nom : projet.nom,
       client: projet.idClient,
       date : projet.dateCreation,
-      id_comm: 1
+      nom_comm: localStorage.getItem("username")
     } ;
     const add = await callApiFree("/projet", "POST", data) ;
   }

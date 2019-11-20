@@ -28,7 +28,7 @@ app.get("/listClients", (req,res) => {
 })
 
 app.post("/client", (req,res) => {
-  sequelize.query("INSERT INTO client (nom, prenom, mail, tel, newsletter) VALUES (:nom, :prenom, :mail, :tel, :newsletter)", 
+  sequelize.query("INSERT INTO client (nom, prenom, mail, tel, newsletter) VALUES (:nom, :prenom, :mail, :tel, :newsletter)",
   {replacements: {nom: req.body.nom, prenom: req.body.prenom, mail: req.body.mail, tel: req.body.tel, newsletter: req.body.newsletter}
   })
   .then(client => {
@@ -37,7 +37,7 @@ app.post("/client", (req,res) => {
 }) ;
 
 app.post("/edit/client", (req,res) => {
-  sequelize.query("UPDATE client SET nom = :nom, prenom = :prenom, mail = :mail, tel = :tel, newsletter = :newsletter WHERE id_cli = :id", 
+  sequelize.query("UPDATE client SET nom = :nom, prenom = :prenom, mail = :mail, tel = :tel, newsletter = :newsletter WHERE id_cli = :id",
   {replacements: {id: req.body.id, nom: req.body.nom, prenom: req.body.prenom, mail: req.body.mail, tel: req.body.tel, newsletter: req.body.newsletter}
   })
   .then(client => {
@@ -99,12 +99,23 @@ app.get("/projet", (req,res) => {
 });
 
 app.post("/projet", (req,res) => {
-  sequelize.query("INSERT INTO projet (nom_projet, creation, id_comm, id_client) VALUES (:projet, :date, :comm, :client)",
-  {replacements: {projet: req.body.nom, date: new Date(req.body.date), client: req.body.client, comm: 1}
-  })
-  .then(projets => {
-    res.send(JSON.stringify(projets)) ;
-  });
+  sequelize.query(`SELECT id_comm FROM commercial WHERE nom = "${req.body.nom_comm}"`,
+    {type: sequelize.QueryTypes.SELECT})
+    .then(commercial => {
+      const idComm = commercial[0].id_comm ;
+      sequelize.query("INSERT INTO projet (nom_projet, creation, id_comm, id_client) VALUES (:projet, :date, :comm, :client)",
+      {replacements: {projet: req.body.nom, date: new Date(req.body.date), client: req.body.client, comm: idComm}
+      })
+      .then(projets => {
+        const newIdProject = projets[0] ;
+        sequelize.query("INSERT INTO concerner_client_projet(id_cli, id_projet) VALUES (:client, :projet)",
+        {replacements: {client: req.body.client, projet: newIdProject }
+        })
+        .then(projets => {
+          res.send(JSON.stringify(projets)) ;
+        });
+      });
+    });
 });
 
 app.post("/edit/projet", (req,res) => {
