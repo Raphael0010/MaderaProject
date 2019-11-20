@@ -33,6 +33,7 @@ export class DevisComponent implements OnInit {
 
   async ngOnInit() {
     await this.loadDevis();
+    setInterval(() => this.loadDevis(), 5000);
   }
 
   imprimer(id: number) {

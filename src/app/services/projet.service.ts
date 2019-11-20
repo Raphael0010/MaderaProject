@@ -14,10 +14,10 @@ export class ProjetService {
     const data = {
       nom: projet.nom,
       client: projet.idClient,
-      date: projet.dateCreation,
-      id_comm: 1
-    };
-    await callApiFree("/projet", "POST", data);
+      date : projet.dateCreation,
+      nom_comm: localStorage.getItem("username")
+    } ;
+    const add = await callApiFree("/projet", "POST", data) ;
   }
 
   async getAllProjets() {
