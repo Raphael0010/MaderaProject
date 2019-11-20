@@ -16,8 +16,8 @@
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <div mat-dialog-actions>
-    <button mat-button type="submit" [disabled]="projetForm.invalid" (click)="confirmEdit()" [mat-dialog-close]="1">Modifier</button>
-    <button mat-button (click)="onNoClick()">Cancel</button>
+        <button class="btn-dialog" mat-raised-button type="submit" [disabled]="projetForm.invalid" (click)="confirmEdit()" [mat-dialog-close]="1">Modifier</button>
+        <button class="btn-dialog" mat-raised-button (click)="onNoClick()">Annuler</button>
     </div>
 </form>
 

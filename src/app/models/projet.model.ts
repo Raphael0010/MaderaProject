@@ -4,4 +4,6 @@ export class Projet {
     idClient: number ;
     dateCreation: string ;
     idComm: number ;
+    nomClient?: string ;
+    prenomClient?: string ;
 }

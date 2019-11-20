@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { callApiFree } from "src/app/core/ApiCall";
 import { Stock } from "../../models/stocks.model";
 import { MatTableDataSource, MatDialog } from "@angular/material";
 import { DialogDeleteComponent } from "src/app/shared/dialog-delete/dialog-delete.component";
 
 @Component({
-  selector: 'app-gestion-stock',
-  templateUrl: './gestion-stock.component.html',
-  styleUrls: ['./gestion-stock.component.css']
+  selector: "app-gestion-stock",
+  templateUrl: "./gestion-stock.component.html",
+  styleUrls: ["./gestion-stock.component.css"]
 })
 export class GestionStockComponent implements OnInit {
 

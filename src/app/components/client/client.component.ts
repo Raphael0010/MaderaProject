@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { MatTableDataSource } from "@angular/material/table";
 import { callApiFree } from "src/app/core/ApiCall";
 import { Client } from "src/app/models/client.model";
@@ -7,19 +7,19 @@ import { MatDialog } from "@angular/material";
 import { DialogDeleteComponent } from "src/app/shared/dialog-delete/dialog-delete.component";
 import { AddClientDialogComponent } from "./dialog/add-client-dialog/add-client-dialog.component";
 import { EditClientDialogComponent } from "./dialog/edit-client-dialog/edit-client-dialog.component";
-import { Identifiers } from '@angular/compiler/src/render3/r3_identifiers';
+import { Identifiers } from "@angular/compiler/src/render3/r3_identifiers";
 
 @Component({
-  selector: 'app-client',
-  templateUrl: './client.component.html',
-  styleUrls: ['./client.component.css']
+  selector: "app-client",
+  templateUrl: "./client.component.html",
+  styleUrls: ["./client.component.css"]
 })
 export class ClientComponent implements OnInit {
 
   clients: Client[] = [] ;
   client: Client ;
 
-  displayedColumns: string[] = ["id", "nom", "prenom","mail","tel","newsletter","buttons"];
+  displayedColumns: string[] = ["id", "nom", "prenom", "mail", "tel", "newsletter", "buttons"];
   dataSource ;
 
   constructor(private clientService: ClientService, public dialog: MatDialog) { }
@@ -44,12 +44,13 @@ export class ClientComponent implements OnInit {
     });
   }
 
-  editClient(client:Client) {
+  editClient(client: Client) {
     console.log(client);
 
     const dialogRef = this.dialog.open(EditClientDialogComponent, {
       height: "500px",
       width: "600px",
+      // tslint:disable-next-line:object-literal-shorthand
       data: {client: client}
     });
 

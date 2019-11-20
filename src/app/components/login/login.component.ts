@@ -16,6 +16,7 @@ export class LoginComponent {
   data: boolean;
   messageError = "";
   constructor(
+    // tslint:disable-next-line:variable-name
     private _snackBar: MatSnackBar,
     private formBuilder: FormBuilder,
     private router: Router

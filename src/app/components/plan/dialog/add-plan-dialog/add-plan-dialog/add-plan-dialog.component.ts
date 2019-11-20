@@ -4,7 +4,6 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MAT_DATE_LOCALE, DateAdapter } from "@angular/material/core";
 import { Plan } from "src/app/models/plan.model";
 import { PlanService } from "src/app/services/plan.service";
-import { NavBarComponent } from './../../../../../shared/nav-bar/nav-bar.component';
 
 @Component({
   selector: "app-add-plan-dialog",

@@ -1,6 +1,6 @@
 <form [formGroup]="projetForm" class="form-container">
     <mat-form-field>
-        <input type="text" matInput class="form-control" formControlName="nomProjet" placeholder="nom projet">
+        <input type="text" matInput class="form-control" formControlName="nomProjet" placeholder="Nom du projet">
     </mat-form-field>
     <mat-form-field>
         <mat-label>Client</mat-label>
@@ -16,7 +16,7 @@
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <div mat-dialog-actions>
-    <button mat-button [disabled]="projetForm.invalid" [mat-dialog-close]="1" (click)="confirmAdd()">Valider</button>
-    <button mat-button (click)="onNoClick()">Cancel</button>
+        <button class="btn-dialog" mat-raised-button [disabled]="projetForm.invalid" [mat-dialog-close]="1" (click)="confirmAdd()">Ajouter</button>
+        <button class="btn-dialog" mat-raised-button (click)="onNoClick()">Annuler</button>
     </div>
 </form>

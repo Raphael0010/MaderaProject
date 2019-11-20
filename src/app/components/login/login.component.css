@@ -1,0 +1,14 @@
+.login-content {
+  text-align: center ;
+}
+
+form {
+  border: 2px solid black;
+  width: 30% ;
+  margin: auto ;
+  padding: 15px 15px;
+}
+
+.mat-form-field {
+  font-size: 1.5em ;
+}
