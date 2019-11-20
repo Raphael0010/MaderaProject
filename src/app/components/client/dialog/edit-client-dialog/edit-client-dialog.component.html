@@ -1,24 +1,59 @@
 <form [formGroup]="clientForm" class="form-container">
-    <mat-form-field>
-        <input type="text" matInput class="form-control" formControlName="prenom" placeholder="prénom">
-    </mat-form-field>
-    <mat-form-field>
-      <input type="text" matInput class="form-control" formControlName="nom" placeholder="nom">
-    </mat-form-field>
-    <mat-form-field>
-        <input type="text" matInput class="form-control" formControlName="mail" placeholder="email" >
-    </mat-form-field>
-    <mat-form-field>
-      <input type="text" matInput class="form-control" formControlName="tel" placeholder="téléphone">
-    </mat-form-field>
-    <mat-card>
-        <mat-card-content>
-          <mat-checkbox class="form-control" formControlName="newsletter" [(ngModel)]="checked">Newsletter</mat-checkbox>
-        <!--<input type="text" matInput class="form-control" formControlName="newsletter" placeholder="newsletter">-->
-        </mat-card-content>
-      </mat-card>
-    <div mat-dialog-actions>
-    <button mat-button color="primary" [disabled]="clientForm.invalid" [mat-dialog-close]="1" (click)="confirmEdit()">Valider</button>
+  <mat-form-field>
+    <input
+      type="text"
+      matInput
+      class="form-control"
+      formControlName="prenom"
+      placeholder="Prénom"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      type="text"
+      matInput
+      class="form-control"
+      formControlName="nom"
+      placeholder="Nom"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      type="text"
+      matInput
+      class="form-control"
+      formControlName="mail"
+      placeholder="Email"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      type="text"
+      matInput
+      class="form-control"
+      formControlName="tel"
+      placeholder="Téléphone"
+    />
+  </mat-form-field>
+  <mat-card-content>
+    <mat-checkbox
+      mat-raised-button
+      class="form-control"
+      formControlName="newsletter"
+      [(ngModel)]="checked"
+      >Newsletter</mat-checkbox
+    >
+  </mat-card-content>
+  <div mat-dialog-actions>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="clientForm.invalid"
+      [mat-dialog-close]="1"
+      (click)="confirmEdit()"
+    >
+      Valider
+    </button>
     <button mat-button color="basic" (click)="onNoClick()">Annuler</button>
-    </div>
+  </div>
 </form>

@@ -140,7 +140,7 @@ await callApiFree("/route","METHODE",data?);
 Si nous utilisons GET nous passerons nos données comme ça:
 
 ```ts
-await callApiFree(`/testGet?id=${3 + 3}`, "GET");a
+await callApiFree(`/testGet?id=${3 + 3}`, "GET");
 ```
 
 ❔`/route${4+3}` , L'utilisation de ${} et des backticks permet d'écrire du code TS dans une string
