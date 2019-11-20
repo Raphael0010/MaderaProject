@@ -9,7 +9,6 @@ h1 {
 .mat-form-field {
     font-size: 14px;
     width: 10%;
-    margin-top: 10px ;
 }
 
 th.mat-header-cell {
@@ -24,7 +23,11 @@ td.mat-cell {
 
 .btn-content {
     display: flex ;
-    justify-content: space-around ;
+    justify-content: flex-start;
     border-bottom-style : none ;
-    margin : 5px ;
+    margin-left: 20% ;
+}
+
+.actionBtn {
+  margin-left: 0.5em ;
 }
