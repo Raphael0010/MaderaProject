@@ -1,8 +1,8 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import { callApiFree } from "src/app/core/ApiCall";
 import { Router } from "@angular/router";
-import { Login } from "src/app/core/Connexion";
+import { Login, TestLogin } from "src/app/core/Connexion";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { SnackBarComponent } from "src/app/shared/snack-bar/snack-bar.component";
 
@@ -11,7 +11,7 @@ import { SnackBarComponent } from "src/app/shared/snack-bar/snack-bar.component"
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.css"]
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm;
   data: boolean;
   messageError = "";
@@ -25,6 +25,12 @@ export class LoginComponent {
       username: "",
       password: ""
     });
+  }
+
+  ngOnInit() {
+    if (TestLogin()) {
+      this.router.navigateByUrl("/client");
+    }
   }
 
   async onSubmit(userData) {

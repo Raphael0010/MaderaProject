@@ -55,8 +55,7 @@ describe("DevisComponent", () => {
         MaterialModule,
         MatTableModule
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -8,3 +8,11 @@ body {
 .center {
   text-align: center;
 }
+
+.active {
+  background-color: #5262bc;
+}
+
+.active-mobile {
+  background-color: #cccccc;
+}

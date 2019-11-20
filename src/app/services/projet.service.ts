@@ -6,44 +6,43 @@ import { callApiFree } from "../core/ApiCall";
   providedIn: "root"
 })
 export class ProjetService {
+  projets: Projet[] = [];
 
-  projets: Projet[] = [] ;
-
-  constructor() { }
+  constructor() {}
 
   async addProjet(projet: Projet) {
     const data = {
-      nom : projet.nom,
+      nom: projet.nom,
       client: projet.idClient,
-      date : projet.dateCreation,
+      date: projet.dateCreation,
       id_comm: 1
-    } ;
-    const add = await callApiFree("/projet", "POST", data) ;
+    };
+    await callApiFree("/projet", "POST", data);
   }
 
   async getAllProjets() {
     this.projets = await callApiFree("/projet", "GET");
-    return this.projets ;
+    return this.projets;
   }
 
   async editProjet(projet: Projet) {
-    console.log(projet) ;
+    console.log(projet);
     const data = {
       id: projet.id,
-      nom : projet.nom,
+      nom: projet.nom,
       client: projet.idClient,
-      date : projet.dateCreation,
-      id_comm : 1
-    } ;
-    const edit = await callApiFree("/edit/projet", "POST", data) ;
-    console.log(edit) ;
+      date: projet.dateCreation,
+      id_comm: 1
+    };
+    const edit = await callApiFree("/edit/projet", "POST", data);
+    console.log(edit);
   }
 
   async deleteProjet(idProjet: number) {
-    console.log(idProjet) ;
+    console.log(idProjet);
     const data = {
       id: idProjet
-    } ;
-    const edit = await callApiFree("/delete/projet", "POST", data) ;
+    };
+    const edit = await callApiFree("/delete/projet", "POST", data);
   }
 }

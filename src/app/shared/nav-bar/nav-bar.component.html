@@ -9,11 +9,21 @@
       <img width="180" alt="madera Logo" src="assets/img/logo.png" />
     </a>
     <div style="flex:10" fxShow="true" fxHide.lt-md="true">
-      <a mat-button routerLink="/client">Clients</a>
-      <a mat-button routerLink="/projet">Projets</a>
-      <a mat-button routerLink="/stocks">Gestion des stocks</a>
-      <a mat-button routerLink="/devis">Devis</a>
-      <a class="username" mat-button><mat-icon>face</mat-icon>{{ username }} </a>
+      <a mat-button routerLink="/client" [routerLinkActive]="['active']"
+        >Clients</a
+      >
+      <a mat-button routerLink="/projet" [routerLinkActive]="['active']"
+        >Projets</a
+      >
+      <a mat-button routerLink="/stocks" [routerLinkActive]="['active']"
+        >Gestion des stocks</a
+      >
+      <a mat-button routerLink="/devis" [routerLinkActive]="['active']"
+        >Devis</a
+      >
+      <a class="username" mat-button
+        ><mat-icon>face</mat-icon>{{ username }}
+      </a>
     </div>
     <div class="deconnexion">
       <a mat-button (click)="logout()"
@@ -35,10 +45,18 @@
         <a mat-button (click)="sidenav.toggle()">
           <mat-icon>menu</mat-icon> Madera</a
         >
-        <a mat-button routerLink="/clients" routerLinkActive="active-link">Clients</a>
-        <a mat-button routerLink="/projets" routerLinkActive="active-link">Projets</a>
-        <a mat-button routerLink="/stocks" routerLinkActive="active-link">Gestion des stocks</a>
-        <a mat-button routerLink="/devis" routerLinkActive="active-link">Devis</a>
+        <a mat-button routerLink="/client" routerLinkActive="active-mobile"
+          >Clients</a
+        >
+        <a mat-button routerLink="/projets" routerLinkActive="active-mobile"
+          >Projets</a
+        >
+        <a mat-button routerLink="/stocks" routerLinkActive="active-mobile"
+          >Gestion des stocks</a
+        >
+        <a mat-button routerLink="/devis" routerLinkActive="active-mobile"
+          >Devis</a
+        >
         <a mat-button><mat-icon>face</mat-icon>{{ username }} </a>
         <a mat-button (click)="logout()">Déconnexion</a>
       </div>
