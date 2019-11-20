@@ -43,6 +43,7 @@
     <td mat-cell *matCellDef="let projet">
       <div class="btn-content">
         <button
+          class="actionBtn"
           mat-raised-button
           color="primary"
           [routerLink]="['/plan', projet.id]"
@@ -50,6 +51,7 @@
           Voir projet
         </button>
         <button
+          class="actionBtn"
           mat-raised-button
           color="accent"
           (click)="
@@ -64,6 +66,7 @@
           Modifier
         </button>
         <button
+          class="actionBtn"
           mat-raised-button
           color="warn"
           (click)="deleteProjet(projet.id)"
