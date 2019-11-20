@@ -4,6 +4,7 @@ import { Devis } from "../../models/devis.models";
 import { MatTableDataSource, MatDialog } from "@angular/material";
 import { DialogDeleteComponent } from "src/app/shared/dialog-delete/dialog-delete.component";
 import { ModaliteDePaiementComponent } from "src/app/components/devis/dialog/modalite-de-paiement/modalite-de-paiement.component";
+import { Router } from "@angular/router";
 
 const MODALITE_PAIEMENT = [
   { etapes: "A la signature", somme: "3%" },
@@ -26,7 +27,7 @@ export class DevisComponent implements OnInit {
   dsDevis: MatTableDataSource<Devis>;
   devis: Devis[] = [];
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private router: Router) {
     this.dsDevis = new MatTableDataSource<Devis>();
   }
 
@@ -35,7 +36,11 @@ export class DevisComponent implements OnInit {
   }
 
   imprimer(id: number) {
-    alert("J'imprime le" + id);
+    return window.print();
+  }
+
+  show(id: number) {
+    this.router.navigate([`/devis/${id}`]);
   }
 
   deleteDevis(id: number): void {
