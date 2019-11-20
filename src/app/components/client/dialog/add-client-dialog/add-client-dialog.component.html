@@ -6,16 +6,19 @@
       <input type="text" matInput class="form-control" formControlName="nom" placeholder="nom">
     </mat-form-field>
     <mat-form-field>
-      <input type="text" matInput class="form-control" formControlName="mail" placeholder="email">
+      <input type="text" matInput class="form-control" formControlName="mail" placeholder="email" ngModel [email]="true">
     </mat-form-field>
     <mat-form-field>
-      <input type="text" matInput class="form-control" formControlName="tel" placeholder="téléphone">
+      <input type="text" matInput class="form-control" formControlName="tel" placeholder="téléphone" maxlength="10">
     </mat-form-field>
-    <mat-form-field>
-      <input type="text" matInput class="form-control" formControlName="newsletter" placeholder="newsletter">
-    </mat-form-field>
+    <mat-card>
+      <mat-card-content>
+        <mat-checkbox class="form-control" formControlName="newsletter" [(ngModel)]="checked">Newsletter</mat-checkbox>
+      <!--<input type="text" matInput class="form-control" formControlName="newsletter" placeholder="newsletter">-->
+      </mat-card-content>
+    </mat-card>
     <div mat-dialog-actions>
-    <button mat-button [disabled]="clientForm.invalid" [mat-dialog-close]="1" (click)="confirmAdd()">Valider</button>
-    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button [disabled]="clientForm.invalid" color="primary" [mat-dialog-close]="1" (click)="confirmAdd()">Valider</button>
+    <button mat-button color="basic" (click)="onNoClick()">Annuler</button>
     </div>
 </form>

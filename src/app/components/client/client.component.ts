@@ -29,6 +29,10 @@ export class ClientComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.clients);
   }
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   addNewClient() {
     const dialogRef = this.dialog.open(AddClientDialogComponent, {
       height: "500px",

@@ -1,4 +1,13 @@
 <h1>Gestion des clients</h1>
+<mat-form-field>
+    <input
+      matInput
+      (keyup)="applyFilter($event.target.value)"
+      placeholder="Client"
+      matTooltip="Rechercher un client"
+      [matTooltipPosition]="'right'"
+    />
+  </mat-form-field>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <!-- Name Column -->
   <ng-container matColumnDef="id">
@@ -23,7 +32,10 @@
   </ng-container>
   <ng-container matColumnDef="newsletter">
     <th mat-header-cell *matHeaderCellDef>Newsletter</th>
-    <td mat-cell *matCellDef="let client">{{ client.newsletter }}</td>
+    <td mat-cell *matCellDef="let client">
+      <div *ngIf="client.newsletter==='0'">X</div>
+      <div *ngIf="client.newsletter==='1'">abonné(e)</div>
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="buttons">
