@@ -1,5 +1,6 @@
 const env = require('dotenv').config()
 const express = require('express');
+const moment = require('moment');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = express();
@@ -119,8 +120,9 @@ app.post("/projet", (req,res) => {
 });
 
 app.post("/edit/projet", (req,res) => {
+  let dateTimeZone = moment.tz(req.body.date,"Europe/Paris").format('YYYY-MM-DD hh:mm:ss');
   sequelize.query("UPDATE projet SET nom_projet = :projet, creation = :date, id_comm = :comm, id_client = :client WHERE id_projet = :id",
-  {replacements: {id: req.body.id, projet: req.body.nom, date: new Date(req.body.date), client: req.body.client, comm: 1}
+  {replacements: {id: req.body.id, projet: req.body.nom, date: dateTimeZone, client: req.body.client, comm: 1}
   })
   .then(projets => {
     res.send(JSON.stringify(projets)) ;
@@ -155,8 +157,10 @@ app.get("/plan/:id", (req,res) => {
 
 app.post("/plan/:id", (req,res) => {
   const id = parseInt(req.params.id, 10) ;
+  let dateTimeZone = moment.tz(req.body.dateCreation,"Europe/Paris").format('YYYY-MM-DD hh:mm:ss');
+
   sequelize.query("INSERT INTO plan (creation, nb_piece, nb_chambre, nb_etage, surface, id_projet) VALUES (:date, :nbPiece, :nbChambre, :nbEtage, :surface, :projet)",
-  {replacements: {date: new Date(req.body.dateCreation), nbPiece: req.body.nbPieces, nbChambre: req.body.nbChambres, nbEtage: req.body.nbEtage, surface: req.body.surface, projet: id}
+  {replacements: {date: dateTimeZone, nbPiece: req.body.nbPieces, nbChambre: req.body.nbChambres, nbEtage: req.body.nbEtage, surface: req.body.surface, projet: id}
   })
   .then(plan => {
     res.send(JSON.stringify(plan)) ;
@@ -164,8 +168,9 @@ app.post("/plan/:id", (req,res) => {
 });
 
 app.post("/edit/plan/:id", (req,res) => {
+  let dateTimeZone = moment.tz(req.body.dateCreation,"Europe/Paris").format('YYYY-MM-DD hh:mm:ss');
   sequelize.query("UPDATE plan SET creation = :date, nb_piece = :nbPiece, nb_chambre = :nbChambre, nb_etage = :nbEtage, surface = :surface WHERE id_plan = :id",
-  {replacements: {id: req.body.id, date: new Date(req.body.dateCreation), nbPiece: req.body.nbPieces, nbChambre: req.body.nbChambres, nbEtage: req.body.nbEtage, surface: req.body.surface}
+  {replacements: {id: req.body.id, date: dateTimeZone, nbPiece: req.body.nbPieces, nbChambre: req.body.nbChambres, nbEtage: req.body.nbEtage, surface: req.body.surface}
   })
   .then(plan => {
     res.send(JSON.stringify(plan)) ;
