@@ -100,12 +100,13 @@ app.get("/projet", (req,res) => {
 });
 
 app.post("/projet", (req,res) => {
+  let dateTimeZone = moment.tz(req.body.date,"Europe/Paris").format('YYYY-MM-DD hh:mm:ss');
   sequelize.query(`SELECT id_comm FROM commercial WHERE nom = "${req.body.nom_comm}"`,
     {type: sequelize.QueryTypes.SELECT})
     .then(commercial => {
       const idComm = commercial[0].id_comm ;
       sequelize.query("INSERT INTO projet (nom_projet, creation, id_comm, id_client) VALUES (:projet, :date, :comm, :client)",
-      {replacements: {projet: req.body.nom, date: new Date(req.body.date), client: req.body.client, comm: idComm}
+      {replacements: {projet: req.body.nom, date:dateTimeZone, client: req.body.client, comm: idComm}
       })
       .then(projets => {
         const newIdProject = projets[0] ;
@@ -158,7 +159,6 @@ app.get("/plan/:id", (req,res) => {
 app.post("/plan/:id", (req,res) => {
   const id = parseInt(req.params.id, 10) ;
   let dateTimeZone = moment.tz(req.body.dateCreation,"Europe/Paris").format('YYYY-MM-DD hh:mm:ss');
-
   sequelize.query("INSERT INTO plan (creation, nb_piece, nb_chambre, nb_etage, surface, id_projet) VALUES (:date, :nbPiece, :nbChambre, :nbEtage, :surface, :projet)",
   {replacements: {date: dateTimeZone, nbPiece: req.body.nbPieces, nbChambre: req.body.nbChambres, nbEtage: req.body.nbEtage, surface: req.body.surface, projet: id}
   })

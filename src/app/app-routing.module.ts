@@ -9,6 +9,7 @@ import { ClientComponent } from "./components/client/client.component";
 import { GestionStockComponent } from "./components/gestion-stock/gestion-stock.component";
 import { AuthGuardService } from "./services/auth-guard.service";
 import { VoirDevisComponent } from "./components/devis/voir-devis/voir-devis.component";
+import { TreeComposantComponent } from './components/plan/tree/tree-composant/tree-composant.component';
 
 /**
  * Gestion des routes
@@ -43,12 +44,16 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
     component: ClientComponent
   },
+  {
+    path: "tree",
+    component: TreeComposantComponent,
+  },
   { path: "", redirectTo: "/login", pathMatch: "full" },
   { path: "**", component: PageNotFoundComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule {}
