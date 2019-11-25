@@ -13,7 +13,7 @@ import { EditStockDialogComponent } from './dialog/edit-stock-dialog/edit-stock-
 })
 export class GestionStockComponent implements OnInit {
 
-  dcStock: string[] = ["composant", "fournisseur", "quantity", "buttons"];
+  dcStock: string[] = ["composant", "fournisseur", "quantity","unite", "buttons"];
 
   dsStock: MatTableDataSource<Stock>;
   stock: Stock[] = [];

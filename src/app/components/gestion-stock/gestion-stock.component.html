@@ -3,18 +3,25 @@
 <table mat-table [dataSource]="dsStock" class="mat-elevation-z8">
   <ng-container matColumnDef="composant">
     <th mat-header-cell *matHeaderCellDef>Référence du composant</th>
-    <td mat-cell *matCellDef="let element">{{ element.composant }}</td>
+    <td mat-cell *matCellDef="let stock">{{ stock.composant }}</td>
   </ng-container>
 
   <ng-container matColumnDef="fournisseur">
     <th mat-header-cell *matHeaderCellDef>Fournisseur</th>
-    <td mat-cell *matCellDef="let element">{{ element.fournisseur }}</td>
+    <td mat-cell *matCellDef="let stock">{{ stock.fournisseur }}</td>
   </ng-container>
 
   <ng-container matColumnDef="quantity">
     <th mat-header-cell *matHeaderCellDef>Quantité disponible</th>
-    <td mat-cell *matCellDef="let element">
-      {{ element.quantity }}
+    <td mat-cell *matCellDef="let stock">
+      {{ stock.quantity }}
+
+    </td>
+  </ng-container>
+   <ng-container matColumnDef="unite">
+    <th mat-header-cell *matHeaderCellDef>Unité</th>
+    <td mat-cell *matCellDef="let stock">
+      {{ stock.unite }}
 
     </td>
   </ng-container>
@@ -29,15 +36,15 @@
         >
       </button>
     </th>
-    <td mat-cell *matCellDef="let client">
+    <td mat-cell *matCellDef="let stock">
       <div class="btn-content">
-        <button mat-raised-button color="accent" (click)="editStock()">
+        <button mat-raised-button color="accent" (click)="editStock(stock)">
           Modifier
         </button>
         <button
           mat-raised-button
           color="warn"
-          (click)="deleteClient(client.id)"
+          (click)="deleteClient(stock.id)"
         >
           Supprimer
         </button>

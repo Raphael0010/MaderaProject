@@ -140,7 +140,7 @@ app.post("/delete/projet", (req,res) => {
 
 // ------ Stocks --------
 app.get("/listStocks", (req,res) => {
-  sequelize.query("SELECT caracteristiques as composant, nom as fournisseur, CONCAT(quantite, ' ', unite_usage) as quantity  FROM composant, fournisseur, fournir, stocks_composants WHERE composant.id_composant = fournir.id_composant and fournisseur.id_fournisseur = fournir.id_fournisseur and composant.id_composant = stocks_composants.id_composant", { type: sequelize.QueryTypes.SELECT})
+  sequelize.query("SELECT caracteristiques as composant, nom as fournisseur, quantite as quantity, unite_usage as unite  FROM composant, fournisseur, fournir, stocks_composants WHERE composant.id_composant = fournir.id_composant and fournisseur.id_fournisseur = fournir.id_fournisseur and composant.id_composant = stocks_composants.id_composant", { type: sequelize.QueryTypes.SELECT})
   .then(users => {
     res.send(JSON.stringify(users))
   });

@@ -13,4 +13,13 @@ export class GestionStockService {
     this.stocks = await callApiFree("/listStocks", "GET");
     return this.stocks;
   }
+
+  async editStock(stocks: Stock) {
+    const data = {
+      id: stocks.id,
+      refComposant: stocks.composant,
+      quantity: stocks.quantity
+    };
+    const add = await callApiFree("/edit/stock", "POST", data);
+  }
 }

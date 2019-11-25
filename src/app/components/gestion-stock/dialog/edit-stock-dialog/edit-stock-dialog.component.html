@@ -1,15 +1,10 @@
 <form [formGroup]="stockForm" class="form-container">
 
     <mat-form-field>
-        <mat-label>Composant</mat-label>
-        <mat-select formControlName="composant">
-          <mat-option *ngFor="let composant of composants" [value]="composant.id_composant">
-            {{composant.caracteristiques}}
-          </mat-option>
-        </mat-select>
+        <input type="text" matInput formControlName="composant" placeholder="Composant">
     </mat-form-field>
     <mat-form-field>
-        <input type="text" matInput formControlName="quantite" placeholder="Quantité">
+        <input type="text" matInput formControlName="quantity" placeholder="Quantité">
     </mat-form-field>
     <div mat-dialog-actions>
         <button class="btn-dialog" mat-raised-button type="submit" [disabled]="stockForm.invalid" (click)="confirmEdit()" [mat-dialog-close]="1">Modifier</button>
