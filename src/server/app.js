@@ -145,7 +145,13 @@ app.get("/listStocks", (req,res) => {
     res.send(JSON.stringify(users))
   });
 });
-
+app.post("/edit/stock/:id", (req,res) => {
+  sequelize.query("UPDATE stocks_composants SET quantity = :quantity WHERE id_composant = :id",
+  {replacements: {}
+  })
+  .then(stock => {
+    stock  });
+});
 // ------ Plan ----------
 app.get("/plan/:id", (req,res) => {
   sequelize.query(`SELECT id_plan AS id, creation AS dateCreation, nb_piece AS nbPieces, nb_chambre AS nbChambres, nb_etage AS nbEtage, surface, id_devis AS idDevis, id_projet AS idProjet FROM plan WHERE id_projet = ${req.params.id}`,
