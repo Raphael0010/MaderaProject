@@ -23,13 +23,24 @@ export class EditStockDialogComponent implements OnInit {
   ngOnInit() {
     this.initForm() ;
     this.stock.id = this.data.id;
+    console.log(this.data.stock.id)
   }
 
   initForm() {
     this.stockForm = this.formBuilder.group({
+      id : [this.data.stock.id],
       composant: [this.data.stock.composant],
       quantity: [this.data.stock.quantity]
     });
   }
-
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  confirmEdit(): void {
+    const formValue = this.stockForm.value;
+    this.stock.id = this.data.stock.id;
+    this.stock.composant = formValue.composant;
+    this.stock.quantity = formValue.quantity;
+    this.stockService.editStock(this.stock);
+  }
 }

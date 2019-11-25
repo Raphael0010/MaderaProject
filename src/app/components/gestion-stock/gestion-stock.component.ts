@@ -25,8 +25,10 @@ export class GestionStockComponent implements OnInit {
   async ngOnInit() {
     this.stock = await this.stockService.getAllStocks();
     this.dsStock.data = this.stock;
+    console.log(this.stock);
   }
   editStock(stock: Stock) {
+    console.log(stock.id);
     const dialogRef = this.dialog.open(EditStockDialogComponent, {
       height: "400px",
       width: "600px",

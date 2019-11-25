@@ -6,20 +6,21 @@ import { callApiFree } from "../core/ApiCall";
   providedIn: 'root'
 })
 export class GestionStockService {
-  stocks: Stock[] = [];
+  stock: Stock[] = [];
 
   constructor() { }
   async getAllStocks() {
-    this.stocks = await callApiFree("/listStocks", "GET");
-    return this.stocks;
+    this.stock = await callApiFree("/listStocks", "GET");
+    return this.stock;
   }
 
-  async editStock(stocks: Stock) {
+  async editStock(stock: Stock) {
+    console.log(stock) ;
     const data = {
-      id: stocks.id,
-      refComposant: stocks.composant,
-      quantity: stocks.quantity
+      id: stock.id,
+      composant: stock.composant,
+      quantity: stock.quantity
     };
-    const add = await callApiFree("/edit/stock", "POST", data);
+    const add = await callApiFree("/edit/stock/" + stock.id, "POST", data);
   }
 }
