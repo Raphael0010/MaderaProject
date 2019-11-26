@@ -42,5 +42,6 @@ export class EditStockDialogComponent implements OnInit {
     this.stock.composant = formValue.composant;
     this.stock.quantity = formValue.quantity;
     this.stockService.editStock(this.stock);
+    console.log(this.data.stock) ;
   }
 }

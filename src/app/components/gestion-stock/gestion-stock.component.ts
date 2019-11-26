@@ -28,7 +28,7 @@ export class GestionStockComponent implements OnInit {
     console.log(this.stock);
   }
   editStock(stock: Stock) {
-    console.log(stock.id);
+    console.log(stock);
     const dialogRef = this.dialog.open(EditStockDialogComponent, {
       height: "400px",
       width: "600px",
