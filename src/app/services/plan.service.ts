@@ -25,12 +25,10 @@ export class PlanService {
 
   async getPlanById(id: number) {
     this.plans = await callApiFree("/plan/" + id, "GET");
-    console.log(this.plans) ;
     return this.plans ;
   }
 
   async editPlan(plan: Plan) {
-    console.log(plan) ;
     const data = {
       id: plan.id,
       dateCreation: plan.dateCreation,
@@ -40,11 +38,9 @@ export class PlanService {
       surface: plan.surface
     } ;
     const edit = await callApiFree("/edit/plan/" + plan.id, "POST", data) ;
-    console.log(edit) ;
   }
 
   async deletePlan(idPlan: number) {
-    console.log(idPlan) ;
     const data = {
       id: idPlan
     } ;

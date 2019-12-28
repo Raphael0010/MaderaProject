@@ -1,6 +1,7 @@
 import {FlatTreeControl} from "@angular/cdk/tree";
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {MatTreeFlatDataSource, MatTreeFlattener} from "@angular/material/tree";
+import { callApiFree } from "./../../../../core/ApiCall";
 
 /**
  * Food data with nested structure.
@@ -72,7 +73,7 @@ const files = [
   styleUrls: ["./tree-composant.component.css"]
 })
 
-export class TreeComposantComponent {
+export class TreeComposantComponent implements OnInit {
 
   /** The TreeControl controls the expand/collapse state of tree nodes.  */
   treeControl: FlatTreeControl<TreeNode>;
@@ -83,6 +84,10 @@ export class TreeComposantComponent {
   /** The MatTreeFlatDataSource connects the control and flattener to provide data. */
   dataSource: any ;
 
+  familles: any ;
+
+  composants: any ;
+
   constructor() {
     this.treeFlattener = new MatTreeFlattener(
       this.transformer,
@@ -92,7 +97,37 @@ export class TreeComposantComponent {
 
     this.treeControl = new FlatTreeControl<TreeNode>(this.getLevel, this.isExpandable);
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-    this.dataSource.data = files;
+  }
+
+  async ngOnInit() {
+    this.familles = await callApiFree("/famille", "GET") ;
+    this.composants = await callApiFree("/listStocks", "GET") ;
+    const fonction = (elem) => {
+      if(elem.id_fam === 1) {
+        return elem.composant ;
+      }
+    } ;
+    const test = this.familles.map(famille => {
+                return this.composants.filter(composant => {
+                  if (composant.id_fam === famille.id) {
+                    return composant ;
+                  }
+                });
+    }) ;
+    const tesT = this.composants.filter(fonction) ;
+    console.log(tesT) ;
+    const filesTest = this.familles.map(famille => {
+      const comp = this.composants.filter(fonction) ;
+      const compComp = this.composants.map(elem => {
+        return {name: elem.composant} ;
+      }) ;
+      return {name: famille.libelle,
+              type: "folder",
+              children: compComp
+      } ;
+    }) ;
+    console.log(filesTest) ;
+    this.dataSource.data = filesTest;
   }
 
   /** Transform the data to something the tree can read. */

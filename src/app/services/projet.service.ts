@@ -26,7 +26,6 @@ export class ProjetService {
   }
 
   async editProjet(projet: Projet) {
-    console.log(projet);
     const data = {
       id: projet.id,
       nom: projet.nom,
@@ -35,11 +34,9 @@ export class ProjetService {
       id_comm: 1
     };
     const edit = await callApiFree("/edit/projet", "POST", data);
-    console.log(edit);
   }
 
   async deleteProjet(idProjet: number) {
-    console.log(idProjet);
     const data = {
       id: idProjet
     };

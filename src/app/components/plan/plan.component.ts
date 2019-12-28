@@ -40,16 +40,15 @@ export class PlanComponent implements OnInit {
 
   addNewPlan() {
     const dialogRef = this.dialog.open(AddPlanDialogComponent, {
-      height: "500px",
-      width: "400px",
+      height: "800px",
+      width: "600px",
       data: {idProjet: this.idProjet}
     });
 
     dialogRef.afterClosed().subscribe(async result => {
       if (result === 1) {
-        console.log("ok") ;
         this.plans = await this.planService.getPlanById(this.idProjet) ;
-        if (this.plans.length < 1) {
+        if (this.plans.length === 1) {
           this.count = 1 ;
         }
         this.dataSource = new MatTableDataSource(this.plans);
@@ -77,6 +76,7 @@ export class PlanComponent implements OnInit {
     await this.planService.deletePlan(id) ;
     this.plans = await this.planService.getPlanById(this.idProjet) ;
     this.dataSource = new MatTableDataSource(this.plans);
+    this.count = 0 ;
   }
 
 

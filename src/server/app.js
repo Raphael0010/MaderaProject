@@ -22,7 +22,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get("/listClients", (req,res) => {
-  sequelize.query("SELECT id_cli as id, nom, prenom, mail, tel, newsletter FROM client", { type: sequelize.QueryTypes.SELECT})
+  sequelize.query("SELECT id_cli as id, nom, prenom, mail, tel, newsletter FROM client",
+  { type: sequelize.QueryTypes.SELECT})
   .then(users => {
     res.send(JSON.stringify(users))
   });
@@ -52,15 +53,6 @@ app.get("/deleteClient/:id", (req,res) => {
     res.send(JSON.parse("{\"code\":200}"))
   });
 })
-
-// ------ Client ----------
-app.get("/client", (req,res) => {
-  sequelize.query("SELECT id_cli, nom AS nomClient, client.prenom AS prenomClient FROM client",
-  { type: sequelize.QueryTypes.SELECT})
-  .then(clients => {
-    res.send(JSON.stringify(clients)) ;
-  });
-});
 
 
 // ------ Login ----------
@@ -141,9 +133,46 @@ app.post("/delete/projet", (req,res) => {
 
 // ------ Stocks --------
 app.get("/listStocks", (req,res) => {
-  sequelize.query("SELECT caracteristiques as composant, nom as fournisseur, CONCAT(quantite, ' ', unite_usage) as quantity  FROM composant, fournisseur, fournir, stocks_composants WHERE composant.id_composant = fournir.id_composant and fournisseur.id_fournisseur = fournir.id_fournisseur and composant.id_composant = stocks_composants.id_composant", { type: sequelize.QueryTypes.SELECT})
-  .then(users => {
-    res.send(JSON.stringify(users))
+  sequelize.query("SELECT caracteristiques as composant, nom as fournisseur, CONCAT(quantite, ' ', unite_usage) as quantity, id_fam  FROM composant, fournisseur, fournir, stocks_composants WHERE composant.id_composant = fournir.id_composant and fournisseur.id_fournisseur = fournir.id_fournisseur and composant.id_composant = stocks_composants.id_composant",
+  {type: sequelize.QueryTypes.SELECT})
+  .then(stocks => {
+    res.send(JSON.stringify(stocks))
+  });
+});
+
+// ------ Famille composants --------
+app.get("/famille", (req,res) => {
+  sequelize.query("SELECT id_fam AS id, libelle_fam AS libelle FROM famille",
+  {type: sequelize.QueryTypes.SELECT})
+  .then(familles => {
+    res.send(JSON.stringify(familles))
+  });
+});
+
+// ------ Module --------
+app.get("/module", (req,res) => {
+  sequelize.query("SELECT id_module AS id, nom_module FROM module",
+  {type: sequelize.QueryTypes.SELECT})
+  .then(modules => {
+    res.send(JSON.stringify(modules))
+  });
+});
+
+// ------ Gamme --------
+app.get("/gamme", (req,res) => {
+  sequelize.query("SELECT id_gamme AS id, nom_gamme FROM gamme",
+  {type: sequelize.QueryTypes.SELECT})
+  .then(gammes => {
+    res.send(JSON.stringify(gammes))
+  });
+});
+
+// ------ Composant --------
+app.get("/composant", (req,res) => {
+  sequelize.query("SELECT composant.id_composant AS id, id_module, caracteristiques, id_fam, nombre_unite AS qte FROM composant INNER JOIN contenir_module_composant ON contenir_module_composant.id_composant = composant.id_composant",
+  {type: sequelize.QueryTypes.SELECT})
+  .then(composants => {
+    res.send(JSON.stringify(composants))
   });
 });
 

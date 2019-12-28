@@ -8,7 +8,8 @@ import {
   DateAdapter
 } from "@angular/material/core";
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS } from "@angular/material-moment-adapter";
-import { callApiFree } from "src/app/core/ApiCall";
+import { ClientService } from "./../../../../services/client.service";
+import { Client } from "./../../../../models/client.model";
 
 @Component({
   selector: "app-edit-projet-dialog",
@@ -25,14 +26,15 @@ export class EditProjetDialogComponent implements OnInit {
   projetForm: FormGroup;
   projet: Projet = new Projet();
 
-  clients = [];
+  clients: Client[] = [];
   // tslint:disable-next-line:max-line-length
   constructor(
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<EditProjetDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
     private projetService: ProjetService,
-    private adapter: DateAdapter<any>
+    private adapter: DateAdapter<any>,
+    private clientService: ClientService
   ) {
     this.adapter.setLocale("fr");
   }
@@ -40,7 +42,7 @@ export class EditProjetDialogComponent implements OnInit {
   async ngOnInit() {
     this.initForm() ;
     this.projet.id = this.data.id ;
-    this.clients = await callApiFree("/client", "GET") ;
+    this.clients = await this.clientService.getAllClients() ;
   }
 
   initForm() {
