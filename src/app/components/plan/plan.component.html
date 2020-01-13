@@ -32,6 +32,16 @@
     <td mat-cell *matCellDef="let plan">{{ plan.surface }}</td>
   </ng-container>
 
+  <!-- modules Column -->
+  <ng-container matColumnDef="modules">
+    <th mat-header-cell *matHeaderCellDef>Modules</th>
+    <td mat-cell *matCellDef="let plan">
+        <ul>
+            <li *ngFor="let module of modules"> {{module.nom}}</li>
+        </ul>
+    </td>
+  </ng-container>
+
   <ng-container matColumnDef="buttons">
     <th mat-header-cell *matHeaderCellDef>
       <button

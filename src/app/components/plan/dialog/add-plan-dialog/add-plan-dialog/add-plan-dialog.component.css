@@ -29,6 +29,7 @@ border : none ;
 
 table {
   width: 100%;
+  box-shadow: none;
 }
 
 th.mat-header-cell {

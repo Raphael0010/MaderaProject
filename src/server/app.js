@@ -84,8 +84,15 @@ app.get("/deleteDevis/:id", (req,res) => {
 
 // ------ Projet ----------
 app.get("/projet", (req,res) => {
-  sequelize.query("SELECT id_projet AS id, nom_projet AS nom, client.nom AS nomClient, client.prenom AS prenomClient, creation AS dateCreation, id_comm AS idComm, id_client AS idClient FROM projet INNER JOIN client ON projet.id_client = client.id_cli",
-  { type: sequelize.QueryTypes.SELECT})
+  sequelize.query(`SELECT id_projet AS id,
+                   nom_projet AS nom,
+                   client.nom AS nomClient,
+                   client.prenom AS prenomClient,
+                   creation AS dateCreation,
+                   id_comm AS idComm,
+                   id_client AS idClient
+                   FROM projet
+                   INNER JOIN client ON projet.id_client = client.id_cli`, {type: sequelize.QueryTypes.SELECT})
   .then(projets => {
     res.send(JSON.stringify(projets)) ;
   });
@@ -93,20 +100,33 @@ app.get("/projet", (req,res) => {
 
 app.post("/projet", (req,res) => {
   let dateTimeZone = moment.tz(req.body.date,"Europe/Paris").format('YYYY-MM-DD hh:mm:ss');
-  sequelize.query(`SELECT id_comm FROM commercial WHERE nom = "${req.body.nom_comm}"`,
+  sequelize.query(`SELECT id_comm
+                   FROM commercial
+                   WHERE nom = ${req.body.nom_comm}`,
     {type: sequelize.QueryTypes.SELECT})
     .then(commercial => {
       const idComm = commercial[0].id_comm ;
-      sequelize.query("INSERT INTO projet (nom_projet, creation, id_comm, id_client) VALUES (:projet, :date, :comm, :client)",
-      {replacements: {projet: req.body.nom, date:dateTimeZone, client: req.body.client, comm: idComm}
+      sequelize.query(`INSERT INTO projet (nom_projet, creation, id_comm, id_client)
+                       VALUES (:projet, :date, :comm, :client)`,
+      {
+        replacements: {
+          projet: req.body.nom,
+          date:dateTimeZone,
+          client: req.body.client,
+          comm: idComm}
       })
       .then(projets => {
         const newIdProject = projets[0] ;
-        sequelize.query("INSERT INTO concerner_client_projet(id_cli, id_projet) VALUES (:client, :projet)",
-        {replacements: {client: req.body.client, projet: newIdProject }
+        sequelize.query(`INSERT INTO concerner_client_projet(id_cli, id_projet)
+                         VALUES (:client, :projet)`,
+        {
+          replacements: {
+            client: req.body.client,
+            projet: newIdProject
+          }
         })
         .then(projets => {
-          res.send(JSON.stringify(projets)) ;
+          console.log(projets) ;
         });
       });
     });
@@ -114,17 +134,37 @@ app.post("/projet", (req,res) => {
 
 app.post("/edit/projet", (req,res) => {
   let dateTimeZone = moment.tz(req.body.date,"Europe/Paris").format('YYYY-MM-DD hh:mm:ss');
-  sequelize.query("UPDATE projet SET nom_projet = :projet, creation = :date, id_comm = :comm, id_client = :client WHERE id_projet = :id",
-  {replacements: {id: req.body.id, projet: req.body.nom, date: dateTimeZone, client: req.body.client, comm: 1}
-  })
-  .then(projets => {
-    res.send(JSON.stringify(projets)) ;
-  });
+  sequelize.query(`SELECT id_comm
+                   FROM commercial
+                   WHERE nom = ${req.body.nom_comm}`, {type: sequelize.QueryTypes.SELECT})
+    .then(commercial => {
+      const idComm = commercial[0].id_comm ;
+      sequelize.query(`UPDATE projet SET nom_projet = :projet,
+                      creation = :date,
+                      id_comm = :comm,
+                      id_client = :client
+                      WHERE id_projet = :id`,
+      {
+        replacements: {
+          id: req.body.id,
+          projet: req.body.nom,
+          date: dateTimeZone,
+          client: req.body.client,
+          comm: idComm
+        }
+      })
+      .then(projets => {
+        console.log(projets);
+      });
+    })
 });
 
 app.post("/delete/projet", (req,res) => {
-  sequelize.query("DELETE FROM projet WHERE id_projet = :id",
-  {replacements: {id: req.body.id}
+  sequelize.query(`DELETE FROM projet WHERE id_projet = :id`,
+  {
+    replacements: {
+      id: req.body.id
+    }
   })
   .then(projets => {
     res.send(JSON.stringify(projets)) ;
@@ -151,10 +191,38 @@ app.get("/famille", (req,res) => {
 
 // ------ Module --------
 app.get("/module", (req,res) => {
-  sequelize.query("SELECT id_module AS id, nom_module FROM module",
+  sequelize.query(`SELECT id_module AS id,
+                   nom_module AS nom
+                   FROM module`,
   {type: sequelize.QueryTypes.SELECT})
   .then(modules => {
     res.send(JSON.stringify(modules))
+  });
+});
+
+app.get("/plan/:id/module", (req,res) => {
+  console.log(req.params);
+  sequelize.query(`SELECT module.id_module AS id,
+                   module.nom_module AS nom
+                   FROM contenir_module_plan
+                   INNER JOIN module ON module.id_module = contenir_module_plan.id_module
+                   AND contenir_module_plan.id_plan = ${req.params.id}`, {type: sequelize.QueryTypes.SELECT})
+  .then(modules => {
+    res.send(JSON.stringify(modules))
+  });
+});
+
+app.post("/module", (req,res) => {
+  sequelize.query(`INSERT INTO contenir_module_plan (id_plan, id_module)
+                   VALUES (:id_plan, :id_module)`,
+  {
+    replacements: {
+      id_plan: req.body.id_plan,
+      id_module: req.body.id_module
+    }
+  })
+  .then(module_plan => {
+    res.send(JSON.stringify(module_plan)) ;
   });
 });
 
@@ -169,7 +237,12 @@ app.get("/gamme", (req,res) => {
 
 // ------ Composant --------
 app.get("/composant", (req,res) => {
-  sequelize.query("SELECT composant.id_composant AS id, id_module, caracteristiques, id_fam, nombre_unite AS qte FROM composant INNER JOIN contenir_module_composant ON contenir_module_composant.id_composant = composant.id_composant",
+  sequelize.query(`SELECT composant.id_composant AS id,
+                   id_module,
+                   caracteristiques,
+                   id_fam, nombre_unite AS qte
+                   FROM composant
+                   INNER JOIN contenir_module_composant ON contenir_module_composant.id_composant = composant.id_composant`,
   {type: sequelize.QueryTypes.SELECT})
   .then(composants => {
     res.send(JSON.stringify(composants))
@@ -178,8 +251,16 @@ app.get("/composant", (req,res) => {
 
 // ------ Plan ----------
 app.get("/plan/:id", (req,res) => {
-  sequelize.query(`SELECT id_plan AS id, creation AS dateCreation, nb_piece AS nbPieces, nb_chambre AS nbChambres, nb_etage AS nbEtage, surface, id_devis AS idDevis, id_projet AS idProjet FROM plan WHERE id_projet = ${req.params.id}`,
-  { type: sequelize.QueryTypes.SELECT})
+  sequelize.query(`SELECT id_plan AS id,
+                   creation AS dateCreation,
+                   nb_piece AS nbPieces,
+                   nb_chambre AS nbChambres,
+                   nb_etage AS nbEtage,
+                   surface,
+                   id_devis AS idDevis,
+                   id_projet AS idProjet
+                   FROM plan
+                   WHERE id_projet = ${req.params.id}`, { type: sequelize.QueryTypes.SELECT})
   .then(plan => {
     res.send(JSON.stringify(plan)) ;
   });
@@ -187,28 +268,86 @@ app.get("/plan/:id", (req,res) => {
 
 app.post("/plan/:id", (req,res) => {
   const id = parseInt(req.params.id, 10) ;
+  const listModule = req.body.listModule;
+  console.log(listModule);
   let dateTimeZone = moment.tz(req.body.dateCreation,"Europe/Paris").format('YYYY-MM-DD hh:mm:ss');
-  sequelize.query("INSERT INTO plan (creation, nb_piece, nb_chambre, nb_etage, surface, id_projet) VALUES (:date, :nbPiece, :nbChambre, :nbEtage, :surface, :projet)",
-  {replacements: {date: dateTimeZone, nbPiece: req.body.nbPieces, nbChambre: req.body.nbChambres, nbEtage: req.body.nbEtage, surface: req.body.surface, projet: id}
+  sequelize.query(`INSERT INTO plan (creation, nb_piece, nb_chambre, nb_etage, surface, id_projet)
+                   VALUES (:date, :nbPiece, :nbChambre, :nbEtage, :surface, :projet)`,
+  {
+    replacements: {
+      date: dateTimeZone,
+      nbPiece: req.body.nbPieces,
+      nbChambre: req.body.nbChambres,
+      nbEtage: req.body.nbEtage,
+      surface: req.body.surface,
+      projet: id
+    }
   })
   .then(plan => {
-    res.send(JSON.stringify(plan)) ;
+    const newIdPlan = plan[0] ;
+    listModule.forEach(module => {
+      sequelize.query(`INSERT INTO contenir_module_plan (id_plan, id_module)
+                       VALUES (:id_plan, :id_module)`,
+      {
+        replacements: {
+          id_plan: newIdPlan,
+          id_module: module.id
+        }
+      })
+      .then(plan => {
+        res.send(JSON.stringify(plan)) ;
+      });
+    });
   })
 });
 
 app.post("/edit/plan/:id", (req,res) => {
   let dateTimeZone = moment.tz(req.body.dateCreation,"Europe/Paris").format('YYYY-MM-DD hh:mm:ss');
-  sequelize.query("UPDATE plan SET creation = :date, nb_piece = :nbPiece, nb_chambre = :nbChambre, nb_etage = :nbEtage, surface = :surface WHERE id_plan = :id",
-  {replacements: {id: req.body.id, date: dateTimeZone, nbPiece: req.body.nbPieces, nbChambre: req.body.nbChambres, nbEtage: req.body.nbEtage, surface: req.body.surface}
+  const modules = req.body.modules;
+  sequelize.query(`UPDATE plan SET creation = :date,
+                   nb_piece = :nbPiece,
+                   nb_chambre = :nbChambre,
+                   nb_etage = :nbEtage,
+                   surface = :surface
+                   WHERE id_plan = :id`,
+  {replacements:
+    {
+      id: req.body.id,
+      date: dateTimeZone,
+      nbPiece: req.body.nbPieces,
+      nbChambre: req.body.nbChambres,
+      nbEtage: req.body.nbEtage,
+      surface: req.body.surface
+    }
   })
   .then(plan => {
-    res.send(JSON.stringify(plan)) ;
+    sequelize.query(`DELETE
+                     FROM contenir_module_plan
+                     WHERE id_plan = ${req.body.id}`)
+    .then(plan => {
+      modules.forEach(module => {
+        sequelize.query(`INSERT INTO contenir_module_plan (id_plan, id_module)
+                         VALUES (:id_plan, :id_module)`,
+        {replacements:
+          {
+            id_plan: req.body.id,
+            id_module: module.id
+          }
+        })
+        .then(plan => {
+          console.log(plan);
+        });
+      })
+    });
   });
 });
 
 app.post("/delete/plan", (req,res) => {
   sequelize.query("DELETE FROM plan WHERE id_plan = :id",
-  {replacements: {id: req.body.id}
+  {
+    replacements: {
+      id: req.body.id
+    }
   })
   .then(plan => {
     res.send(JSON.stringify(plan)) ;

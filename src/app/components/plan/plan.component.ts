@@ -6,6 +6,8 @@ import { PlanService } from "src/app/services/plan.service";
 import { AddPlanDialogComponent } from "./dialog/add-plan-dialog/add-plan-dialog/add-plan-dialog.component";
 import { EditPlanDialogComponent } from "./dialog/edit-plan-dialog/edit-plan-dialog/edit-plan-dialog.component";
 import { ActivatedRoute } from "@angular/router";
+import { Module } from "src/app/models/module.model";
+import { DataSource } from '@angular/cdk/table';
 
 
 @Component({
@@ -16,22 +18,21 @@ import { ActivatedRoute } from "@angular/router";
 export class PlanComponent implements OnInit {
 
   plans: Plan[] ;
+  modules: Module[];
   plan: Plan ;
   idProjet = 0 ;
   count = 0 ;
 
-  displayedColumns: string[] = ["dateCreation", "nbPieces", "nbChambres", "nbEtage", "surface", "buttons"];
-  dataSource ;
+  displayedColumns: string[] = ["dateCreation", "nbPieces", "nbChambres", "nbEtage", "surface", "modules", "buttons"];
+  dataSource: MatTableDataSource<Plan> ;
 
-  constructor(public dialog: MatDialog, private planService: PlanService, private route: ActivatedRoute) { }
+  constructor(public dialog: MatDialog, private planService: PlanService, private route: ActivatedRoute) {
+    this.dataSource = new MatTableDataSource<Plan>() ;
+  }
 
   async ngOnInit() {
     this.idProjet = parseInt(this.route.snapshot.params.id, 10);
-    this.plans = await this.planService.getPlanById(this.idProjet) ;
-    if (this.plans.length === 1) {
-      this.count = 1 ;
-    }
-    this.dataSource = new MatTableDataSource(this.plans);
+    this.getPlanById();
   }
 
   applyFilter(filterValue: string) {
@@ -58,15 +59,15 @@ export class PlanComponent implements OnInit {
 
   editPlan(id: number, dateCreation: Date, nbPieces: number, nbChambres: number, nbEtage: number, surface: number) {
     const dialogRef = this.dialog.open(EditPlanDialogComponent, {
-      height: "500px",
-      width: "400px",
+      height: "800px",
+      width: "600px",
       // tslint:disable-next-line:object-literal-shorthand
       data: {id: id, dateCreation: dateCreation, nbPieces: nbPieces, nbChambres: nbChambres, nbEtage: nbEtage, surface: surface }
     });
 
-    dialogRef.afterClosed().subscribe(async result => {
+    dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
-        this.plans = await this.planService.getPlanById(this.idProjet) ;
+        this.getPlanById() ;
         this.dataSource = new MatTableDataSource(this.plans);
       }
     });
@@ -77,6 +78,20 @@ export class PlanComponent implements OnInit {
     this.plans = await this.planService.getPlanById(this.idProjet) ;
     this.dataSource = new MatTableDataSource(this.plans);
     this.count = 0 ;
+  }
+
+  async getPlanById() {
+    this.plans = await this.planService.getPlanById(this.idProjet) ;
+    if (this.plans.length === 1) {
+      this.count = 1 ;
+    }
+    this.dataSource.data = this.plans;
+    this.getModulesByPlan();
+  }
+
+  async getModulesByPlan() {
+    this.modules = await this.planService.getModulesByPlan(this.plans[0]);
+    console.log(this.modules);
   }
 
 

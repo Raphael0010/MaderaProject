@@ -5,7 +5,8 @@ import { MAT_DATE_LOCALE, DateAdapter } from "@angular/material/core";
 import { Plan } from "src/app/models/plan.model";
 import { PlanService } from "src/app/services/plan.service";
 import { callApiFree } from "./../../../../../core/ApiCall";
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource } from "@angular/material";
+import { Module } from "src/app/models/module.model";
 
 @Component({
   selector: "app-add-plan-dialog",
@@ -21,26 +22,20 @@ export class AddPlanDialogComponent implements OnInit {
 
   planForm: FormGroup ;
   plan: Plan = new Plan();
-  modules: any ;
-  familles: any ;
-  composants: any ;
-  gammes: any ;
-  listComposants: any[] = [];
-  dataSource: MatTableDataSource<any> ;
-  displayedColumns: string[] = ["Composant", "Qte", "buttons"];
+  modules: Module[] ;
+  listModules: Module[] = [];
+  dataSource: MatTableDataSource<Module> ;
+  displayedColumns: string[] = ["Module", "buttons"];
 
 
   // tslint:disable-next-line:max-line-length
   constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<AddPlanDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private planService: PlanService, private adapter: DateAdapter<any>) {
     this.adapter.setLocale("fr");
-    this.dataSource = new MatTableDataSource<any>() ;
+    this.dataSource = new MatTableDataSource<Module>() ;
   }
 
   async ngOnInit() {
     this.getModule() ;
-    this.getFamille() ;
-    this.getGamme() ;
-    this.getComposant() ;
     this.initForm() ;
     this.plan.idProjet = this.data.idProjet ;
   }
@@ -52,10 +47,7 @@ export class AddPlanDialogComponent implements OnInit {
       nbChambres: ["", Validators.required],
       nbEtage: ["", Validators.required],
       surface: ["", Validators.required],
-      module: ["", Validators.required],
-      famille: ["", Validators.required],
-      gamme: ["", Validators.required],
-      composant: ["", Validators.required],
+      module: ["", Validators.required]
     });
 }
 
@@ -70,40 +62,21 @@ export class AddPlanDialogComponent implements OnInit {
     this.plan.nbChambres = formValue.nbChambres ;
     this.plan.nbEtage = formValue.nbEtage;
     this.plan.surface = formValue.surface;
-    this.planService.addPlan(this.plan);
+    this.planService.addPlan(this.plan, this.listModules);
   }
 
   async getModule(): Promise<void> {
     this.modules = await callApiFree("/module", "GET") ;
   }
 
-  async getFamille(): Promise<void> {
-    this.familles = await callApiFree("/famille", "GET") ;
+  addModule(module: Module): void {
+    this.listModules.push(module) ;
+    this.dataSource.data = this.listModules ;
   }
 
-  async getComposant(): Promise<void> {
-    this.composants = await callApiFree("/composant", "GET") ;
-  }
-
-  async getGamme(): Promise<void> {
-    this.gammes = await callApiFree("/gamme", "GET") ;
-  }
-
-  async filterByModule(idModule: number): Promise<void> {
-    const composantsApi = await callApiFree("/composant", "GET") ;
-    const famillesApi = await callApiFree("/famille", "GET") ;
-    this.composants = composantsApi.filter(comp => comp.id_module === idModule) ;
-    this.familles = famillesApi.filter(fam => this.composants.find(comp => comp.id_fam === fam.id)) ;
-  }
-
-  addComposant(composant: any): void {
-    this.listComposants.push(composant) ;
-    this.dataSource.data = this.listComposants ;
-  }
-
-  deleteComposant(composant: any): void {
-    const index = this.listComposants.indexOf(composant) ;
-    this.listComposants.splice(index, 1) ;
-    this.dataSource.data = this.listComposants ;
+  deleteModule(module: Module): void {
+    const index = this.listModules.indexOf(module) ;
+    this.listModules.splice(index, 1) ;
+    this.dataSource.data = this.listModules ;
   }
 }

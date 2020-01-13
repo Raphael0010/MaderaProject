@@ -20,66 +20,29 @@
       <mat-label>Modules</mat-label>
       <mat-select
         formControlName="module"
-        (selectionChange)="filterByModule($event.value)"
+        (selectionChange)="addModule($event.value)"
       >
         <mat-option
-          *ngFor="let module of modules" [value]="module.id"
+          *ngFor="let module of modules" [value]="module"
         >
-          {{module.nom_module}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Familles</mat-label>
-      <mat-select formControlName="famille">
-        <mat-option *ngFor="let famille of familles" [value]="famille.id">
-          {{famille.libelle}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Gammes</mat-label>
-      <mat-select formControlName="gamme">
-        <mat-option *ngFor="let gamme of gammes" [value]="gamme.id">
-          {{gamme.nom_gamme}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Composants</mat-label>
-      <mat-select
-        formControlName="composant"
-        (selectionChange)="addComposant($event.value)"
-      >
-        <mat-option *ngFor="let composant of composants" [value]="composant">
-          {{composant.caracteristiques}}
+          {{module.nom}}
         </mat-option>
       </mat-select>
     </mat-form-field>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <!-- Composant Column -->
-      <ng-container matColumnDef="Composant">
-        <th mat-header-cell *matHeaderCellDef>Composant</th>
-        <td mat-cell *matCellDef="let composant">
-          {{ composant.caracteristiques }}
-        </td>
-      </ng-container>
-
-      <!-- Qte Column -->
-      <ng-container matColumnDef="Qte">
-        <th mat-header-cell *matHeaderCellDef>Qte</th>
-        <td mat-cell *matCellDef="let composant">
-            <mat-form-field>
-                <input type="number" matInput class="form-control" [value]="composant.qte" min="0">
-            </mat-form-field>
+      <ng-container matColumnDef="Module">
+        <th mat-header-cell *matHeaderCellDef>Module</th>
+        <td mat-cell *matCellDef="let module">
+          {{ module.nom }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="buttons">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let composant">
+        <td mat-cell *matCellDef="let module">
           <div class="btn-content">
-            <button mat-raised-button color="warn" (click)="deleteComposant(composant)">
+            <button mat-raised-button color="warn" (click)="deleteModule(module)">
               Supprimer
             </button>
           </div>

@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Plan } from "../models/plan.model";
 import { callApiFree } from "../core/ApiCall";
+import { Module } from '../models/module.model';
 
 @Injectable({
   providedIn: "root"
@@ -11,15 +12,17 @@ export class PlanService {
 
   constructor() { }
 
-  async addPlan(plan: Plan) {
+  async addPlan(plan: Plan, listeModule: any[]) {
     const data = {
       id: plan.id,
       dateCreation: plan.dateCreation,
       nbPieces: plan.nbPieces,
       nbChambres: plan.nbChambres,
       nbEtage: plan.nbEtage,
-      surface: plan.surface
-    } ;
+      surface: plan.surface,
+      listModule: listeModule
+    };
+
     const add = await callApiFree("/plan/" + plan.idProjet, "POST", data) ;
   }
 
@@ -28,16 +31,17 @@ export class PlanService {
     return this.plans ;
   }
 
-  async editPlan(plan: Plan) {
+  async editPlan(plan: Plan, modules: Module[]) {
     const data = {
       id: plan.id,
       dateCreation: plan.dateCreation,
       nbPieces: plan.nbPieces,
       nbChambres: plan.nbChambres,
       nbEtage: plan.nbEtage,
-      surface: plan.surface
+      surface: plan.surface,
+      modules: modules
     } ;
-    const edit = await callApiFree("/edit/plan/" + plan.id, "POST", data) ;
+    const edit = await callApiFree(`/edit/plan/${plan.id}`, "POST", data) ;
   }
 
   async deletePlan(idPlan: number) {
@@ -45,5 +49,13 @@ export class PlanService {
       id: idPlan
     } ;
     const edit = await callApiFree("/delete/plan", "POST", data) ;
+  }
+
+  async getModulesByPlan(plan: Plan) {
+    const data = {
+      id: plan.id
+    };
+    const modules = await callApiFree(`/plan/${plan.id}/module`, "GET", data) ;
+    return modules;
   }
 }
