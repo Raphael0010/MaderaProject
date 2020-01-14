@@ -26,3 +26,22 @@ background-color: #27e327;
 background-color: rgba(0,0,0,.12);
 border : none ;
 }
+
+table {
+  width: 100%;
+  box-shadow: none;
+}
+
+th.mat-header-cell {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+td.mat-cell {
+  text-align: center;
+}
+
+::ng-deep .mat-form-field-infix {
+  width: 40px !important;
+}

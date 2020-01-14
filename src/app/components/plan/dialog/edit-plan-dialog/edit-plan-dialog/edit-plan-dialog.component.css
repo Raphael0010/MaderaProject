@@ -26,3 +26,8 @@ background-color: #27e327;
 background-color: rgba(0,0,0,.12);
 border : none ;
 }
+
+table {
+  width: 100%;
+  box-shadow: none;
+}

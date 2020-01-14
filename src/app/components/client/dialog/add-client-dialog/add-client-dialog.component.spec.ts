@@ -23,6 +23,7 @@ import { AppRoutingModule } from "src/app/app-routing.module";
 import { MaterialModule } from "src/app/material-module";
 import { MatTableModule, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { EditClientDialogComponent } from "../edit-client-dialog/edit-client-dialog.component";
+import { VoirDevisComponent } from "src/app/components/devis/voir-devis/voir-devis.component";
 
 describe("AddClientDialogComponent", () => {
   let component: AddClientDialogComponent;
@@ -48,7 +49,8 @@ describe("AddClientDialogComponent", () => {
         SnackBarComponent,
         ClientComponent,
         AddClientDialogComponent,
-        EditClientDialogComponent
+        EditClientDialogComponent,
+        VoirDevisComponent
       ],
       imports: [
         BrowserAnimationsModule,

@@ -13,7 +13,6 @@ export class ModaliteDePaiementComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource = this.data;
-    console.log(this.dataSource);
   }
 
   close() {

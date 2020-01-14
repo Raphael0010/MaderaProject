@@ -4,6 +4,9 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MAT_DATE_LOCALE, DateAdapter } from "@angular/material/core";
 import { Plan } from "src/app/models/plan.model";
 import { PlanService } from "src/app/services/plan.service";
+import { callApiFree } from "./../../../../../core/ApiCall";
+import { MatTableDataSource } from "@angular/material";
+import { Module } from "src/app/models/module.model";
 
 @Component({
   selector: "app-add-plan-dialog",
@@ -19,13 +22,20 @@ export class AddPlanDialogComponent implements OnInit {
 
   planForm: FormGroup ;
   plan: Plan = new Plan();
+  modules: Module[] ;
+  listModules: Module[] = [];
+  dataSource: MatTableDataSource<Module> ;
+  displayedColumns: string[] = ["Module", "buttons"];
+
 
   // tslint:disable-next-line:max-line-length
   constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<AddPlanDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private planService: PlanService, private adapter: DateAdapter<any>) {
     this.adapter.setLocale("fr");
+    this.dataSource = new MatTableDataSource<Module>() ;
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.getModule() ;
     this.initForm() ;
     this.plan.idProjet = this.data.idProjet ;
   }
@@ -37,6 +47,7 @@ export class AddPlanDialogComponent implements OnInit {
       nbChambres: ["", Validators.required],
       nbEtage: ["", Validators.required],
       surface: ["", Validators.required],
+      module: ["", Validators.required]
     });
 }
 
@@ -51,7 +62,21 @@ export class AddPlanDialogComponent implements OnInit {
     this.plan.nbChambres = formValue.nbChambres ;
     this.plan.nbEtage = formValue.nbEtage;
     this.plan.surface = formValue.surface;
-    console.log(this.plan) ;
-    this.planService.addPlan(this.plan);
+    this.planService.addPlan(this.plan, this.listModules);
+  }
+
+  async getModule(): Promise<void> {
+    this.modules = await callApiFree("/module", "GET") ;
+  }
+
+  addModule(module: Module): void {
+    this.listModules.push(module) ;
+    this.dataSource.data = this.listModules ;
+  }
+
+  deleteModule(module: Module): void {
+    const index = this.listModules.indexOf(module) ;
+    this.listModules.splice(index, 1) ;
+    this.dataSource.data = this.listModules ;
   }
 }

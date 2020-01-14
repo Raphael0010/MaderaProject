@@ -3,33 +3,25 @@ import { Client } from "src/app/models/client.model";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ClientService } from "src/app/services/client.service";
-import { MAT_DATE_LOCALE, DateAdapter } from "@angular/material/core";
 
 @Component({
   selector: "app-edit-client-dialog",
   templateUrl: "./edit-client-dialog.component.html",
-  styleUrls: ["./edit-client-dialog.component.css"],
-  providers: [
-    // The locale would typically be provided on the root module of your application. We do it at
-    // the component level here, due to limitations of our example generation script.
-    { provide: MAT_DATE_LOCALE, useValue: "fr" }
-  ]
+  styleUrls: ["./edit-client-dialog.component.css"]
 })
 export class EditClientDialogComponent implements OnInit {
   clientForm: FormGroup;
   client: Client = new Client();
+  // tslint:disable-next-line:no-bitwise
   checked = false;
 
   // tslint:disable-next-line:max-line-length
   constructor(
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<EditClientDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any = {},
+    @Inject(MAT_DIALOG_DATA) public data: any = {client: {}},
     private clientService: ClientService,
-    private adapter: DateAdapter<any>
-  ) {
-    this.adapter.setLocale("fr");
-  }
+  ) {}
 
   ngOnInit() {
     this.initForm();

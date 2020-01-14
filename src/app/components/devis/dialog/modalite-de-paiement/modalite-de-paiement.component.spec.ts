@@ -24,6 +24,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from "src/app/app-routing.module";
 import { MaterialModule } from "src/app/material-module";
 import { MatTableModule, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import { VoirDevisComponent } from "../../voir-devis/voir-devis.component";
 
 describe("ModaliteDePaiementComponent", () => {
   let component: ModaliteDePaiementComponent;
@@ -50,7 +51,8 @@ describe("ModaliteDePaiementComponent", () => {
         ClientComponent,
         AddClientDialogComponent,
         EditClientDialogComponent,
-        ModaliteDePaiementComponent
+        ModaliteDePaiementComponent,
+        VoirDevisComponent
       ],
       imports: [
         BrowserAnimationsModule,

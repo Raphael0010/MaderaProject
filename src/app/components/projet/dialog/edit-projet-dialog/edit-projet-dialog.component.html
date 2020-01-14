@@ -5,8 +5,8 @@
     <mat-form-field>
         <mat-label>Client</mat-label>
         <mat-select formControlName="client">
-          <mat-option *ngFor="let client of clients" [value]="client.id_cli">
-            {{client.nomClient | uppercase}} {{client.prenomClient}}
+          <mat-option *ngFor="let client of clients" [value]="client.id">
+            {{client.nom | uppercase}} {{client.prenom}}
           </mat-option>
         </mat-select>
     </mat-form-field>

@@ -21,6 +21,7 @@ import { AppRoutingModule } from "src/app/app-routing.module";
 import { MaterialModule } from "src/app/material-module";
 import { MatTableModule } from "@angular/material";
 import { ClientComponent } from "../client/client.component";
+import { VoirDevisComponent } from "../devis/voir-devis/voir-devis.component";
 
 describe("PlanComponent", () => {
   let component: PlanComponent;
@@ -44,7 +45,8 @@ describe("PlanComponent", () => {
         EditPlanDialogComponent,
         GestionStockComponent,
         SnackBarComponent,
-        ClientComponent
+        ClientComponent,
+        VoirDevisComponent
       ],
       imports: [
         BrowserAnimationsModule,

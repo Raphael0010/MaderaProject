@@ -77,7 +77,6 @@ export class ClientComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(async e => {
       if (e === true) {
-        console.log(await callApiFree(`/deleteClient/${id}`, "get"));
         this.clients = await this.clientService.getAllClients();
         this.dataSource = new MatTableDataSource(this.clients);
       }

@@ -6,6 +6,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { ProjetService } from "src/app/services/projet.service";
 import { EditProjetDialogComponent } from "./dialog/edit-projet-dialog/edit-projet-dialog.component";
 import { Router } from "@angular/router";
+import { DialogDeleteComponent } from "src/app/shared/dialog-delete/dialog-delete.component";
 
 
 
@@ -65,9 +66,16 @@ export class ProjetComponent implements OnInit {
   }
 
   async deleteProjet(id: number) {
-    await this.projetService.deleteProjet(id) ;
-    this.projets = await this.projetService.getAllProjets() ;
-    this.dataSource = new MatTableDataSource(this.projets);
+    const dialogRef = this.dialog.open(DialogDeleteComponent, {
+      width: "320px"
+    });
+    dialogRef.afterClosed().subscribe(async e => {
+      if (e === true) {
+        await this.projetService.deleteProjet(id) ;
+        this.projets = await this.projetService.getAllProjets() ;
+        this.dataSource = new MatTableDataSource(this.projets);
+      }
+    });
   }
 
   displayPlan(id: number) {
