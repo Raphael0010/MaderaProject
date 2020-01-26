@@ -96,27 +96,6 @@ app.get("/devis/:id", (req,res) => {
   })
 })
 
-app.get("/plan/:id", (req,res) => {
-  sequelize.query(`SELECT module.nom_module, module.PUHT, gamme.nom_gamme, gamme.huisserie,gamme.type_isolant, gamme.type_couverture, gamme.finition_ext
-  FROM contenir_module_plan
-  INNER JOIN module ON contenir_module_plan.id_module = module.id_module
-  INNER JOIN gamme ON module.id_gamme = gamme.id_gamme
-  WHERE contenir_module_plan.id_plan = ${req.params.id}`).then( e => {
-    res.send(JSON.stringify(e[0])) ;
-  })
-})
-
-app.get("/devis/accept/:id", (req,res) => {
-  sequelize.query(`UPDATE devis SET etat_devis = 'Accepter', date_acceptation_devis = NOW() WHERE id_devis = ${req.params.id}`).then( e => {
-    res.send(JSON.parse("{\"code\":200}"))
-  })
-})
-
-app.get("/devis/paye/:id", (req,res) => {
-  sequelize.query(`UPDATE devis SET etat_devis = 'Payer' WHERE id_devis = ${req.params.id}`).then( e => {
-    res.send(JSON.parse("{\"code\":200}"))
-  })
-})
 
 // ------ Projet ----------
 app.get("/projet", (req,res) => {
@@ -135,15 +114,10 @@ app.get("/projet", (req,res) => {
 });
 
 app.post("/projet", (req,res) => {
-  console.log(req.body.nom_comm);
   let dateTimeZone = moment.tz(req.body.date,"Europe/Paris").format('YYYY-MM-DD hh:mm:ss');
   sequelize.query(`SELECT id_comm
                    FROM commercial
-<<<<<<< HEAD
                    WHERE nom = "${req.body.nom_comm}"`,
-=======
-                   WHERE nom = '${req.body.nom_comm}'`,
->>>>>>> e9d82779a7b74662e76cbe2747e3b629eed443bd
     {type: sequelize.QueryTypes.SELECT})
     .then(commercial => {
       const idComm = commercial[0].id_comm ;
