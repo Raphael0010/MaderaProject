@@ -36,8 +36,16 @@ export class DevisComponent implements OnInit {
     setInterval(() => this.loadDevis(), 5000);
   }
 
-  imprimer(id: number) {
-    return window.print();
+  imprimer(id: number): void {
+    let tmp = window.open(`devis/${id}`);
+    tmp.addEventListener(
+      "load",
+      function() {
+        tmp.print();
+        tmp.close();
+      },
+      true
+    );
   }
 
   show(id: number) {
@@ -60,6 +68,15 @@ export class DevisComponent implements OnInit {
     this.dialog.open(ModaliteDePaiementComponent, { data: MODALITE_PAIEMENT });
   }
 
+  async acceptDevis(id: number) {
+    await callApiFree(`/devis/accept/${id}`, "get");
+    await this.loadDevis();
+  }
+
+  async paimentOk(id: number) {
+    await callApiFree(`/devis/paye/${id}`, "get");
+    await this.loadDevis();
+  }
   async loadDevis(): Promise<void> {
     this.devis = await callApiFree("/listDevis", "get");
     this.dsDevis.data = this.devis;

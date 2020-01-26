@@ -5,9 +5,8 @@ import { Plan } from "src/app/models/plan.model";
 import { PlanService } from "src/app/services/plan.service";
 import { AddPlanDialogComponent } from "./dialog/add-plan-dialog/add-plan-dialog/add-plan-dialog.component";
 import { EditPlanDialogComponent } from "./dialog/edit-plan-dialog/edit-plan-dialog/edit-plan-dialog.component";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Module } from "src/app/models/module.model";
-
 
 @Component({
   selector: "app-plan",
@@ -15,18 +14,30 @@ import { Module } from "src/app/models/module.model";
   styleUrls: ["./plan.component.css"]
 })
 export class PlanComponent implements OnInit {
-
-  plans: Plan[] ;
+  plans: Plan[];
   modules: Module[];
-  plan: Plan ;
-  idProjet = 0 ;
-  count = 0 ;
+  plan: Plan;
+  idProjet = 0;
+  count = 0;
 
-  displayedColumns: string[] = ["dateCreation", "nbPieces", "nbChambres", "nbEtage", "surface", "modules", "buttons"];
-  dataSource: MatTableDataSource<Plan> ;
+  displayedColumns: string[] = [
+    "dateCreation",
+    "nbPieces",
+    "nbChambres",
+    "nbEtage",
+    "surface",
+    "modules",
+    "buttons"
+  ];
+  dataSource: MatTableDataSource<Plan>;
 
-  constructor(public dialog: MatDialog, private planService: PlanService, private route: ActivatedRoute) {
-    this.dataSource = new MatTableDataSource<Plan>() ;
+  constructor(
+    public dialog: MatDialog,
+    private planService: PlanService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+    this.dataSource = new MatTableDataSource<Plan>();
   }
 
   ngOnInit() {
@@ -38,30 +49,48 @@ export class PlanComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  showDevis(id: number) {
+    this.router.navigate([`/devis/${id}`]);
+  }
+
   addNewPlan() {
     const dialogRef = this.dialog.open(AddPlanDialogComponent, {
       height: "800px",
       width: "600px",
-      data: {idProjet: this.idProjet}
+      data: { idProjet: this.idProjet }
     });
 
     dialogRef.afterClosed().subscribe(async result => {
       if (result === 1) {
-        this.plans = await this.planService.getPlanById(this.idProjet) ;
+        this.plans = await this.planService.getPlanById(this.idProjet);
         if (this.plans.length === 1) {
-          this.count = 1 ;
+          this.count = 1;
         }
         this.dataSource.data = this.plans;
       }
     });
   }
 
-  editPlan(id: number, dateCreation: Date, nbPieces: number, nbChambres: number, nbEtage: number, surface: number) {
+  editPlan(
+    id: number,
+    dateCreation: Date,
+    nbPieces: number,
+    nbChambres: number,
+    nbEtage: number,
+    surface: number
+  ) {
     const dialogRef = this.dialog.open(EditPlanDialogComponent, {
       height: "800px",
       width: "600px",
       // tslint:disable-next-line:object-literal-shorthand
-      data: {id: id, dateCreation: dateCreation, nbPieces: nbPieces, nbChambres: nbChambres, nbEtage: nbEtage, surface: surface }
+      data: {
+        id,
+        dateCreation,
+        nbPieces,
+        nbChambres,
+        nbEtage,
+        surface
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -80,7 +109,7 @@ export class PlanComponent implements OnInit {
   }
 
   async getPlanById() {
-    this.plans = await this.planService.getPlanById(this.idProjet) ;
+    this.plans = await this.planService.getPlanById(this.idProjet);
     if (this.plans.length === 1) {
       this.count = 1 ;
       this.dataSource.data = this.plans;
@@ -91,7 +120,4 @@ export class PlanComponent implements OnInit {
   async getModulesByPlan() {
     this.modules = await this.planService.getModulesByPlan(this.plans[0]);
   }
-
-
-
 }
