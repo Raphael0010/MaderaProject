@@ -1,1 +1,80 @@
 <h1>Devis n°00{{ id }}</h1>
+<div *ngIf="devis">
+  <div class="main">
+    <table>
+      <tr>
+        <th>
+          Madera<br />
+          50 Rue mirabeau<br />
+          06 34 56 78 90
+        </th>
+      </tr>
+      <tr>
+        <th>
+          {{ devis.nom_client }} {{ devis.prenom_client }} <br />
+          {{ devis.mail }}<br />
+          {{ devis.tel }}
+        </th>
+        <th>
+          Création du devis :
+          {{ devis.creation_devis | date: "dd/MM/yyyy" }}<br />
+          Acceptation du devis :
+          {{ devis.date_acceptation_devis | date: "dd/MM/yyyy" }}<br />
+          Etat du devis : {{ devis.etat_devis }} <br />
+          Nom du commercial : {{ devis.nom }}
+        </th>
+      </tr>
+      <tr>
+        <th>
+          Projet : {{ devis.nom_projet }}<br />
+          Création du projet : {{ devis.creation | date: "dd/MM/yyyy" }}
+        </th>
+      </tr>
+    </table>
+  </div>
+  <br />
+  <div class="beauty-ele">
+    <h3>
+      Liste des modules :
+    </h3>
+    <table style="margin-left: 0%;border-spacing: 10px;">
+      <tr>
+        <th>
+          Nom du module
+        </th>
+        <th>
+          Prix unitaire hors taxes
+        </th>
+        <th>
+          Nom gamme
+        </th>
+        <th>
+          Huisserie
+        </th>
+        <th>
+          Type isolant
+        </th>
+        <th>
+          Type couverture
+        </th>
+        <th>
+          Finition exterieur
+        </th>
+      </tr>
+
+      <tr *ngFor="let v of plan">
+        <td>{{ v.nom_module }}</td>
+        <td>{{ v.PUHT }}€</td>
+        <td>{{ v.nom_gamme }}</td>
+        <td>{{ v.huisserie }}</td>
+        <td>{{ v.type_isolant }}</td>
+        <td>{{ v.type_couverture }}</td>
+        <td>{{ v.finition_ext }}</td>
+      </tr>
+    </table>
+  </div>
+  <br />
+  <div class="beauty-ele">
+    <h2>Montant total : {{ montant }}€</h2>
+  </div>
+</div>

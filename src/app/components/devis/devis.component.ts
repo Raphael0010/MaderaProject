@@ -60,6 +60,15 @@ export class DevisComponent implements OnInit {
     this.dialog.open(ModaliteDePaiementComponent, { data: MODALITE_PAIEMENT });
   }
 
+  async acceptDevis(id: number) {
+    await callApiFree(`/devis/accept/${id}`, "get");
+    await this.loadDevis();
+  }
+
+  async paimentOk(id: number) {
+    await callApiFree(`/devis/paye/${id}`, "get");
+    await this.loadDevis();
+  }
   async loadDevis(): Promise<void> {
     this.devis = await callApiFree("/listDevis", "get");
     this.dsDevis.data = this.devis;
