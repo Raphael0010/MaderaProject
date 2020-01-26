@@ -7,7 +7,6 @@ import { AddPlanDialogComponent } from "./dialog/add-plan-dialog/add-plan-dialog
 import { EditPlanDialogComponent } from "./dialog/edit-plan-dialog/edit-plan-dialog/edit-plan-dialog.component";
 import { ActivatedRoute } from "@angular/router";
 import { Module } from "src/app/models/module.model";
-import { DataSource } from '@angular/cdk/table';
 
 
 @Component({
@@ -30,7 +29,7 @@ export class PlanComponent implements OnInit {
     this.dataSource = new MatTableDataSource<Plan>() ;
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.idProjet = parseInt(this.route.snapshot.params.id, 10);
     this.getPlanById();
   }
@@ -52,7 +51,7 @@ export class PlanComponent implements OnInit {
         if (this.plans.length === 1) {
           this.count = 1 ;
         }
-        this.dataSource = new MatTableDataSource(this.plans);
+        this.dataSource.data = this.plans;
       }
     });
   }
@@ -68,7 +67,7 @@ export class PlanComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
         this.getPlanById() ;
-        this.dataSource = new MatTableDataSource(this.plans);
+        this.dataSource.data = this.plans;
       }
     });
   }
@@ -76,7 +75,7 @@ export class PlanComponent implements OnInit {
   async deletePlan(id: number) {
     await this.planService.deletePlan(id) ;
     this.plans = await this.planService.getPlanById(this.idProjet) ;
-    this.dataSource = new MatTableDataSource(this.plans);
+    this.dataSource.data = this.plans;
     this.count = 0 ;
   }
 
@@ -84,14 +83,13 @@ export class PlanComponent implements OnInit {
     this.plans = await this.planService.getPlanById(this.idProjet) ;
     if (this.plans.length === 1) {
       this.count = 1 ;
+      this.dataSource.data = this.plans;
+      this.getModulesByPlan();
     }
-    this.dataSource.data = this.plans;
-    this.getModulesByPlan();
   }
 
   async getModulesByPlan() {
     this.modules = await this.planService.getModulesByPlan(this.plans[0]);
-    console.log(this.modules);
   }
 
 

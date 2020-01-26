@@ -34,9 +34,9 @@ export class AddProjetDialogComponent implements OnInit {
     this.adapter.setLocale("fr");
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.initForm();
-    this.clients = await this.clientService.getAllClients() ;
+    this.getClients();
   }
 
   initForm() {
@@ -51,11 +51,15 @@ export class AddProjetDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  confirmAdd(): void {
+  async getClients(): Promise<void> {
+    this.clients = await this.clientService.getAllClients() ;
+  }
+
+  async confirmAdd(): Promise<void> {
     const formValue = this.projetForm.value;
     this.projet.nom = formValue.nomProjet;
     this.projet.idClient = formValue.client;
     this.projet.dateCreation = formValue.dateCreation;
-    this.projetService.addProjet(this.projet);
+    await this.projetService.addProjet(this.projet);
   }
 }

@@ -99,10 +99,11 @@ app.get("/projet", (req,res) => {
 });
 
 app.post("/projet", (req,res) => {
+  console.log(req.body.nom_comm);
   let dateTimeZone = moment.tz(req.body.date,"Europe/Paris").format('YYYY-MM-DD hh:mm:ss');
   sequelize.query(`SELECT id_comm
                    FROM commercial
-                   WHERE nom = ${req.body.nom_comm}`,
+                   WHERE nom = "${req.body.nom_comm}"`,
     {type: sequelize.QueryTypes.SELECT})
     .then(commercial => {
       const idComm = commercial[0].id_comm ;
@@ -126,7 +127,6 @@ app.post("/projet", (req,res) => {
           }
         })
         .then(projets => {
-          console.log(projets) ;
         });
       });
     });
@@ -136,7 +136,7 @@ app.post("/edit/projet", (req,res) => {
   let dateTimeZone = moment.tz(req.body.date,"Europe/Paris").format('YYYY-MM-DD hh:mm:ss');
   sequelize.query(`SELECT id_comm
                    FROM commercial
-                   WHERE nom = ${req.body.nom_comm}`, {type: sequelize.QueryTypes.SELECT})
+                   WHERE nom = "${req.body.nom_comm}"`, {type: sequelize.QueryTypes.SELECT})
     .then(commercial => {
       const idComm = commercial[0].id_comm ;
       sequelize.query(`UPDATE projet SET nom_projet = :projet,
@@ -154,7 +154,6 @@ app.post("/edit/projet", (req,res) => {
         }
       })
       .then(projets => {
-        console.log(projets);
       });
     })
 });
@@ -201,7 +200,6 @@ app.get("/module", (req,res) => {
 });
 
 app.get("/plan/:id/module", (req,res) => {
-  console.log(req.params);
   sequelize.query(`SELECT module.id_module AS id,
                    module.nom_module AS nom
                    FROM contenir_module_plan
@@ -269,7 +267,6 @@ app.get("/plan/:id", (req,res) => {
 app.post("/plan/:id", (req,res) => {
   const id = parseInt(req.params.id, 10) ;
   const listModule = req.body.listModule;
-  console.log(listModule);
   let dateTimeZone = moment.tz(req.body.dateCreation,"Europe/Paris").format('YYYY-MM-DD hh:mm:ss');
   sequelize.query(`INSERT INTO plan (creation, nb_piece, nb_chambre, nb_etage, surface, id_projet)
                    VALUES (:date, :nbPiece, :nbChambre, :nbEtage, :surface, :projet)`,
@@ -335,7 +332,6 @@ app.post("/edit/plan/:id", (req,res) => {
           }
         })
         .then(plan => {
-          console.log(plan);
         });
       })
     });
