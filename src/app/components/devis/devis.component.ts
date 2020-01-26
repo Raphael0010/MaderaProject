@@ -36,8 +36,16 @@ export class DevisComponent implements OnInit {
     setInterval(() => this.loadDevis(), 5000);
   }
 
-  imprimer(id: number) {
-    return window.print();
+  imprimer(id: number): void {
+    let tmp = window.open(`devis/${id}`);
+    tmp.addEventListener(
+      "load",
+      function() {
+        tmp.print();
+        tmp.close();
+      },
+      true
+    );
   }
 
   show(id: number) {
