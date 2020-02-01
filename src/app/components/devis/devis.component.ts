@@ -37,9 +37,10 @@ export class DevisComponent implements OnInit {
   }
 
   imprimer(id: number): void {
-    let tmp = window.open(`devis/${id}`);
+    const tmp = window.open(`devis/${id}`);
     tmp.addEventListener(
       "load",
+      // tslint:disable-next-line:only-arrow-functions
       function() {
         tmp.print();
         tmp.close();

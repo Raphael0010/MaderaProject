@@ -34,7 +34,7 @@ export class AddPlanDialogComponent implements OnInit {
     this.dataSource = new MatTableDataSource<Module>() ;
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.getModule() ;
     this.initForm() ;
     this.plan.idProjet = this.data.idProjet ;
@@ -55,14 +55,14 @@ export class AddPlanDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  confirmAdd(): void {
+  async confirmAdd(): Promise<void> {
     const formValue = this.planForm.value;
     this.plan.dateCreation =  formValue.dateCreation ;
     this.plan.nbPieces = formValue.nbPieces ;
     this.plan.nbChambres = formValue.nbChambres ;
     this.plan.nbEtage = formValue.nbEtage;
     this.plan.surface = formValue.surface;
-    this.planService.addPlan(this.plan, this.listModules);
+    await this.planService.addPlan(this.plan, this.listModules);
   }
 
   async getModule(): Promise<void> {

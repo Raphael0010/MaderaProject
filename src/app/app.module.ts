@@ -32,8 +32,9 @@ import { GestionStockComponent } from "./components/gestion-stock/gestion-stock.
 import { SnackBarComponent } from "./shared/snack-bar/snack-bar.component";
 import { ModaliteDePaiementComponent } from "src/app/components/devis/dialog/modalite-de-paiement/modalite-de-paiement.component";
 import { CdkColumnDef } from "@angular/cdk/table";
-import { VoirDevisComponent } from './components/devis/voir-devis/voir-devis.component';
-import { TreeComposantComponent } from './components/plan/tree/tree-composant/tree-composant.component';
+import { VoirDevisComponent } from "./components/devis/voir-devis/voir-devis.component";
+import { TreeComposantComponent } from "./components/plan/tree/tree-composant/tree-composant.component";
+import { RemisePlanDialogComponent } from "./components/plan/dialog/remise-plan-dialog/remise-plan-dialog.component";
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { TreeComposantComponent } from './components/plan/tree/tree-composant/tr
     SnackBarComponent,
     ModaliteDePaiementComponent,
     VoirDevisComponent,
-    TreeComposantComponent
+    TreeComposantComponent,
+    RemisePlanDialogComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -76,7 +78,8 @@ import { TreeComposantComponent } from './components/plan/tree/tree-composant/tr
     AddClientDialogComponent,
     EditClientDialogComponent,
     SnackBarComponent,
-    ModaliteDePaiementComponent
+    ModaliteDePaiementComponent,
+    RemisePlanDialogComponent
   ],
   providers: [CdkColumnDef],
   bootstrap: [AppComponent]

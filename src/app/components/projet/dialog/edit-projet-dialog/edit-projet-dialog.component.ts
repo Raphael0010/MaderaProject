@@ -39,10 +39,10 @@ export class EditProjetDialogComponent implements OnInit {
     this.adapter.setLocale("fr");
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.initForm() ;
     this.projet.id = this.data.id ;
-    this.clients = await this.clientService.getAllClients() ;
+    this.getClients();
   }
 
   initForm() {
@@ -53,15 +53,19 @@ export class EditProjetDialogComponent implements OnInit {
     });
   }
 
+  async getClients() {
+    this.clients = await this.clientService.getAllClients() ;
+  }
+
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  confirmEdit(): void {
+  async confirmEdit(): Promise<void> {
     const formValue = this.projetForm.value;
     this.projet.nom = formValue.nomProjet;
     this.projet.idClient = formValue.client;
     this.projet.dateCreation = formValue.dateCreation;
-    this.projetService.editProjet(this.projet);
+    await this.projetService.editProjet(this.projet);
   }
 }

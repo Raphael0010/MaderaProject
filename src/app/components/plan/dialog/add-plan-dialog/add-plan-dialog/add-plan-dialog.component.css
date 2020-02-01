@@ -41,7 +41,3 @@ th.mat-header-cell {
 td.mat-cell {
   text-align: center;
 }
-
-::ng-deep .mat-form-field-infix {
-  width: 40px !important;
-}

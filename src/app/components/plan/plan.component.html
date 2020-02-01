@@ -60,9 +60,22 @@
     </th>
     <td mat-cell *matCellDef="let plan">
       <div class="btn-content">
-        <button (click)="show(row.id)" mat-raised-button color="primary">
-          Devis
+        <button
+          *ngIf="isCreated else create"
+          (click)="showDevis(plan)"
+          mat-raised-button color="primary"
+        >
+          Voir devis
         </button>
+        <ng-template #create>
+          <button
+            (click)="createDevis()"
+            mat-raised-button color="primary"
+          >
+            Créer devis
+          </button>
+        </ng-template>
+
         <button
           mat-raised-button
           color="accent"

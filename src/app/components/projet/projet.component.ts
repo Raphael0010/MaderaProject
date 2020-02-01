@@ -18,16 +18,17 @@ import { DialogDeleteComponent } from "src/app/shared/dialog-delete/dialog-delet
 export class ProjetComponent implements OnInit {
 
   projets: Projet[] = [] ;
-  projet: Projet ;
+  projet: Projet = new Projet();
 
   displayedColumns: string[] = ["nomProjet", "client", "dateCreation", "buttons"];
-  dataSource ;
+  dataSource: MatTableDataSource<Projet> ;
 
   constructor(public dialog: MatDialog, private projetService: ProjetService, private router: Router) { }
 
   async ngOnInit() {
+    this.dataSource = new MatTableDataSource<Projet>();
     this.projets = await this.projetService.getAllProjets() ;
-    this.dataSource = new MatTableDataSource(this.projets);
+    this.dataSource.data = this.projets;
   }
 
   applyFilter(filterValue: string) {
@@ -44,7 +45,7 @@ export class ProjetComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async result => {
       if (result === 1) {
         this.projets = await this.projetService.getAllProjets() ;
-        this.dataSource = new MatTableDataSource(this.projets);
+        this.dataSource.data = this.projets;
       }
     });
   }
@@ -60,12 +61,12 @@ export class ProjetComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async result => {
       if (result === 1) {
         this.projets = await this.projetService.getAllProjets() ;
-        this.dataSource = new MatTableDataSource(this.projets);
+        this.dataSource.data = this.projets;
       }
     });
   }
 
-  async deleteProjet(id: number) {
+  deleteProjet(id: number) {
     const dialogRef = this.dialog.open(DialogDeleteComponent, {
       width: "320px"
     });
@@ -73,7 +74,7 @@ export class ProjetComponent implements OnInit {
       if (e === true) {
         await this.projetService.deleteProjet(id) ;
         this.projets = await this.projetService.getAllProjets() ;
-        this.dataSource = new MatTableDataSource(this.projets);
+        this.dataSource.data = this.projets;
       }
     });
   }

@@ -56,14 +56,14 @@ export class EditPlanDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  confirmEdit(): void {
+  async confirmEdit(): Promise<void> {
     const formValue = this.planForm.value;
     this.plan.dateCreation =  formValue.dateCreation ;
     this.plan.nbPieces = formValue.nbPieces ;
     this.plan.nbChambres = formValue.nbChambres ;
     this.plan.nbEtage = formValue.nbEtage;
     this.plan.surface = formValue.surface;
-    this.planService.editPlan(this.plan, this.listModules);
+    await this.planService.editPlan(this.plan, this.listModules);
   }
 
   addModule(module: Module): void {
