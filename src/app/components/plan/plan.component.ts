@@ -7,6 +7,7 @@ import { AddPlanDialogComponent } from "./dialog/add-plan-dialog/add-plan-dialog
 import { EditPlanDialogComponent } from "./dialog/edit-plan-dialog/edit-plan-dialog/edit-plan-dialog.component";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Module } from "src/app/models/module.model";
+import { RemisePlanDialogComponent } from "./dialog/remise-plan-dialog/remise-plan-dialog.component";
 
 @Component({
   selector: "app-plan",
@@ -19,6 +20,7 @@ export class PlanComponent implements OnInit {
   plan: Plan;
   idProjet = 0;
   count = 0;
+  isCreated = false;
 
   displayedColumns: string[] = [
     "dateCreation",
@@ -49,8 +51,25 @@ export class PlanComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  showDevis(id: number) {
-    this.router.navigate([`/devis/${id}`]);
+  showDevis(plan: Plan) {
+    this.router.navigate([`/devis/${plan.idDevis}`]);
+  }
+
+  createDevis() {
+    const montant = this.modules.reduce((c, p) => c + p.prix, 0);
+    const dialogRef = this.dialog.open(RemisePlanDialogComponent, {
+      height: "300px",
+      width: "300px",
+      data: {plan: this.plans[0]}
+    });
+
+    dialogRef.afterClosed().subscribe(async result => {
+      if (result) {
+        const id = await this.planService.createDevis(result.plan, result.remise, montant);
+        this.planService.updateDevis(result.plan, id);
+        this.router.navigate([`/devis/${id}`]);
+      }
+    });
   }
 
   addNewPlan() {
@@ -114,6 +133,9 @@ export class PlanComponent implements OnInit {
       this.count = 1 ;
       this.dataSource.data = this.plans;
       this.getModulesByPlan();
+      if (this.plans[0].idDevis !== null) {
+        this.isCreated = true;
+      }
     }
   }
 

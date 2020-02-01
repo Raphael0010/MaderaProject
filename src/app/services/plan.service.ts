@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Plan } from "../models/plan.model";
 import { callApiFree } from "../core/ApiCall";
-import { Module } from '../models/module.model';
+import { Module } from "../models/module.model";
+import { Projet } from "./../models/projet.model";
 
 @Injectable({
   providedIn: "root"
@@ -39,7 +40,7 @@ export class PlanService {
       nbChambres: plan.nbChambres,
       nbEtage: plan.nbEtage,
       surface: plan.surface,
-      modules: modules
+      modules
     } ;
     const edit = await callApiFree(`/edit/plan/${plan.id}`, "POST", data) ;
   }
@@ -57,5 +58,25 @@ export class PlanService {
     };
     const modules = await callApiFree(`/plan/${plan.id}/module`, "GET", data) ;
     return modules;
+  }
+
+  async createDevis(plan: Plan, remise: number, montant: number) {
+    const projet: Projet = await callApiFree(`/projet/${plan.idProjet}`, "GET" );
+    const data = {
+      creationDevis: new Date(),
+      modificationDevis: new Date(),
+      montantTotal: montant,
+      remise,
+      acceptationDevis: new Date(),
+      etat: "EN ATTENTE",
+      idClient: projet.idClient,
+      idPlan: plan.id
+    };
+    const idDevis = await callApiFree("/devis/", "POST", data) ;
+    return idDevis;
+  }
+
+  async updateDevis(plan: Plan, idDevis: number) {
+    const update = await callApiFree(`/plan/${plan.id}/devis/${idDevis}`, "POST");
   }
 }
