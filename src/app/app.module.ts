@@ -32,9 +32,9 @@ import { GestionStockComponent } from "./components/gestion-stock/gestion-stock.
 import { SnackBarComponent } from "./shared/snack-bar/snack-bar.component";
 import { ModaliteDePaiementComponent } from "src/app/components/devis/dialog/modalite-de-paiement/modalite-de-paiement.component";
 import { CdkColumnDef } from "@angular/cdk/table";
-import { VoirDevisComponent } from './components/devis/voir-devis/voir-devis.component';
-import { EditStockDialogComponent } from './components/gestion-stock/dialog/edit-stock-dialog/edit-stock-dialog.component';
-import { AddStockDialogComponent } from './components/gestion-stock/dialog/add-stock-dialog/add-stock-dialog.component';
+import { VoirDevisComponent } from "./components/devis/voir-devis/voir-devis.component";
+import { EditStockDialogComponent } from "./components/gestion-stock/dialog/edit-stock-dialog/edit-stock-dialog.component";
+import { AddStockDialogComponent } from "./components/gestion-stock/dialog/add-stock-dialog/add-stock-dialog.component";
 import { TreeComposantComponent } from "./components/plan/tree/tree-composant/tree-composant.component";
 import { RemisePlanDialogComponent } from "./components/plan/dialog/remise-plan-dialog/remise-plan-dialog.component";
 
@@ -61,7 +61,7 @@ import { RemisePlanDialogComponent } from "./components/plan/dialog/remise-plan-
     ModaliteDePaiementComponent,
     VoirDevisComponent,
     EditStockDialogComponent,
-    AddStockDialogComponent
+    AddStockDialogComponent,
     TreeComposantComponent,
     RemisePlanDialogComponent
   ],
@@ -84,7 +84,7 @@ import { RemisePlanDialogComponent } from "./components/plan/dialog/remise-plan-
     SnackBarComponent,
     ModaliteDePaiementComponent,
     EditStockDialogComponent,
-    AddStockDialogComponent
+    AddStockDialogComponent,
     RemisePlanDialogComponent
   ],
   providers: [CdkColumnDef],

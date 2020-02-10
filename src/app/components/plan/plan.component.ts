@@ -60,12 +60,16 @@ export class PlanComponent implements OnInit {
     const dialogRef = this.dialog.open(RemisePlanDialogComponent, {
       height: "300px",
       width: "300px",
-      data: {plan: this.plans[0]}
+      data: { plan: this.plans[0] }
     });
 
     dialogRef.afterClosed().subscribe(async result => {
       if (result) {
-        const id = await this.planService.createDevis(result.plan, result.remise, montant);
+        const id = await this.planService.createDevis(
+          result.plan,
+          result.remise,
+          montant
+        );
         this.getModulesByPlan();
         this.planService.updateDevis(result.plan, id);
         this.router.navigate([`/devis/${id}`]);
@@ -88,6 +92,7 @@ export class PlanComponent implements OnInit {
         }
         this.dataSource.data = this.plans;
       }
+      this.getModulesByPlan();
     });
   }
 
@@ -115,23 +120,23 @@ export class PlanComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
-        this.getPlanById() ;
+        this.getPlanById();
         this.dataSource.data = this.plans;
       }
     });
   }
 
   async deletePlan(id: number) {
-    await this.planService.deletePlan(id) ;
-    this.plans = await this.planService.getPlanById(this.idProjet) ;
+    await this.planService.deletePlan(id);
+    this.plans = await this.planService.getPlanById(this.idProjet);
     this.dataSource.data = this.plans;
-    this.count = 0 ;
+    this.count = 0;
   }
 
   async getPlanById() {
     this.plans = await this.planService.getPlanById(this.idProjet);
     if (this.plans.length === 1) {
-      this.count = 1 ;
+      this.count = 1;
       this.dataSource.data = this.plans;
       this.getModulesByPlan();
       if (this.plans[0].idDevis !== null) {

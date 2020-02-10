@@ -330,6 +330,18 @@ app.get("/plan/:id/module", (req,res) => {
   });
 });
 
+app.get("/devis/accept/:id", (req,res) => {
+  sequelize.query(`UPDATE devis SET etat_devis = 'Accepter', date_acceptation_devis = NOW() WHERE id_devis = ${req.params.id}`).then( e => {
+    res.send(JSON.parse("{\"code\":200}"))
+  })
+})
+
+app.get("/devis/paye/:id", (req,res) => {
+  sequelize.query(`UPDATE devis SET etat_devis = 'Payer' WHERE id_devis = ${req.params.id}`).then( e => {
+    res.send(JSON.parse("{\"code\":200}"))
+  })
+})
+
 app.post("/module", (req,res) => {
   sequelize.query(`INSERT INTO contenir_module_plan (id_plan, id_module)
                    VALUES (:id_plan, :id_module)`,
