@@ -66,6 +66,7 @@ export class PlanComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async result => {
       if (result) {
         const id = await this.planService.createDevis(result.plan, result.remise, montant);
+        this.getModulesByPlan();
         this.planService.updateDevis(result.plan, id);
         this.router.navigate([`/devis/${id}`]);
       }
