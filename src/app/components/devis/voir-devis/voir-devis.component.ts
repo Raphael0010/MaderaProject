@@ -14,6 +14,7 @@ export class VoirDevisComponent implements OnInit {
   devis: any = undefined;
   plan: any = undefined;
   montant: number = 0;
+  remise: number = 0;
 
   constructor(private route: ActivatedRoute, private _snackBar: MatSnackBar) {}
 
@@ -26,8 +27,9 @@ export class VoirDevisComponent implements OnInit {
         data: "Ce devis n'existe pas"
       });
     } else {
-      this.plan = await callApiFree(`/plan/${this.devis.id_plan}`, "get");
+      this.plan = await callApiFree(`/planDevis/${this.devis.id_plan}`, "get");
       this.montant = this.plan.reduce((c, p) => c + p.PUHT, 0);
+      this.remise = this.devis.remise_percent;
     }
   }
 }

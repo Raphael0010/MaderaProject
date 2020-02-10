@@ -75,6 +75,9 @@
   </div>
   <br />
   <div class="beauty-ele">
-    <h2>Montant total : {{ montant }}€</h2>
+    <h2>
+      Montant total : {{ montant - (montant * remise) / 100 }}€ remise comprise
+      ({{ remise }}%)
+    </h2>
   </div>
 </div>

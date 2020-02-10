@@ -103,15 +103,16 @@ app.get("/devis/:id", (req,res) => {
       projet.nom_projet,
       projet.creation,
       commercial.nom,
-      plan.id_plan
+      plan.id_plan,
+      projet.id_projet as idProjet
       FROM devis
       INNER JOIN client ON devis.id_client = client.id_cli
       INNER JOIN plan ON devis.id_plan = plan.id_plan
       INNER JOIN projet ON plan.id_projet = projet.id_projet
-      INNER JOIN commercial ON devis.id_comm = commercial.id_comm
+      INNER JOIN commercial ON projet.id_comm = commercial.id_comm
       WHERE devis.id_devis = ${req.params.id}`)
       .then(e => {
-        res.send(JSON.stringify(e[0])) ;
+        res.send(JSON.stringify(e[0]));
       })
 });
 
@@ -343,6 +344,16 @@ app.get("/plan/:id", (req,res) => {
   .then(plan => {
     res.send(JSON.stringify(plan)) ;
   });
+});
+
+app.get("/planDevis/:id", (req,res) => {
+  sequelize.query(`SELECT module.nom_module, module.PUHT, gamme.nom_gamme, gamme.huisserie,gamme.type_isolant, gamme.type_couverture, gamme.finition_ext
+  FROM contenir_module_plan
+  INNER JOIN module ON contenir_module_plan.id_module = module.id_module
+  INNER JOIN gamme ON module.id_gamme = gamme.id_gamme
+  WHERE contenir_module_plan.id_plan = ${req.params.id}`).then( e => {
+    res.send(JSON.stringify(e[0])) ;
+  })
 });
 
 app.post("/plan/:id", (req,res) => {
