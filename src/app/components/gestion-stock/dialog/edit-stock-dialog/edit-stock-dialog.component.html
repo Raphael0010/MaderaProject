@@ -1,0 +1,15 @@
+<form [formGroup]="stockForm" class="form-container">
+
+    <mat-form-field>
+        <input type="text" matInput formControlName="composant" placeholder="Composant">
+    </mat-form-field>
+    <mat-form-field>
+        <input type="text" matInput formControlName="quantity" placeholder="Quantité">
+    </mat-form-field>
+    <div mat-dialog-actions>
+        <button class="btn-dialog" mat-raised-button type="submit" [disabled]="stockForm.invalid" (click)="confirmEdit()" [mat-dialog-close]="1">Modifier</button>
+        <button class="btn-dialog" mat-raised-button (click)="onNoClick()">Annuler</button>
+    </div>
+</form>
+
+

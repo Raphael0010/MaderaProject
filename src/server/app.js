@@ -244,6 +244,45 @@ app.post("/delete/projet", (req,res) => {
 });
 
 // ------ Stocks --------
+app.post("/stock", (req,res) => {
+  console.log(req.body.quantity);
+  sequelize.query("INSERT INTO stocks_composants (id_composant, quantite) VALUES (:id, :quantity)",
+  {replacements: {id: req.body.id, quantity: req.body.quantity}
+  })
+  .then(stock => {
+    res.send(JSON.stringify(stock))
+  });
+}) ;
+app.get("/composant", (req,res) => {
+  sequelize.query("SELECT composant.id_composant as id , composant.caracteristiques FROM composant",
+  { type: sequelize.QueryTypes.SELECT})
+  .then(composants => {
+    res.send(JSON.stringify(composants)) ;
+  });
+});
+
+app.get("/listStocks", (req,res) => {
+  sequelize.query("SELECT stocks_composants.id_composant as id, caracteristiques as composant, nom as fournisseur, quantite as quantity, unite_usage as unite  FROM composant, fournisseur, fournir, stocks_composants WHERE composant.id_composant = fournir.id_composant and fournisseur.id_fournisseur = fournir.id_fournisseur and composant.id_composant = stocks_composants.id_composant", { type: sequelize.QueryTypes.SELECT})
+  .then(stock => {
+    res.send(JSON.stringify(stock));
+  });
+});
+app.post("/edit/stock/:id", (req,res) => {
+  sequelize.query("UPDATE stocks_composants SET quantite = :quantity WHERE id_composant = :id",
+  {replacements: {quantity: req.body.quantity, id: req.body.id}
+  })
+  .then(stock => {
+    res.send(JSON.stringify(stock));
+  });
+});
+app.post("/delete/stock", (req,res) => {
+  sequelize.query("DELETE FROM stocks_composants WHERE id_composant = :id",
+  {replacements: {id: req.body.id}
+  })
+  .then(projets => {
+    res.send(JSON.stringify(projets)) ;
+  });
+});
 app.get("/listStocks", (req,res) => {
   sequelize.query(`SELECT caracteristiques as composant,
                     nom as fournisseur,
@@ -327,7 +366,6 @@ app.get("/composant", (req,res) => {
     res.send(JSON.stringify(composants))
   });
 });
-
 
 // ------ Plan ----------
 app.get("/plan/:id", (req,res) => {
