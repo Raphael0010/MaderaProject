@@ -84,17 +84,59 @@ app.get("/deleteDevis/:id", (req,res) => {
 
 // Get information about the DEVIS
 app.get("/devis/:id", (req,res) => {
-  sequelize.query(`SELECT creation_devis,modification_devis,montant_total,remise_percent, date_acceptation_devis,etat_devis, client.nom as nom_client, client.prenom as prenom_client, client.mail, client.tel,
-  plan.creation, plan.nb_piece, plan.nb_chambre, plan.nb_etage, plan.surface, projet.nom_projet, projet.creation, commercial.nom, plan.id_plan
-  FROM devis
-  INNER JOIN client ON devis.id_client = client.id_cli
-  INNER JOIN plan ON devis.id_plan = plan.id_plan
-  INNER JOIN projet ON plan.id_projet = projet.id_projet
-  INNER JOIN commercial ON devis.id_commercial = commercial.id_comm
-  WHERE devis.id_devis = ${req.params.id}`).then(e => {
-    res.send(JSON.stringify(e[0])) ;
+  sequelize.query(`
+    SELECT creation_devis,
+      modification_devis,
+      montant_total,
+      remise_percent,
+      date_acceptation_devis,
+      etat_devis,
+      client.nom as nom_client,
+      client.prenom as prenom_client,
+      client.mail,
+      client.tel,
+      plan.creation,
+      plan.nb_piece,
+      plan.nb_chambre,
+      plan.nb_etage,
+      plan.surface,
+      projet.nom_projet,
+      projet.creation,
+      commercial.nom,
+      plan.id_plan
+      FROM devis
+      INNER JOIN client ON devis.id_client = client.id_cli
+      INNER JOIN plan ON devis.id_plan = plan.id_plan
+      INNER JOIN projet ON plan.id_projet = projet.id_projet
+      INNER JOIN commercial ON devis.id_comm = commercial.id_comm
+      WHERE devis.id_devis = ${req.params.id}`)
+      .then(e => {
+        res.send(JSON.stringify(e[0])) ;
+      })
+});
+
+app.post("/devis", (req,res) => {
+  const dateCreation = moment.tz(req.body.creationDevis,"Europe/Paris").format('YYYY-MM-DD hh:mm:ss');
+  const dateModification = moment.tz(req.body.modificationDevis,"Europe/Paris").format('YYYY-MM-DD hh:mm:ss');
+  const dateAcceptation = moment.tz(req.body.acceptationDevis,"Europe/Paris").format('YYYY-MM-DD hh:mm:ss');
+  sequelize.query(`INSERT INTO devis (creation_devis, modification_devis, montant_total, remise_percent, date_acceptation_devis, etat_devis, id_client, id_plan)
+                   VALUES (:creation_devis, :modification_devis, :montant_total, :remise_percent, :date_acceptation_devis, :etat_devis, :id_client, :id_plan)`,
+  {
+    replacements: {
+      creation_devis: dateCreation,
+      modification_devis: dateModification,
+      montant_total: req.body.montantTotal,
+      remise_percent: req.body.remise,
+      date_acceptation_devis: dateAcceptation,
+      etat_devis: req.body.etat,
+      id_client: req.body.idClient,
+      id_plan: req.body.idPlan
+    }
   })
-})
+  .then(idDevis => {
+    res.send(JSON.stringify(idDevis[0])) ;
+  });
+});
 
 
 // ------ Projet ----------
@@ -110,6 +152,22 @@ app.get("/projet", (req,res) => {
                    INNER JOIN client ON projet.id_client = client.id_cli`, {type: sequelize.QueryTypes.SELECT})
   .then(projets => {
     res.send(JSON.stringify(projets)) ;
+  });
+});
+
+app.get("/projet/:id", (req,res) => {
+  sequelize.query(`SELECT id_projet AS id,
+                   nom_projet AS nom,
+                   client.nom AS nomClient,
+                   client.prenom AS prenomClient,
+                   creation AS dateCreation,
+                   id_comm AS idComm,
+                   id_client AS idClient
+                   FROM projet
+                   INNER JOIN client ON projet.id_client = client.id_cli
+                   WHERE id_projet = ${req.params.id}`, {type: sequelize.QueryTypes.SELECT})
+  .then(projets => {
+    res.send(JSON.stringify(projets[0])) ;
   });
 });
 
@@ -186,7 +244,14 @@ app.post("/delete/projet", (req,res) => {
 
 // ------ Stocks --------
 app.get("/listStocks", (req,res) => {
-  sequelize.query("SELECT caracteristiques as composant, nom as fournisseur, CONCAT(quantite, ' ', unite_usage) as quantity, id_fam  FROM composant, fournisseur, fournir, stocks_composants WHERE composant.id_composant = fournir.id_composant and fournisseur.id_fournisseur = fournir.id_fournisseur and composant.id_composant = stocks_composants.id_composant",
+  sequelize.query(`SELECT caracteristiques as composant,
+                    nom as fournisseur,
+                    CONCAT(quantite, ' ', unite_usage) as quantity,
+                    id_fam
+                    FROM composant, fournisseur, fournir, stocks_composants
+                    WHERE composant.id_composant = fournir.id_composant
+                    AND fournisseur.id_fournisseur = fournir.id_fournisseur
+                    AND composant.id_composant = stocks_composants.id_composant`,
   {type: sequelize.QueryTypes.SELECT})
   .then(stocks => {
     res.send(JSON.stringify(stocks))
@@ -215,7 +280,8 @@ app.get("/module", (req,res) => {
 
 app.get("/plan/:id/module", (req,res) => {
   sequelize.query(`SELECT module.id_module AS id,
-                   module.nom_module AS nom
+                   module.nom_module AS nom,
+                   module.PUHT AS prix
                    FROM contenir_module_plan
                    INNER JOIN module ON module.id_module = contenir_module_plan.id_module
                    AND contenir_module_plan.id_plan = ${req.params.id}`, {type: sequelize.QueryTypes.SELECT})
@@ -260,6 +326,7 @@ app.get("/composant", (req,res) => {
     res.send(JSON.stringify(composants))
   });
 });
+
 
 // ------ Plan ----------
 app.get("/plan/:id", (req,res) => {
@@ -309,6 +376,13 @@ app.post("/plan/:id", (req,res) => {
         res.send(JSON.stringify(plan)) ;
       });
     });
+  })
+});
+
+app.post("/plan/:idPlan/devis/:id", (req,res) => {
+  sequelize.query(`UPDATE plan SET id_devis = ${req.params.id}
+                  WHERE id_plan = ${req.params.idPlan}`,)
+  .then(plan => {
   })
 });
 
