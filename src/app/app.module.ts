@@ -34,6 +34,7 @@ import { ModaliteDePaiementComponent } from "src/app/components/devis/dialog/mod
 import { CdkColumnDef } from "@angular/cdk/table";
 import { VoirDevisComponent } from './components/devis/voir-devis/voir-devis.component';
 import { EditStockDialogComponent } from './components/gestion-stock/dialog/edit-stock-dialog/edit-stock-dialog.component';
+import { AddStockDialogComponent } from './components/gestion-stock/dialog/add-stock-dialog/add-stock-dialog.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { EditStockDialogComponent } from './components/gestion-stock/dialog/edit
     SnackBarComponent,
     ModaliteDePaiementComponent,
     VoirDevisComponent,
-    EditStockDialogComponent
+    EditStockDialogComponent,
+    AddStockDialogComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -77,7 +79,8 @@ import { EditStockDialogComponent } from './components/gestion-stock/dialog/edit
     EditClientDialogComponent,
     SnackBarComponent,
     ModaliteDePaiementComponent,
-    EditStockDialogComponent
+    EditStockDialogComponent,
+    AddStockDialogComponent
   ],
   providers: [CdkColumnDef],
   bootstrap: [AppComponent]

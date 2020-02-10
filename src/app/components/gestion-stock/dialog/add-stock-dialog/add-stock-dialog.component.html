@@ -1,0 +1,20 @@
+<form [formGroup]="stockForm" class="form-container">
+
+  <mat-form-field>
+    <mat-label>Composant</mat-label>
+    <mat-select formControlName="composant">
+      <mat-option *ngFor="let composant of composants" [value]="composant.id">
+        {{composant.caracteristiques}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+      <input type="text" matInput formControlName="quantity" placeholder="Quantité">
+  </mat-form-field>
+  <div mat-dialog-actions>
+      <button class="btn-dialog" mat-raised-button type="submit" [disabled]="stockForm.invalid" (click)="confirmAdd()" [mat-dialog-close]="1">Ajouter</button>
+      <button class="btn-dialog" mat-raised-button (click)="onNoClick()">Annuler</button>
+  </div>
+</form>
+
+
