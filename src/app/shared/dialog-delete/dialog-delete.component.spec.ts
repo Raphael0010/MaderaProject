@@ -21,6 +21,7 @@ import { AppRoutingModule } from "src/app/app-routing.module";
 import { MaterialModule } from "src/app/material-module";
 import { MatTableModule, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { ClientComponent } from "src/app/components/client/client.component";
+import { VoirDevisComponent } from "src/app/components/devis/voir-devis/voir-devis.component";
 
 describe("DialogDeleteComponent", () => {
   let component: DialogDeleteComponent;
@@ -44,7 +45,8 @@ describe("DialogDeleteComponent", () => {
         EditPlanDialogComponent,
         GestionStockComponent,
         SnackBarComponent,
-        ClientComponent
+        ClientComponent,
+        VoirDevisComponent
       ],
       imports: [
         BrowserAnimationsModule,

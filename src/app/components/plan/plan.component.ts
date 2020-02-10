@@ -5,8 +5,9 @@ import { Plan } from "src/app/models/plan.model";
 import { PlanService } from "src/app/services/plan.service";
 import { AddPlanDialogComponent } from "./dialog/add-plan-dialog/add-plan-dialog/add-plan-dialog.component";
 import { EditPlanDialogComponent } from "./dialog/edit-plan-dialog/edit-plan-dialog/edit-plan-dialog.component";
-import { ActivatedRoute } from "@angular/router";
-
+import { ActivatedRoute, Router } from "@angular/router";
+import { Module } from "src/app/models/module.model";
+import { RemisePlanDialogComponent } from "./dialog/remise-plan-dialog/remise-plan-dialog.component";
 
 @Component({
   selector: "app-plan",
@@ -14,61 +15,108 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ["./plan.component.css"]
 })
 export class PlanComponent implements OnInit {
+  plans: Plan[];
+  modules: Module[];
+  plan: Plan;
+  idProjet = 0;
+  count = 0;
+  isCreated = false;
 
-  plans: Plan[] ;
-  plan: Plan ;
-  idProjet = 0 ;
-  count = 0 ;
+  displayedColumns: string[] = [
+    "dateCreation",
+    "nbPieces",
+    "nbChambres",
+    "nbEtage",
+    "surface",
+    "modules",
+    "buttons"
+  ];
+  dataSource: MatTableDataSource<Plan>;
 
-  displayedColumns: string[] = ["dateCreation", "nbPieces", "nbChambres", "nbEtage", "surface", "buttons"];
-  dataSource ;
+  constructor(
+    public dialog: MatDialog,
+    private planService: PlanService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+    this.dataSource = new MatTableDataSource<Plan>();
+  }
 
-  constructor(public dialog: MatDialog, private planService: PlanService, private route: ActivatedRoute) { }
-
-  async ngOnInit() {
+  ngOnInit() {
     this.idProjet = parseInt(this.route.snapshot.params.id, 10);
-    this.plans = await this.planService.getPlanById(this.idProjet) ;
-    if (this.plans.length === 1) {
-      this.count = 1 ;
-    }
-    this.dataSource = new MatTableDataSource(this.plans);
+    this.getPlanById();
   }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  addNewPlan() {
-    const dialogRef = this.dialog.open(AddPlanDialogComponent, {
-      height: "500px",
-      width: "400px",
-      data: {idProjet: this.idProjet}
+  showDevis(plan: Plan) {
+    this.router.navigate([`/devis/${plan.idDevis}`]);
+  }
+
+  createDevis() {
+    const montant = this.modules.reduce((c, p) => c + p.prix, 0);
+    const dialogRef = this.dialog.open(RemisePlanDialogComponent, {
+      height: "300px",
+      width: "300px",
+      data: {plan: this.plans[0]}
     });
 
     dialogRef.afterClosed().subscribe(async result => {
-      if (result === 1) {
-        console.log("ok") ;
-        this.plans = await this.planService.getPlanById(this.idProjet) ;
-        if (this.plans.length < 1) {
-          this.count = 1 ;
-        }
-        this.dataSource = new MatTableDataSource(this.plans);
+      if (result) {
+        const id = await this.planService.createDevis(result.plan, result.remise, montant);
+        this.getModulesByPlan();
+        this.planService.updateDevis(result.plan, id);
+        this.router.navigate([`/devis/${id}`]);
       }
     });
   }
 
-  editPlan(id: number, dateCreation: Date, nbPieces: number, nbChambres: number, nbEtage: number, surface: number) {
-    const dialogRef = this.dialog.open(EditPlanDialogComponent, {
-      height: "500px",
-      width: "400px",
-      // tslint:disable-next-line:object-literal-shorthand
-      data: {id: id, dateCreation: dateCreation, nbPieces: nbPieces, nbChambres: nbChambres, nbEtage: nbEtage, surface: surface }
+  addNewPlan() {
+    const dialogRef = this.dialog.open(AddPlanDialogComponent, {
+      height: "800px",
+      width: "600px",
+      data: { idProjet: this.idProjet }
     });
 
     dialogRef.afterClosed().subscribe(async result => {
       if (result === 1) {
-        this.plans = await this.planService.getPlanById(this.idProjet) ;
-        this.dataSource = new MatTableDataSource(this.plans);
+        this.plans = await this.planService.getPlanById(this.idProjet);
+        if (this.plans.length === 1) {
+          this.count = 1;
+        }
+        this.dataSource.data = this.plans;
+      }
+    });
+  }
+
+  editPlan(
+    id: number,
+    dateCreation: Date,
+    nbPieces: number,
+    nbChambres: number,
+    nbEtage: number,
+    surface: number
+  ) {
+    const dialogRef = this.dialog.open(EditPlanDialogComponent, {
+      height: "800px",
+      width: "600px",
+      // tslint:disable-next-line:object-literal-shorthand
+      data: {
+        id,
+        dateCreation,
+        nbPieces,
+        nbChambres,
+        nbEtage,
+        surface
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 1) {
+        this.getPlanById() ;
+        this.dataSource.data = this.plans;
       }
     });
   }
@@ -76,9 +124,23 @@ export class PlanComponent implements OnInit {
   async deletePlan(id: number) {
     await this.planService.deletePlan(id) ;
     this.plans = await this.planService.getPlanById(this.idProjet) ;
-    this.dataSource = new MatTableDataSource(this.plans);
+    this.dataSource.data = this.plans;
+    this.count = 0 ;
   }
 
+  async getPlanById() {
+    this.plans = await this.planService.getPlanById(this.idProjet);
+    if (this.plans.length === 1) {
+      this.count = 1 ;
+      this.dataSource.data = this.plans;
+      this.getModulesByPlan();
+      if (this.plans[0].idDevis !== null) {
+        this.isCreated = true;
+      }
+    }
+  }
 
-
+  async getModulesByPlan() {
+    this.modules = await this.planService.getModulesByPlan(this.plans[0]);
+  }
 }

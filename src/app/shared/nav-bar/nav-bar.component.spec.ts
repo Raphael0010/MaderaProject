@@ -20,6 +20,7 @@ import { AppRoutingModule } from "src/app/app-routing.module";
 import { MaterialModule } from "src/app/material-module";
 import { MatTableModule } from "@angular/material";
 import { ClientComponent } from "src/app/components/client/client.component";
+import { VoirDevisComponent } from "src/app/components/devis/voir-devis/voir-devis.component";
 
 describe("NavBarComponent", () => {
   let component: NavBarComponent;
@@ -43,7 +44,8 @@ describe("NavBarComponent", () => {
         EditPlanDialogComponent,
         GestionStockComponent,
         SnackBarComponent,
-        ClientComponent
+        ClientComponent,
+        VoirDevisComponent
       ],
       imports: [
         BrowserAnimationsModule,

@@ -10,7 +10,7 @@ export class ProjetService {
 
   constructor() {}
 
-  async addProjet(projet: Projet) {
+  async addProjet(projet: Projet): Promise<void> {
     const data = {
       nom: projet.nom,
       client: projet.idClient,
@@ -20,29 +20,26 @@ export class ProjetService {
     const add = await callApiFree("/projet", "POST", data) ;
   }
 
-  async getAllProjets() {
+  async getAllProjets(): Promise<Projet[]> {
     this.projets = await callApiFree("/projet", "GET");
     return this.projets;
   }
 
-  async editProjet(projet: Projet) {
-    console.log(projet);
+  async editProjet(projet: Projet): Promise<void> {
     const data = {
       id: projet.id,
       nom: projet.nom,
       client: projet.idClient,
       date: projet.dateCreation,
-      id_comm: 1
+      nom_comm: localStorage.getItem("username")
     };
     const edit = await callApiFree("/edit/projet", "POST", data);
-    console.log(edit);
   }
 
-  async deleteProjet(idProjet: number) {
-    console.log(idProjet);
+  async deleteProjet(idProjet: number): Promise<void> {
     const data = {
       id: idProjet
     };
-    const edit = await callApiFree("/delete/projet", "POST", data);
+    const deleted = await callApiFree("/delete/projet", "POST", data);
   }
 }

@@ -25,6 +25,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from "../app-routing.module";
 import { MaterialModule } from "../material-module";
 import { MatTableModule } from "@angular/material";
+import { VoirDevisComponent } from "../components/devis/voir-devis/voir-devis.component";
 
 describe("AuthGuardService", () => {
   beforeEach(() => TestBed.configureTestingModule({
@@ -47,7 +48,8 @@ describe("AuthGuardService", () => {
       ClientComponent,
       AddClientDialogComponent,
       EditClientDialogComponent,
-      ModaliteDePaiementComponent
+      ModaliteDePaiementComponent,
+      VoirDevisComponent
     ],
     imports: [
       BrowserAnimationsModule,

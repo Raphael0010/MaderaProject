@@ -6,6 +6,9 @@ import { MAT_MOMENT_DATE_ADAPTER_OPTIONS } from "@angular/material-moment-adapte
 import * as moment from "moment";
 import { Plan } from "src/app/models/plan.model";
 import { PlanService } from "src/app/services/plan.service";
+import { MatTableDataSource } from "@angular/material";
+import { Module } from "src/app/models/module.model";
+import { callApiFree } from "src/app/core/ApiCall";
 
 @Component({
   selector: "app-edit-plan-dialog",
@@ -21,15 +24,22 @@ import { PlanService } from "src/app/services/plan.service";
 export class EditPlanDialogComponent implements OnInit {
   planForm: FormGroup ;
   plan: Plan = new Plan() ;
+  dataSource: MatTableDataSource<Module> ;
+  displayedColumns: string[] = ["Module", "buttons"];
+  listModules: Module[];
+  modules: Module[];
 
   // tslint:disable-next-line:max-line-length
   constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<EditPlanDialogComponent>, @Inject(MAT_DIALOG_DATA) public data, private planService: PlanService, private adapter: DateAdapter<any>) {
     this.adapter.setLocale("fr");
+    this.dataSource = new MatTableDataSource<Module>() ;
    }
 
   ngOnInit() {
-    this.initForm() ;
     this.plan.id = this.data.id ;
+    this.getModule();
+    this.getModulesByPlan();
+    this.initForm() ;
   }
 
   initForm() {
@@ -38,7 +48,7 @@ export class EditPlanDialogComponent implements OnInit {
       nbPieces: [this.data.nbPieces, Validators.required],
       nbChambres: [this.data.nbChambres, Validators.required],
       nbEtage: [this.data.nbEtage, Validators.required],
-      surface: [this.data.surface, Validators.required],
+      surface: [this.data.surface, Validators.required]
     });
 }
 
@@ -46,27 +56,34 @@ export class EditPlanDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  confirmEdit(): void {
+  async confirmEdit(): Promise<void> {
     const formValue = this.planForm.value;
     this.plan.dateCreation =  formValue.dateCreation ;
     this.plan.nbPieces = formValue.nbPieces ;
     this.plan.nbChambres = formValue.nbChambres ;
     this.plan.nbEtage = formValue.nbEtage;
     this.plan.surface = formValue.surface;
-    this.planService.editPlan(this.plan);
+    await this.planService.editPlan(this.plan, this.listModules);
   }
 
-  /*formatDate(date: Date) {
-    const monthNames = [
-      "01", "02", "03",
-      "04", "05", "06", "07",
-      "08", "09", "10",
-      "11", "12"
-    ];
-    const day = date.getDate();
-    const monthIndex = date.getMonth();
-    const year = date.getFullYear();
-    return year + "-" + monthNames[monthIndex] + "-" + day;
-  }*/
+  addModule(module: Module): void {
+    this.listModules.push(module) ;
+    this.dataSource.data = this.listModules ;
+  }
+
+  deleteModule(module: Module): void {
+    const index = this.listModules.indexOf(module) ;
+    this.listModules.splice(index, 1) ;
+    this.dataSource.data = this.listModules ;
+  }
+
+  async getModule(): Promise<void> {
+    this.modules = await callApiFree("/module", "GET") ;
+  }
+
+  async getModulesByPlan() {
+    this.listModules = await this.planService.getModulesByPlan(this.plan);
+    this.dataSource.data = this.listModules;
+  }
 
 }

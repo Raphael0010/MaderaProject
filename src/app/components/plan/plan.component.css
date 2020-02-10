@@ -27,3 +27,10 @@ td.mat-cell {
     border-bottom-style : none ;
     margin : 5px ;
 }
+
+ul {
+  list-style-type: '-';
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}

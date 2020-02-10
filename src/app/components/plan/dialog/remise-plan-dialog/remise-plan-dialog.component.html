@@ -1,0 +1,15 @@
+<div class="container-modal">
+  <h2>Création du devis</h2>
+  <mat-form-field>
+    <input
+      type="number"
+      #remise
+      matInput
+      placeholder="Remise %"
+      (keyup)="verificationRemise()">
+  </mat-form-field>
+  <div mat-dialog-actions>
+    <button class="btn-dialog" mat-raised-button [disabled]="!isFilled" (click)="confirmRemise()">Créer</button>
+  </div>
+</div>
+
