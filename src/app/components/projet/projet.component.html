@@ -3,7 +3,7 @@
   <input
     matInput
     (keyup)="applyFilter($event.target.value)"
-    placeholder="Recherche"
+    placeholder="Rechercher"
     matTooltip="Rechercher un client/une date"
     [matTooltipPosition]="'right'"
   />
@@ -34,7 +34,13 @@
 
   <ng-container matColumnDef="buttons">
     <th mat-header-cell *matHeaderCellDef>
-      <button mat-icon-button color="primary" (click)="addNewProject()"  matTooltip="Ajouter un projet" [matTooltipPosition]="'above'">
+      <button
+        mat-icon-button
+        color="primary"
+        (click)="addNewProject()"
+        matTooltip="Ajouter un projet"
+        [matTooltipPosition]="'above'"
+      >
         <mat-icon aria-label="Example icon-button with a heart icon"
           >add</mat-icon
         >

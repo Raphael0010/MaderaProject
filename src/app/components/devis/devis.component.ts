@@ -54,9 +54,7 @@ export class DevisComponent implements OnInit {
   }
 
   deleteDevis(id: number): void {
-    const dialogRef = this.dialog.open(DialogDeleteComponent, {
-      width: "320px"
-    });
+    const dialogRef = this.dialog.open(DialogDeleteComponent, {});
     dialogRef.afterClosed().subscribe(async e => {
       if (e === true) {
         await callApiFree(`/deleteDevis/${id}`, "get");

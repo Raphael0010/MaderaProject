@@ -1,35 +1,28 @@
 table {
-    width: 100%;
+  width: 100%;
 }
 
 h1 {
-  text-align: center ;
-}
-
-.mat-form-field {
-    display: flex;
-    justify-content: center;
-    font-size: 14px;
-    width: 100%;
+  text-align: center;
 }
 
 th.mat-header-cell {
-    text-align: center ;
-    font-weight: bold ;
-    font-size: 1em ;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1em;
 }
 
 td.mat-cell {
-    text-align: center ;
+  text-align: center;
 }
 
 .btn-content {
-    display: flex ;
-    justify-content: flex-start;
-    border-bottom-style : none ;
-    margin-left: 20% ;
+  display: flex;
+  justify-content: flex-start;
+  border-bottom-style: none;
+  margin-left: 20%;
 }
 
 .actionBtn {
-  margin-left: 0.5em ;
+  margin-left: 0.5em;
 }

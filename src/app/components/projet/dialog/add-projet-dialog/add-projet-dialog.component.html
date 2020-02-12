@@ -28,15 +28,15 @@
   </mat-form-field>
   <div mat-dialog-actions>
     <button
-      class="btn-dialog"
       mat-raised-button
       [disabled]="projetForm.invalid"
+      color="primary"
       [mat-dialog-close]="1"
       (click)="confirmAdd()"
     >
       Ajouter
     </button>
-    <button class="btn-dialog" mat-raised-button (click)="onNoClick()">
+    <button mat-button color="basic" (click)="onNoClick()">
       Annuler
     </button>
   </div>

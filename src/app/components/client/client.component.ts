@@ -42,8 +42,6 @@ export class ClientComponent implements OnInit {
 
   addNewClient() {
     const dialogRef = this.dialog.open(AddClientDialogComponent, {
-      height: "400px",
-      width: "600px",
       data: { client: this.client }
     });
 
@@ -57,8 +55,6 @@ export class ClientComponent implements OnInit {
 
   editClient(client: Client) {
     const dialogRef = this.dialog.open(EditClientDialogComponent, {
-      height: "400px",
-      width: "600px",
       // tslint:disable-next-line:object-literal-shorthand
       data: { client: client }
     });
@@ -72,9 +68,7 @@ export class ClientComponent implements OnInit {
   }
 
   deleteClient(id: number): void {
-    const dialogRef = this.dialog.open(DialogDeleteComponent, {
-      width: "320px"
-    });
+    const dialogRef = this.dialog.open(DialogDeleteComponent, {});
     dialogRef.afterClosed().subscribe(async e => {
       if (e === true) {
         this.clients = await this.clientService.getAllClients();

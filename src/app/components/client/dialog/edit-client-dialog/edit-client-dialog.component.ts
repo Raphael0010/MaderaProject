@@ -19,8 +19,8 @@ export class EditClientDialogComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<EditClientDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any = {client: {}},
-    private clientService: ClientService,
+    @Inject(MAT_DIALOG_DATA) public data: any = { client: {} },
+    private clientService: ClientService
   ) {}
 
   ngOnInit() {
@@ -29,7 +29,7 @@ export class EditClientDialogComponent implements OnInit {
   }
 
   initForm() {
-    if (this.data.client.newsletter === "1") {
+    if (this.data.client.newsletter === 1) {
       this.checked = true;
     } else {
       this.checked = false;

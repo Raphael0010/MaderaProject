@@ -1,13 +1,13 @@
 <h1>Gestion des clients</h1>
 <mat-form-field>
-    <input
-      matInput
-      (keyup)="applyFilter($event.target.value)"
-      placeholder="Client"
-      matTooltip="Rechercher un client"
-      [matTooltipPosition]="'right'"
-    />
-  </mat-form-field>
+  <input
+    matInput
+    (keyup)="applyFilter($event.target.value)"
+    placeholder="Rechercher"
+    matTooltip="Rechercher un client"
+    [matTooltipPosition]="'right'"
+  />
+</mat-form-field>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <!-- Name Column -->
   <ng-container matColumnDef="id">
@@ -33,8 +33,22 @@
   <ng-container matColumnDef="newsletter">
     <th mat-header-cell *matHeaderCellDef>Newsletter</th>
     <td mat-cell *matCellDef="let client">
-      <div *ngIf="client.newsletter==='0'">X</div>
-      <div *ngIf="client.newsletter==='1'">abonné(e)</div>
+      <div *ngIf="client.newsletter === 0">
+        <img
+          alt="404 not found"
+          width="30"
+          height="30"
+          src="assets/img/uncheck.png"
+        />
+      </div>
+      <div *ngIf="client.newsletter === 1">
+        <img
+          alt="404 not found"
+          width="30"
+          height="30"
+          src="assets/img/check.png"
+        />
+      </div>
     </td>
   </ng-container>
 
@@ -51,10 +65,16 @@
     </th>
     <td mat-cell *matCellDef="let client">
       <div class="btn-content">
-        <button mat-raised-button color="accent" (click)="editClient(client)">
+        <button
+          class="actionBtn"
+          mat-raised-button
+          color="accent"
+          (click)="editClient(client)"
+        >
           Modifier
         </button>
         <button
+          class="actionBtn"
           mat-raised-button
           color="warn"
           (click)="deleteClient(client.id)"

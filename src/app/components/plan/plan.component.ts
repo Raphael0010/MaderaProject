@@ -58,8 +58,6 @@ export class PlanComponent implements OnInit {
   createDevis() {
     const montant = this.modules.reduce((c, p) => c + p.prix, 0);
     const dialogRef = this.dialog.open(RemisePlanDialogComponent, {
-      height: "300px",
-      width: "300px",
       data: { plan: this.plans[0] }
     });
 
@@ -79,8 +77,6 @@ export class PlanComponent implements OnInit {
 
   addNewPlan() {
     const dialogRef = this.dialog.open(AddPlanDialogComponent, {
-      height: "800px",
-      width: "600px",
       data: { idProjet: this.idProjet }
     });
 

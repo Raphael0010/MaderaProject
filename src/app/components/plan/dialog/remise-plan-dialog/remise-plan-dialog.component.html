@@ -5,11 +5,18 @@
       type="number"
       #remise
       matInput
-      placeholder="Remise %"
-      (keyup)="verificationRemise()">
+      placeholder="Remise % ( maximum 20 % )"
+      (keyup)="verificationRemise()"
+    />
   </mat-form-field>
   <div mat-dialog-actions>
-    <button class="btn-dialog" mat-raised-button [disabled]="!isFilled" (click)="confirmRemise()">Créer</button>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!isFilled"
+      (click)="confirmRemise()"
+    >
+      Créer
+    </button>
   </div>
 </div>
-

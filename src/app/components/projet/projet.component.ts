@@ -8,26 +8,32 @@ import { EditProjetDialogComponent } from "./dialog/edit-projet-dialog/edit-proj
 import { Router } from "@angular/router";
 import { DialogDeleteComponent } from "src/app/shared/dialog-delete/dialog-delete.component";
 
-
-
 @Component({
   selector: "app-projet",
   templateUrl: "./projet.component.html",
   styleUrls: ["./projet.component.css"]
 })
 export class ProjetComponent implements OnInit {
-
-  projets: Projet[] = [] ;
+  projets: Projet[] = [];
   projet: Projet = new Projet();
 
-  displayedColumns: string[] = ["nomProjet", "client", "dateCreation", "buttons"];
-  dataSource: MatTableDataSource<Projet> ;
+  displayedColumns: string[] = [
+    "nomProjet",
+    "client",
+    "dateCreation",
+    "buttons"
+  ];
+  dataSource: MatTableDataSource<Projet>;
 
-  constructor(public dialog: MatDialog, private projetService: ProjetService, private router: Router) { }
+  constructor(
+    public dialog: MatDialog,
+    private projetService: ProjetService,
+    private router: Router
+  ) {}
 
   async ngOnInit() {
     this.dataSource = new MatTableDataSource<Projet>();
-    this.projets = await this.projetService.getAllProjets() ;
+    this.projets = await this.projetService.getAllProjets();
     this.dataSource.data = this.projets;
   }
 
@@ -37,14 +43,12 @@ export class ProjetComponent implements OnInit {
 
   addNewProject() {
     const dialogRef = this.dialog.open(AddProjetDialogComponent, {
-      height: "350px",
-      width: "350px",
-      data: {projet: this.projet}
+      data: { projet: this.projet }
     });
 
     dialogRef.afterClosed().subscribe(async result => {
       if (result === 1) {
-        this.projets = await this.projetService.getAllProjets() ;
+        this.projets = await this.projetService.getAllProjets();
         this.dataSource.data = this.projets;
       }
     });
@@ -52,28 +56,24 @@ export class ProjetComponent implements OnInit {
 
   editProject(id: number, nom: string, idClient: number, dateCreation: Date) {
     const dialogRef = this.dialog.open(EditProjetDialogComponent, {
-      height: "350px",
-      width: "350px",
       // tslint:disable-next-line:object-literal-shorthand
-      data: {id: id, idClient: idClient, nom: nom, dateCreation: dateCreation }
+      data: { id: id, idClient: idClient, nom: nom, dateCreation: dateCreation }
     });
 
     dialogRef.afterClosed().subscribe(async result => {
       if (result === 1) {
-        this.projets = await this.projetService.getAllProjets() ;
+        this.projets = await this.projetService.getAllProjets();
         this.dataSource.data = this.projets;
       }
     });
   }
 
   deleteProjet(id: number) {
-    const dialogRef = this.dialog.open(DialogDeleteComponent, {
-      width: "320px"
-    });
+    const dialogRef = this.dialog.open(DialogDeleteComponent, {});
     dialogRef.afterClosed().subscribe(async e => {
       if (e === true) {
-        await this.projetService.deleteProjet(id) ;
-        this.projets = await this.projetService.getAllProjets() ;
+        await this.projetService.deleteProjet(id);
+        this.projets = await this.projetService.getAllProjets();
         this.dataSource.data = this.projets;
       }
     });
@@ -82,7 +82,4 @@ export class ProjetComponent implements OnInit {
   displayPlan(id: number) {
     this.router.navigate(["/plan/:id"]);
   }
-
-
-
 }

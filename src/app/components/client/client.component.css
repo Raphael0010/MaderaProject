@@ -1,29 +1,28 @@
 table {
-    width: 100%;
-}
-
-.mat-form-field {
-    font-size: 14px;
-    width: 10%;
+  width: 100%;
 }
 
 h1 {
-  text-align: center ;
+  text-align: center;
 }
 
 th.mat-header-cell {
-    text-align: center ;
-    font-weight: bold ;
-    font-size: 1em ;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1em;
 }
 
 td.mat-cell {
-    text-align: center ;
+  text-align: center;
 }
 
 .btn-content {
-    display: flex ;
-    justify-content: space-around ;
-    border-bottom-style : none ;
-    margin : 5px ;
+  display: flex;
+  justify-content: flex-start;
+  border-bottom-style: none;
+  margin-left: 20%;
+}
+
+.actionBtn {
+  margin-left: 0.5em;
 }
