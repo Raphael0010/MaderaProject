@@ -1,31 +1,35 @@
+<img alt="logo madera" class="logo" src="assets/img/logo-color.png" />
 <div class="login-content">
-  <img alt="logo madera" src="assets/img/logo-color.png" />
+  <form
+    [formGroup]="loginForm"
+    class="login-form"
+    (ngSubmit)="onSubmit(loginForm.value)"
+  >
+    <div class="login-page form login-form">
+      <div>
+        <mat-form-field>
+          <input
+            required
+            matInput
+            placeholder="Identifiant"
+            formControlName="username"
+          />
+        </mat-form-field>
+      </div>
 
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
-    <div>
-      <mat-form-field>
-        <input
-          required
-          matInput
-          placeholder="Identifiant"
-          formControlName="username"
-        />
-      </mat-form-field>
-    </div>
-    <br />
-    <div>
-      <mat-form-field>
-        <input
-          required
-          matInput
-          placeholder="Mot de passe"
-          formControlName="password"
-          type="password"
-        />
-      </mat-form-field>
-    </div>
-    <div>
-      <button mat-raised-button color="primary" type="submit">Valider</button>
+      <div>
+        <mat-form-field>
+          <input
+            required
+            matInput
+            placeholder="Mot de passe"
+            formControlName="password"
+            type="password"
+          />
+        </mat-form-field>
+      </div>
+
+      <button mat-raised-button color="primary" type="submit">Connexion</button>
     </div>
   </form>
 </div>
