@@ -1,35 +1,52 @@
+@media screen and (min-width: 200px) and (max-width: 640px) {
+  .tableQueries {
+    overflow-x: auto;
+  }
+  .mat-raised-button {
+    padding: 0;
+  }
+  .btn-content {
+    display: flex;
+    justify-content: flex-start;
+    border-bottom-style: none;
+    margin-left: 0% !important;
+  }
+}
+
 table {
-    width: 100%;
+  width: 100%;
 }
 
 .mat-form-field {
-    font-size: 14px;
-    width: 10%;
+  font-size: 14px;
+  width: 10%;
 }
 
 h1 {
-  text-align: center ;
+  text-align: center;
 }
 
 th.mat-header-cell {
-    text-align: center ;
-    font-weight: bold ;
-    font-size: 1em ;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1em;
 }
 
 td.mat-cell {
-    text-align: center ;
+  text-align: center;
 }
 
 .btn-content {
-    display: flex ;
-    justify-content: space-around ;
-    border-bottom-style : none ;
-    margin : 5px ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.actionBtn {
+  margin-left: 0.5em;
 }
 
 ul {
-  list-style-type: '-';
+  list-style-type: "-";
   display: flex;
   flex-direction: column;
   align-items: flex-start;

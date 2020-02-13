@@ -19,7 +19,7 @@ export class ClientService {
       tel: client.tel,
       newsletter: client.newsletter
     };
-    const add = await callApiFree("/client", "POST", data);
+    await callApiFree("/client", "POST", data);
   }
 
   async editClient(client: Client) {
@@ -31,14 +31,11 @@ export class ClientService {
       tel: client.tel,
       newsletter: client.newsletter
     };
-    const add = await callApiFree("/edit/client", "POST", data);
+    await callApiFree("/edit/client", "POST", data);
   }
 
   async deleteClient(idClient: number) {
-    const data = {
-      id: idClient
-    };
-    const edit = await callApiFree("/delete/client", "POST", data);
+    await callApiFree(`/deleteClient/${idClient}`, "GET");
   }
 
   async getAllClients() {

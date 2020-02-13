@@ -71,6 +71,7 @@ export class ClientComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogDeleteComponent, {});
     dialogRef.afterClosed().subscribe(async e => {
       if (e === true) {
+        await this.clientService.deleteClient(id);
         this.clients = await this.clientService.getAllClients();
         this.dataSource = new MatTableDataSource(this.clients);
       }

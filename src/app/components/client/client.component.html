@@ -8,83 +8,85 @@
     [matTooltipPosition]="'right'"
   />
 </mat-form-field>
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  <!-- Name Column -->
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef>Identifiant</th>
-    <td mat-cell *matCellDef="let client">{{ client.id }}</td>
-  </ng-container>
-  <ng-container matColumnDef="nom">
-    <th mat-header-cell *matHeaderCellDef>Prénom</th>
-    <td mat-cell *matCellDef="let client">{{ client.prenom }}</td>
-  </ng-container>
-  <ng-container matColumnDef="prenom">
-    <th mat-header-cell *matHeaderCellDef>Nom</th>
-    <td mat-cell *matCellDef="let client">{{ client.nom }}</td>
-  </ng-container>
-  <ng-container matColumnDef="mail">
-    <th mat-header-cell *matHeaderCellDef>Email</th>
-    <td mat-cell *matCellDef="let client">{{ client.mail }}</td>
-  </ng-container>
-  <ng-container matColumnDef="tel">
-    <th mat-header-cell *matHeaderCellDef>Téléphone</th>
-    <td mat-cell *matCellDef="let client">{{ client.tel }}</td>
-  </ng-container>
-  <ng-container matColumnDef="newsletter">
-    <th mat-header-cell *matHeaderCellDef>Newsletter</th>
-    <td mat-cell *matCellDef="let client">
-      <div *ngIf="client.newsletter === 0">
-        <img
-          alt="404 not found"
-          width="30"
-          height="30"
-          src="assets/img/uncheck.png"
-        />
-      </div>
-      <div *ngIf="client.newsletter === 1">
-        <img
-          alt="404 not found"
-          width="30"
-          height="30"
-          src="assets/img/check.png"
-        />
-      </div>
-    </td>
-  </ng-container>
+<div class="tableQueries">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Name Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>Identifiant</th>
+      <td mat-cell *matCellDef="let client">{{ client.id }}</td>
+    </ng-container>
+    <ng-container matColumnDef="nom">
+      <th mat-header-cell *matHeaderCellDef>Prénom</th>
+      <td mat-cell *matCellDef="let client">{{ client.prenom }}</td>
+    </ng-container>
+    <ng-container matColumnDef="prenom">
+      <th mat-header-cell *matHeaderCellDef>Nom</th>
+      <td mat-cell *matCellDef="let client">{{ client.nom }}</td>
+    </ng-container>
+    <ng-container matColumnDef="mail">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let client">{{ client.mail }}</td>
+    </ng-container>
+    <ng-container matColumnDef="tel">
+      <th mat-header-cell *matHeaderCellDef>Téléphone</th>
+      <td mat-cell *matCellDef="let client">{{ client.tel }}</td>
+    </ng-container>
+    <ng-container matColumnDef="newsletter">
+      <th mat-header-cell *matHeaderCellDef>Newsletter</th>
+      <td mat-cell *matCellDef="let client">
+        <div *ngIf="client.newsletter === 0">
+          <img
+            alt="404 not found"
+            width="30"
+            height="30"
+            src="assets/img/uncheck.png"
+          />
+        </div>
+        <div *ngIf="client.newsletter === 1">
+          <img
+            alt="404 not found"
+            width="30"
+            height="30"
+            src="assets/img/check.png"
+          />
+        </div>
+      </td>
+    </ng-container>
 
-  <ng-container matColumnDef="buttons">
-    <th mat-header-cell *matHeaderCellDef>
-      <button mat-icon-button color="primary">
-        <mat-icon
-          aria-label="Example icon-button with a heart icon"
-          (click)="addNewClient()"
-        >
-          add</mat-icon
-        >
-      </button>
-    </th>
-    <td mat-cell *matCellDef="let client">
-      <div class="btn-content">
-        <button
-          class="actionBtn"
-          mat-raised-button
-          color="accent"
-          (click)="editClient(client)"
-        >
-          Modifier
+    <ng-container matColumnDef="buttons">
+      <th mat-header-cell *matHeaderCellDef>
+        <button mat-icon-button color="primary">
+          <mat-icon
+            aria-label="Example icon-button with a heart icon"
+            (click)="addNewClient()"
+          >
+            add</mat-icon
+          >
         </button>
-        <button
-          class="actionBtn"
-          mat-raised-button
-          color="warn"
-          (click)="deleteClient(client.id)"
-        >
-          Supprimer
-        </button>
-      </div>
-    </td>
-  </ng-container>
+      </th>
+      <td mat-cell *matCellDef="let client">
+        <div class="btn-content">
+          <button
+            class="actionBtn"
+            mat-raised-button
+            color="accent"
+            (click)="editClient(client)"
+          >
+            Modifier
+          </button>
+          <button
+            class="actionBtn"
+            mat-raised-button
+            color="warn"
+            (click)="deleteClient(client.id)"
+          >
+            Supprimer
+          </button>
+        </div>
+      </td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-</table>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>

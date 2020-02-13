@@ -8,81 +8,82 @@
     [matTooltipPosition]="'right'"
   />
 </mat-form-field>
+<div class="tableQueries">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Name Column -->
+    <ng-container matColumnDef="nomProjet">
+      <th mat-header-cell *matHeaderCellDef>Nom du projet</th>
+      <td mat-cell *matCellDef="let projet">{{ projet.nom }}</td>
+    </ng-container>
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  <!-- Name Column -->
-  <ng-container matColumnDef="nomProjet">
-    <th mat-header-cell *matHeaderCellDef>Nom du projet</th>
-    <td mat-cell *matCellDef="let projet">{{ projet.nom }}</td>
-  </ng-container>
+    <!-- Client Column -->
+    <ng-container matColumnDef="client">
+      <th mat-header-cell *matHeaderCellDef>Client</th>
+      <td mat-cell *matCellDef="let projet">
+        {{ projet.nomClient | uppercase }} {{ projet.prenomClient }}
+      </td>
+    </ng-container>
 
-  <!-- Client Column -->
-  <ng-container matColumnDef="client">
-    <th mat-header-cell *matHeaderCellDef>Client</th>
-    <td mat-cell *matCellDef="let projet">
-      {{ projet.nomClient | uppercase }} {{ projet.prenomClient }}
-    </td>
-  </ng-container>
+    <!-- Date Column -->
+    <ng-container matColumnDef="dateCreation">
+      <th mat-header-cell *matHeaderCellDef>Date de création</th>
+      <td mat-cell *matCellDef="let projet">
+        {{ projet.dateCreation | date: "dd/MM/yyyy" }}
+      </td>
+    </ng-container>
 
-  <!-- Date Column -->
-  <ng-container matColumnDef="dateCreation">
-    <th mat-header-cell *matHeaderCellDef>Date de création</th>
-    <td mat-cell *matCellDef="let projet">
-      {{ projet.dateCreation | date: "dd/MM/yyyy" }}
-    </td>
-  </ng-container>
-
-  <ng-container matColumnDef="buttons">
-    <th mat-header-cell *matHeaderCellDef>
-      <button
-        mat-icon-button
-        color="primary"
-        (click)="addNewProject()"
-        matTooltip="Ajouter un projet"
-        [matTooltipPosition]="'above'"
-      >
-        <mat-icon aria-label="Example icon-button with a heart icon"
-          >add</mat-icon
-        >
-      </button>
-    </th>
-    <td mat-cell *matCellDef="let projet">
-      <div class="btn-content">
+    <ng-container matColumnDef="buttons">
+      <th mat-header-cell *matHeaderCellDef>
         <button
-          class="actionBtn"
-          mat-raised-button
+          mat-icon-button
           color="primary"
-          [routerLink]="['/plan', projet.id]"
+          (click)="addNewProject()"
+          matTooltip="Ajouter un projet"
+          [matTooltipPosition]="'above'"
         >
-          Voir projet
+          <mat-icon aria-label="Example icon-button with a heart icon"
+            >add</mat-icon
+          >
         </button>
-        <button
-          class="actionBtn"
-          mat-raised-button
-          color="accent"
-          (click)="
-            editProject(
-              projet.id,
-              projet.nom,
-              projet.idClient,
-              projet.dateCreation
-            )
-          "
-        >
-          Modifier
-        </button>
-        <button
-          class="actionBtn"
-          mat-raised-button
-          color="warn"
-          (click)="deleteProjet(projet.id)"
-        >
-          Supprimer
-        </button>
-      </div>
-    </td>
-  </ng-container>
+      </th>
+      <td mat-cell *matCellDef="let projet">
+        <div class="btn-content">
+          <button
+            class="actionBtn"
+            mat-raised-button
+            color="primary"
+            [routerLink]="['/plan', projet.id]"
+          >
+            Voir projet
+          </button>
+          <button
+            class="actionBtn"
+            mat-raised-button
+            color="accent"
+            (click)="
+              editProject(
+                projet.id,
+                projet.nom,
+                projet.idClient,
+                projet.dateCreation
+              )
+            "
+          >
+            Modifier
+          </button>
+          <button
+            class="actionBtn"
+            mat-raised-button
+            color="warn"
+            (click)="deleteProjet(projet.id)"
+          >
+            Supprimer
+          </button>
+        </div>
+      </td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-</table>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const callApiFree = async (uri: string, method: any, data?: any) => {
-  const baseUrl = "http://localhost:3000";
+  const baseUrl = "http://10.173.128.223:3000";
   const met = method.toString().toUpperCase();
 
   if (met !== "POST" && met !== "GET" && met !== "PUT" && met !== "DELETE") {
