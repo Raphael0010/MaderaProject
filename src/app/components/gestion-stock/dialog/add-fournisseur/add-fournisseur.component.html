@@ -1,20 +1,27 @@
-<form [formGroup]="stockForm" class="form-container">
+<form [formGroup]="fournisseurForm" class="form-container">
   <mat-form-field>
     <input
       type="text"
       matInput
-      formControlName="composant"
-      placeholder="Composant"
-      readonly
+      formControlName="nom"
+      placeholder="Raison sociale"
     >
 
   </mat-form-field>
   <mat-form-field>
     <input
+      type="email"
+      matInput
+      formControlName="mail"
+      placeholder="Email"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <input
       type="text"
       matInput
-      formControlName="quantity"
-      placeholder="Quantité"
+      formControlName="tel"
+      placeholder="Téléphone"
     />
   </mat-form-field>
   <div mat-dialog-actions>
@@ -22,11 +29,11 @@
       class="btn-dialog"
       mat-raised-button
       type="submit"
-      [disabled]="stockForm.invalid"
+      [disabled]="fournisseurForm.invalid"
       (click)="confirmEdit()"
       [mat-dialog-close]="1"
     >
-      Modifier
+      Ajouter un fournisseur
     </button>
     <button class="btn-dialog" mat-raised-button (click)="onNoClick()">
       Annuler

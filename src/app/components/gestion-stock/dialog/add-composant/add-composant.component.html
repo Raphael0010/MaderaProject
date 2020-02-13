@@ -1,0 +1,35 @@
+<form [formGroup]="fournisseurForm" class="form-container">
+  <mat-form-field>
+      <input type="text" matInput formControlName="composant" placeholder="Nom du composant">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Familles</mat-label>
+    <mat-select formControlName="famille">
+      <mat-option *ngFor="let famille of familles" [value]="famille.id">
+        {{famille.famille}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Fournisseurs</mat-label>
+    <mat-select formControlName="fournisseur">
+      <mat-option *ngFor="let fournisseur of fournisseurs" [value]="fournisseur.id">
+        {{fournisseur.fournisseur}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Unité</mat-label>
+    <mat-select formControlName="unite">
+      <mat-option *ngFor="let unite of unites" [value]="unite">
+        {{unite}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div mat-dialog-actions>
+      <button class="btn-dialog" mat-raised-button type="submit" [disabled]="fournisseurForm.invalid" (click)="confirmAdd()" [mat-dialog-close]="1">Ajouter</button>
+      <button class="btn-dialog" mat-raised-button (click)="onNoClick()">Annuler</button>
+  </div>
+</form>
+
+

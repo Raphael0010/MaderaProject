@@ -37,6 +37,8 @@ import { EditStockDialogComponent } from "./components/gestion-stock/dialog/edit
 import { AddStockDialogComponent } from "./components/gestion-stock/dialog/add-stock-dialog/add-stock-dialog.component";
 import { TreeComposantComponent } from "./components/plan/tree/tree-composant/tree-composant.component";
 import { RemisePlanDialogComponent } from "./components/plan/dialog/remise-plan-dialog/remise-plan-dialog.component";
+import { AddFournisseurComponent } from './components/gestion-stock/dialog/add-fournisseur/add-fournisseur.component';
+import { AddComposantComponent } from './components/gestion-stock/dialog/add-composant/add-composant.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import { RemisePlanDialogComponent } from "./components/plan/dialog/remise-plan-
     EditStockDialogComponent,
     AddStockDialogComponent,
     TreeComposantComponent,
-    RemisePlanDialogComponent
+    RemisePlanDialogComponent,
+    AddFournisseurComponent,
+    AddComposantComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -85,7 +89,9 @@ import { RemisePlanDialogComponent } from "./components/plan/dialog/remise-plan-
     ModaliteDePaiementComponent,
     EditStockDialogComponent,
     AddStockDialogComponent,
-    RemisePlanDialogComponent
+    RemisePlanDialogComponent,
+    AddComposantComponent,
+    AddFournisseurComponent
   ],
   providers: [CdkColumnDef],
   bootstrap: [AppComponent]

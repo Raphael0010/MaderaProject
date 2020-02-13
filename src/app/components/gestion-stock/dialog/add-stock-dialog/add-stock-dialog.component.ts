@@ -34,7 +34,7 @@ export class AddStockDialogComponent implements OnInit {
       quantity: ["", Validators.required]
     });
   }
-  nNoClick(): void {
+  onNoClick(): void {
     this.dialogRef.close();
   }
   async confirmAdd(): Promise<void>{
