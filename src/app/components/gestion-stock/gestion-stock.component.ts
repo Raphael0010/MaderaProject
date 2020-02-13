@@ -32,8 +32,6 @@ export class GestionStockComponent implements OnInit {
   }
   editStock(stock: Stock) {
     const dialogRef = this.dialog.open(EditStockDialogComponent, {
-      height: "400px",
-      width: "600px",
       // tslint:disable-next-line:object-literal-shorthand
       data: { stock: stock }
     });
