@@ -1,81 +1,78 @@
 <h1>Gestion des stocks</h1>
 <div>
   <tr>
-
     <td>
-      <button
-      mat-raised-button
-      color="primary"
-      (click)="addNewComposant()">
-      Ajouter un composant
+      <button mat-raised-button color="primary" (click)="addNewComposant()">
+        Ajouter un composant
       </button>
-    </td> &nbsp;
+    </td>
+    &nbsp;
     <td>
-      <button
-      mat-raised-button
-      color="primary"
-      (click)="addNewFournisseur()"
-      >
-      Ajouter un fournisseur
+      <button mat-raised-button color="primary" (click)="addNewFournisseur()">
+        Ajouter un fournisseur
       </button>
     </td>
   </tr>
-  <br>
-
-
+  <br />
 </div>
 
-<table mat-table [dataSource]="dsStock" class="mat-elevation-z8">
-  <ng-container matColumnDef="composant">
-    <th mat-header-cell *matHeaderCellDef>Référence du composant</th>
-    <td mat-cell *matCellDef="let stock">{{ stock.composant }}</td>
-  </ng-container>
+<div class="tableQueries">
+  <table mat-table [dataSource]="dsStock" class="mat-elevation-z8">
+    <ng-container matColumnDef="composant">
+      <th mat-header-cell *matHeaderCellDef>Référence du composant</th>
+      <td mat-cell *matCellDef="let stock">{{ stock.composant }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="fournisseur">
-    <th mat-header-cell *matHeaderCellDef>Fournisseur</th>
-    <td mat-cell *matCellDef="let stock">{{ stock.fournisseur }}</td>
-  </ng-container>
+    <ng-container matColumnDef="fournisseur">
+      <th mat-header-cell *matHeaderCellDef>Fournisseur</th>
+      <td mat-cell *matCellDef="let stock">{{ stock.fournisseur }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="quantity">
-    <th mat-header-cell *matHeaderCellDef>Quantité disponible</th>
-    <td mat-cell *matCellDef="let stock">
-      {{ stock.quantity }}
-
-    </td>
-  </ng-container>
-   <ng-container matColumnDef="unite">
-    <th mat-header-cell *matHeaderCellDef>Unité</th>
-    <td mat-cell *matCellDef="let stock">
-      {{ stock.unite }}
-
-    </td>
-  </ng-container>
-   <ng-container matColumnDef="buttons">
-    <th mat-header-cell *matHeaderCellDef>
-      <button mat-icon-button color="primary">
-        <mat-icon
-          aria-label="Example icon-button with a heart icon"
-          (click)="addNewStock()"
-        >
-          add</mat-icon
-        >
-      </button>
-    </th>
-    <td mat-cell *matCellDef="let stock">
-      <div class="btn-content">
-        <button mat-raised-button color="accent" (click)="editStock(stock)">
-          Modifier
-        </button>&nbsp;
-        <button
-          mat-raised-button
-          color="warn"
-          (click)="deleteStock(stock.id)"
-        >
-          Supprimer
+    <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef>Quantité disponible</th>
+      <td mat-cell *matCellDef="let stock">
+        {{ stock.quantity }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="unite">
+      <th mat-header-cell *matHeaderCellDef>Unité</th>
+      <td mat-cell *matCellDef="let stock">
+        {{ stock.unite }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="buttons">
+      <th mat-header-cell *matHeaderCellDef>
+        <button mat-icon-button color="primary">
+          <mat-icon
+            aria-label="Example icon-button with a heart icon"
+            (click)="addNewStock()"
+          >
+            add</mat-icon
+          >
         </button>
-      </div>
-    </td>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="dcStock"></tr>
-  <tr mat-row *matRowDef="let row; columns: dcStock"></tr>
-</table>
+      </th>
+      <td mat-cell *matCellDef="let stock">
+        <div class="btn-content">
+          <button
+            class="actionBtn"
+            mat-raised-button
+            color="accent"
+            (click)="editStock(stock)"
+          >
+            Modifier
+          </button>
+          <button
+            class="actionBtn"
+            mat-raised-button
+            color="warn"
+            (click)="deleteStock(stock.id)"
+          >
+            Supprimer
+          </button>
+        </div>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="dcStock"></tr>
+    <tr mat-row *matRowDef="let row; columns: dcStock"></tr>
+  </table>
+</div>

@@ -1,22 +1,42 @@
+@media screen and (min-width: 200px) and (max-width: 640px) {
+  .tableQueries {
+    overflow-x: auto;
+  }
+  .mat-raised-button {
+    padding: 0;
+  }
+  .btn-content {
+    display: flex;
+    justify-content: flex-start;
+    border-bottom-style: none;
+    margin-left: 0% !important;
+  }
+}
+
 table {
-    width: 100%;
-  }
-  
-  h1 {
-    text-align: center;
-  }
-  
-  .actionBtn {
-    margin-left: 0.5rem;
-  }
-  
-  th.mat-header-cell {
-    text-align: center;
-    font-weight: bold;
-    font-size: 1em;
-  }
-  
-  td.mat-cell {
-    text-align: center;
-  }
-  
+  width: 100%;
+}
+
+h1 {
+  text-align: center;
+}
+
+th.mat-header-cell {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+td.mat-cell {
+  text-align: center;
+}
+
+.btn-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actionBtn {
+  margin-left: 0.5em;
+}
