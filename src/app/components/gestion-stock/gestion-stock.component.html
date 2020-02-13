@@ -1,4 +1,29 @@
 <h1>Gestion des stocks</h1>
+<div>
+  <tr>
+
+    <td>
+      <button
+      mat-raised-button
+      color="primary"
+      (click)="addNewComposant()">
+      Ajouter un composant
+      </button>
+    </td> &nbsp;
+    <td>
+      <button
+      mat-raised-button
+      color="primary"
+      (click)="addNewFournisseur()"
+      >
+      Ajouter un fournisseur
+      </button>
+    </td>
+  </tr>
+  <br>
+
+
+</div>
 
 <table mat-table [dataSource]="dsStock" class="mat-elevation-z8">
   <ng-container matColumnDef="composant">

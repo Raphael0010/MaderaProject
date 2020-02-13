@@ -3,9 +3,11 @@ import { callApiFree } from "src/app/core/ApiCall";
 import { Stock } from "../../models/stocks.model";
 import { GestionStockService } from "src/app/services/gestion-stock.service";
 import { MatTableDataSource, MatDialog } from "@angular/material";
-import { AddStockDialogComponent } from "./dialog/add-stock-dialog/add-stock-dialog.component"
+import { AddStockDialogComponent } from "./dialog/add-stock-dialog/add-stock-dialog.component";
+import { AddComposantComponent } from "./dialog/add-composant/add-composant.component";
 import { DialogDeleteComponent } from "src/app/shared/dialog-delete/dialog-delete.component";
 import { EditStockDialogComponent } from './dialog/edit-stock-dialog/edit-stock-dialog.component';
+import { AddFournisseurComponent } from './dialog/add-fournisseur/add-fournisseur.component';
 
 @Component({
   selector: "app-gestion-stock",
@@ -50,8 +52,6 @@ export class GestionStockComponent implements OnInit {
   }
   addNewStock() {
     const dialogRef = this.dialog.open(AddStockDialogComponent, {
-      height: "350px",
-      width: "350px",
       data: {stock: this.stock}
     });
 
@@ -59,6 +59,31 @@ export class GestionStockComponent implements OnInit {
       if (result === 1) {
         this.stock = await this.stockService.getAllStocks() ;
         this.dsStock = new MatTableDataSource(this.stock);
+      }
+    });
+  }
+  addNewComposant(){
+    const dialogRef = this.dialog.open(AddComposantComponent, {
+      //data: {stock: this.stock}
+    });
+
+    dialogRef.afterClosed().subscribe(async result => {
+      if (result === 1) {
+        //this.stock = await this.stockService.getAllStocks() ;
+        //this.dsStock = new MatTableDataSource(this.stock);
+      }
+    });
+  }
+
+  addNewFournisseur(){
+    const dialogRef = this.dialog.open(AddFournisseurComponent, {
+      //data: {stock: this.stock}
+    });
+
+    dialogRef.afterClosed().subscribe(async result => {
+      if (result === 1) {
+        //this.stock = await this.stockService.getAllStocks() ;
+        //this.dsStock = new MatTableDataSource(this.stock);
       }
     });
   }

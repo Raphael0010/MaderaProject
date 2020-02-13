@@ -22,6 +22,7 @@ import { MaterialModule } from "src/app/material-module";
 import { MatTableModule } from "@angular/material";
 import { ClientComponent } from "../client/client.component";
 import { VoirDevisComponent } from "../devis/voir-devis/voir-devis.component";
+import { AddComposantComponent } from "./dialog/add-composant/add-composant.component";
 
 describe("GestionStockComponent", () => {
   let component: GestionStockComponent;
@@ -46,7 +47,8 @@ describe("GestionStockComponent", () => {
         GestionStockComponent,
         SnackBarComponent,
         ClientComponent,
-        VoirDevisComponent
+        VoirDevisComponent,
+        AddComposantComponent
       ],
       imports: [
         BrowserAnimationsModule,

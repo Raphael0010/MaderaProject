@@ -244,6 +244,38 @@ app.post("/delete/projet", (req,res) => {
 });
 
 // ------ Stocks --------
+app.get("/listFamilles", (req,res) => {
+  sequelize.query("SELECT famille.id_fam as id, famille.libelle_fam as famille FROM famille", { type: sequelize.QueryTypes.SELECT})
+  .then(familles => {
+    res.send(JSON.stringify(familles));
+  });
+});
+app.post("/fournisseur", (req,res) => {
+  console.log(req.body.nom);
+  sequelize.query("INSERT INTO fournisseur (nom, mail,tel) VALUES (:nom, :mail, :tel)",
+  {replacements: {nom: req.body.nom, mail: req.body.mail,tel:req.body.tel }
+  })
+  .then(stock => {
+    res.send(JSON.stringify(stock))
+  });
+}) ;
+app.post("/fournir", (req,res) => {
+  console.log(req.body);
+  sequelize.query("INSERT INTO composant (caracteristiques, unite_usage, id_fam) VALUES (:compo, :unite,:famille)",
+  {replacements: {compo: req.body.composant, unite: req.body.unite,famille: req.body.famille}
+  })
+  .then(stock => {
+    sequelize.query("INSERT INTO fournir (id_fournisseur, id_composant) VALUES (:fournisseur, :idCompo)",
+    {replacements: {idCompo:stock[0],compo: req.body.composant,fournisseur:req.body.fournisseur, unite: req.body.unite,famille: req.body.famille}
+    })
+  });
+}) ;
+app.get("/listFournisseurs", (req,res) => {
+  sequelize.query("SELECT fournisseur.id_fournisseur as id, fournisseur.nom as fournisseur FROM fournisseur", { type: sequelize.QueryTypes.SELECT})
+  .then(fournisseurs => {
+    res.send(JSON.stringify(fournisseurs));
+  });
+});
 app.post("/stock", (req,res) => {
   console.log(req.body.quantity);
   sequelize.query("INSERT INTO stocks_composants (id_composant, quantite) VALUES (:id, :quantity)",
